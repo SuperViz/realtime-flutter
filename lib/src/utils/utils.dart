@@ -1,1 +1,1 @@
-export 'debugger_logger.dart';
+export 'debugger_logger_adapter.dart';
