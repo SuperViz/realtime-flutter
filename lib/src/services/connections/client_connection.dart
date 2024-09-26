@@ -40,13 +40,13 @@ final class ClientConnection {
   }
 
   void _subscribeToManagerEvents() {
-    _socket.onEvent(SocketEvent.connect.description, _onConnect);
-    _socket.onEvent(SocketEvent.reconnect.description, _onReconnect);
-    _socket.onEvent(SocketEvent.disconnect.description, _onDisconnect);
+    _socket.onEvent(SocketEvent.connect.description, (_) => _onConnect);
+    _socket.onEvent(SocketEvent.reconnect.description, (_) => _onReconnect);
+    _socket.onEvent(SocketEvent.disconnect.description, (_) => _onDisconnect);
     _socket.onEvent(SocketEvent.connectError.description, _onConnectError);
     _socket.onEvent(SocketEvent.reconnectError.description, _onReconnectError);
     _socket.onEvent(SocketEvent.connectionError.description, _onConnectionError);
-    _socket.onEvent(SocketEvent.reconnectFailed.description, _onReconnectFailed);
+    _socket.onEvent(SocketEvent.reconnectFailed.description, (_) => _onReconnectFailed);
     _socket.onEvent(SocketEvent.reconnectAttempt.description, _onReconnecAttempt);
   }
 
