@@ -4,6 +4,7 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import '../interfaces/interfaces.dart';
 import '../interfaces/params/params.dart';
+import '../types/types.dart';
 
 final class IoSocketAdapter implements SocketClient {
   IoSocketAdapter();
@@ -17,10 +18,10 @@ final class IoSocketAdapter implements SocketClient {
   }
 
   @override
-  void onEvent(String event, dynamic Function(dynamic) callback) {
+  void onEvent<T>(String event, EventHandler<T> handlerCallback) {
     if (socket == null) return;
 
-    socket!.on(event, callback);
+    socket!.on(event, (data) => handlerCallback(data));
   }
   
   @override
