@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import '../enums/enums.dart';
-
 abstract interface class SocketClient {
+  FutureOr<SocketClient> connect();
   FutureOr<void> disconnect();
-  void onEvent(SocketEvent event, Function callback);
+  void emit(String event, [dynamic data]);
+  void onEvent(String event, dynamic Function(dynamic) handlerCallback);
 }
