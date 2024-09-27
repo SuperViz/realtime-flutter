@@ -12,6 +12,9 @@ final class IoSocketAdapter implements SocketClient {
   io.Socket? socket;
 
   @override
+  String? get id => socket?.id;
+
+  @override
   FutureOr<void> disconnect() async {
     if (socket == null) return;
     socket!.close();
