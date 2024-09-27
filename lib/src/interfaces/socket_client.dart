@@ -17,6 +17,10 @@ abstract interface class SocketClient {
   /// - `event` - The event that will recive data
   /// - `data` (optional) - Data that will be recived by event listeners
   void emit(String event, [dynamic data]);
+
+  /// Listening to an event
+  /// - `event` - The event to listening
+  /// - `handleCallback` - Callback to execute when handler some data
   void onEvent(String event, EventHandler handlerCallback);
 
   /// Stop listening to an event
