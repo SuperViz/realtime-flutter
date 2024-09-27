@@ -1,0 +1,4 @@
+enum SocketExceptionErrorLevel {
+  error,
+  warn;
+}
