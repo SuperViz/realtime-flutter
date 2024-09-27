@@ -14,5 +14,9 @@ abstract interface class SocketClient {
   FutureOr<void> disconnect();
 
   void emit(String event, [dynamic data]);
-  void onEvent<T>(String event, EventHandler<T> handlerCallback);
+  void onEvent(String event, EventHandler handlerCallback);
+
+  /// Stop listening to an event
+  /// - `event` - The event to stop listening to
+  void offEvent(String event, [EventHandler handlerCallback]);
 }

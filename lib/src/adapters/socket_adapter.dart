@@ -22,7 +22,7 @@ final class IoSocketAdapter implements SocketClient {
   }
 
   @override
-  void onEvent<T>(String event, EventHandler<T> handlerCallback) {
+  void onEvent(String event, EventHandler handlerCallback) {
     if (socket == null) return;
 
     socket!.on(event, (data) => handlerCallback(data));
@@ -59,6 +59,16 @@ final class IoSocketAdapter implements SocketClient {
   void emit(String event, [dynamic data]) {
     if (socket == null) return;
 
-    socket!.emit(event);
+    socket!.emit(event, data);
+  }
+
+  @override
+  void offEvent(String event, [EventHandler? handlerCallback]) {
+    if (socket == null) return;
+
+    socket!.off(
+      event,
+      handlerCallback != null ? (data) => handlerCallback(data) : null,
+    );
   }
 }
