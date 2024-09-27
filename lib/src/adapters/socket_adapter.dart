@@ -23,10 +23,10 @@ final class IoSocketAdapter implements SocketClient {
 
     socket!.on(event, (data) => handlerCallback(data));
   }
-  
+
   @override
-  FutureOr<IoSocketAdapter> connect(SocketConnectParams connectParams) async {
-    if (socket != null) return IoSocketAdapter();
+  void connect(SocketConnectParams connectParams) {
+    if (socket != null) return;
 
     print("Connecting...");
 
@@ -49,10 +49,8 @@ final class IoSocketAdapter implements SocketClient {
         })
         .build()
     );
-
-    return IoSocketAdapter();
   }
-  
+
   @override
   void emit(String event, [dynamic data]) {
     if (socket == null) return;
