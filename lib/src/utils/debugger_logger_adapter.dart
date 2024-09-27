@@ -16,7 +16,7 @@ final class DebuggerLoggerAdapter implements Logger {
     StackTrace? stackTrace,
   }) {
     developer.log(
-      '$name\n\n$description',
+      '$name: $description',
       name: scope,
       error: error,
       stackTrace: stackTrace,
