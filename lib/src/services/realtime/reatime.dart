@@ -42,7 +42,7 @@ final class Realtime {
 
   ClientState get state => _clientConnection.state;
 
-  /// - `room` - The room name
+  /// - `roomName` - The room name
   /// - `maxConnections` - The maximum number of connections allowed in the room
   Room connect(String roomName, int? maxConnections) {
     return Room.register(
