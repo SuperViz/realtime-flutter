@@ -18,7 +18,7 @@ final class Room {
   bool _isJoined = false;
 
   final Map<Function, StreamSubscription> _subscriptions = {};
-  final Map<String, StreamController> observers = {};
+  final Map<String, StreamController> _observers = {};
 
   PresenceRoom? presence;
 
@@ -68,11 +68,11 @@ final class Room {
   void on(String event, EventCallback callback) {
     _logger.log(name: 'room @ on', description: event);
 
-    var subject = observers[event];
+    var subject = _observers[event];
 
     if (subject == null) {
       subject = StreamController();
-      observers[event] = subject;
+      _observers[event] = subject;
 
       _socket.onEvent(event, (data) {
         _publishEventToClient(event, data);
@@ -89,7 +89,7 @@ final class Room {
     _logger.log(name: 'room @ off', description: event);
 
     if (callback != null) {
-      observers.remove(event);
+      _observers.remove(event);
       _socket.offEvent(event);
       return;
     }
@@ -102,7 +102,7 @@ final class Room {
   /// - `payload` - The payload to send with the event
   void emit(String event, Map<String, dynamic> payload) {
     if (!_isJoined) {
-      _logger.log(name: 'Cannot emit event. Not joined to room', description: '');
+      _logger.log(name: 'Cannot emit event', description: 'Not joined to room');
       return;
     }
 
@@ -147,8 +147,8 @@ final class Room {
     // unsubscribe from all events
     _subscriptions.forEach((_, subscription) => subscription.cancel());
     _subscriptions.clear();
-    observers.forEach((_, subject) => subject.close());
-    observers.clear();
+    _observers.forEach((_, subject) => subject.close());
+    _observers.clear();
 
     presence?.destroy();
   }
@@ -157,7 +157,7 @@ final class Room {
   /// - `event` - The event to publish
   /// - `data` - The data to publish
   void _publishEventToClient(String event, dynamic data) {
-    final subject = observers[event];
+    final subject = _observers[event];
 
     if (subject == null || data['roomId'] != _roomName) return;
 
