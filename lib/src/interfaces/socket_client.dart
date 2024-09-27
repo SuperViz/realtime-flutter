@@ -10,7 +10,9 @@ abstract interface class SocketClient {
   /// - `connectionParams` - Parameters required to connect to the server socket
   void connect(SocketConnectParams connectionParams);
 
+  /// Disconnect from server socket
   FutureOr<void> disconnect();
+
   void emit(String event, [dynamic data]);
   void onEvent<T>(String event, EventHandler<T> handlerCallback);
 }
