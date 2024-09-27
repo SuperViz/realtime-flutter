@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import '../../enums/enums.dart';
+import '../../exceptions/exceptions.dart';
 import '../../interfaces/interfaces.dart';
 import '../../types/types.dart';
 import '../../utils/utils.dart';
@@ -39,14 +40,14 @@ final class ClientConnection {
   }
 
   void _subscribeToManagerEvents() {
-    _socket.onEvent(SocketEvent.connect.description, (_) => _onConnect());
-    _socket.onEvent(SocketEvent.reconnect.description, (_) => _onReconnect());
-    _socket.onEvent(SocketEvent.disconnect.description, (_) => _onDisconnect());
-    _socket.onEvent(SocketEvent.reconnectFailed.description, (_) => _onReconnectFailed());
-    _socket.onEvent(SocketEvent.connectError.description, (error) => _onConnectError(error));
-    _socket.onEvent(SocketEvent.reconnectError.description, (error) => _onReconnectError(error));
-    _socket.onEvent(SocketEvent.connectionError.description, (error) => _onConnectionError(error));
-    _socket.onEvent(SocketEvent.reconnectAttempt.description, (attempt) => _onReconnecAttempt(attempt));
+    _socket.onEvent(SocketEvent.connect.description, _onConnect);
+    _socket.onEvent(SocketEvent.reconnect.description, _onReconnect);
+    _socket.onEvent(SocketEvent.disconnect.description, _onDisconnect);
+    _socket.onEvent(SocketEvent.connectError.description, _onConnectError);
+    _socket.onEvent(SocketEvent.reconnectError.description, _onReconnectError);
+    _socket.onEvent(SocketEvent.connectionError.description, _onConnectionError);
+    _socket.onEvent(SocketEvent.reconnectFailed.description, _onReconnectFailed);
+    _socket.onEvent(SocketEvent.reconnectAttempt.description, _onReconnecAttempt);
 
     _socket.onEvent(SocketEvent.error.description, onCustomError);
   }
@@ -65,57 +66,65 @@ final class ClientConnection {
     );
   }
 
-  void _onConnect() {
+  void _onConnect(dynamic _) {
     _logger.log(name: 'connection @ on connect', description: 'Connected to the socket');
     _changeConnectionState(ClientState.connected);
   }
 
-  void _onDisconnect() {
+  void _onDisconnect(dynamic _) {
     _logger.log(name: 'connection @ on disconnect', description: 'Disconnected from the socket');
     _changeConnectionState(ClientState.disconnected);
   }
 
-  void _onReconnect() {
+  void _onReconnect(dynamic _) {
     _logger.log(name: 'connection @ on reconnect', description: 'Reconnected to the socket');
     _changeConnectionState(ClientState.connected);
   }
 
-  void _onReconnectFailed() {
+  void _onReconnectFailed(dynamic _) {
     _logger.log(name: 'connection @ on reconnect failed', description: 'Failed to reconnect to the socket');
     _changeConnectionState(ClientState.reconnectError);
   }
 
-  void _onConnectError(String error) {
+  void _onConnectError(dynamic data) {
+    final error = SocketException.fromMap(data[0]);
+
     _logger.log(name: 'connection @ on connect error', description: 'Connection error', error: Exception(error));
     _changeConnectionState(ClientState.connectionError);
   }
 
-  void _onConnectionError(String error) {
+  void _onConnectionError(dynamic data) {
+    final error = SocketException.fromMap(data[0]);
+
     _logger.log(name: 'connection @ on connection error', description: 'Connection error', error: Exception(error));
-    _changeConnectionState(ClientState.connectionError, error);
+    _changeConnectionState(ClientState.connectionError, error.message);
   }
 
-  void _onReconnectError(String error) {
+  void _onReconnectError(dynamic data) {
+    final error = SocketException.fromMap(data[0]);
+
     _logger.log(name: 'connection @ on reconnect error', description: 'Reconnect error');
-    _changeConnectionState(ClientState.reconnectError, error);
+    _changeConnectionState(ClientState.reconnectError, error.message);
   }
 
-  void _onReconnecAttempt(int attempt) {
+  void _onReconnecAttempt(dynamic data) {
+    final attempt = data[0]['attempt'] as int;
+
     _logger.log(name: 'connection @ on reconnect attempt', description: 'Reconnect attempt $attempt');
     _changeConnectionState(ClientState.reconnecting, 'Reconnect attempt $attempt');
   }
 
-  void onCustomError(dynamic error) {
-    final errorMap = error[0];
+  void onCustomError(dynamic data) {
+    final error = SocketException.fromMap(data[0]);
 
-    if (errorMap['needsToDisconnect']) {
+    if (error.needsToDisconnect) {
       _socket.disconnect();
-      _changeConnectionState(ClientState.disconnected, error['errorType']);
+      _changeConnectionState(ClientState.disconnected, error.errorType);
     }
 
     _logger.log(
       name: '[SuperViz]',
-      description: '\n- Error: ${errorMap['errorType']}\n- Message: ${errorMap['message']}'
+      description: '\n- Error: ${error.errorType}\n- Message: ${error.message}'
     );
   }
 }
