@@ -13,6 +13,9 @@ abstract interface class SocketClient {
   /// Disconnect from server socket
   FutureOr<void> disconnect();
 
+  /// Emit a new data on event
+  /// - `event` - The event that will recive data
+  /// - `data` (optional) - Data that will be recived by event listeners
   void emit(String event, [dynamic data]);
   void onEvent(String event, EventHandler handlerCallback);
 
