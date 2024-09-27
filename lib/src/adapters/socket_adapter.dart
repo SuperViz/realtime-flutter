@@ -18,6 +18,7 @@ final class IoSocketAdapter implements SocketClient {
   FutureOr<void> disconnect() async {
     if (socket == null) return;
     socket!.close();
+    socket = null;
   }
 
   @override
