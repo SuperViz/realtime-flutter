@@ -169,7 +169,7 @@ final class Room {
     _socket.onEvent(RoomEvent.joinedRoom.description, _onJoinedRoom);
     _socket.onEvent('http:$_roomName:$_apiKey', _onHttpEvent);
     _socket.onEvent(RoomEvent.error.description, (data) {
-      _logger.log(name: 'Room Error: ', description: data?['name']);
+      _logger.log(name: 'Room Error', description: data?['name']);
     });
   }
 
@@ -179,16 +179,11 @@ final class Room {
     if (_roomName != event?[0]?['data']?['name']) return;
 
     _isJoined = true;
-
-    // TODO: REMOVE
-    _publishEventToClient('state', {'joined': _isJoined, 'roomId': _roomName});
-
-    // _socket.emit(RoomEvent.joinedRoom.description, _roomId, event['data']);
+    _socket.emit(RoomEvent.joinedRoom.description, [_roomName, event[0]['data']]);
     _logger.log(name: 'room @ joined', description: event?[0]?['data']?['name']);
   }
 
   void _onHttpEvent (dynamic event) {
     _publishEventToClient(event['name'], event);
   }
-
 }
