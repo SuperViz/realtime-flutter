@@ -35,7 +35,7 @@ final class IoSocketAdapter implements SocketClient {
     print("Connecting...");
 
     socket = io.io(
-      'https://io.superviz.com/${connectParams.environment}',
+      'https://io.superviz.com',
       io.OptionBuilder()
         .setTransports(['websocket'])
         .enableReconnection()

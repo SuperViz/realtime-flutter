@@ -57,6 +57,5 @@ final class Realtime {
   void destroy() {
     _socket.disconnect();
     _clientConnection.off();
-    
   }
 }
