@@ -47,6 +47,8 @@ final class ClientConnection {
     _socket.onEvent(SocketEvent.reconnectError.description, (error) => _onReconnectError(error));
     _socket.onEvent(SocketEvent.connectionError.description, (error) => _onConnectionError(error));
     _socket.onEvent(SocketEvent.reconnectAttempt.description, (attempt) => _onReconnecAttempt(attempt));
+
+    _socket.onEvent(SocketEvent.error.description, onCustomError);
   }
 
    /// Change the state of the connection
@@ -101,5 +103,19 @@ final class ClientConnection {
   void _onReconnecAttempt(int attempt) {
     _logger.log(name: 'connection @ on reconnect attempt', description: 'Reconnect attempt $attempt');
     _changeConnectionState(ClientState.reconnecting, 'Reconnect attempt $attempt');
+  }
+
+  void onCustomError(dynamic error) {
+    final errorMap = error[0];
+
+    if (errorMap['needsToDisconnect']) {
+      _socket.disconnect();
+      _changeConnectionState(ClientState.disconnected, error['errorType']);
+    }
+
+    _logger.log(
+      name: '[SuperViz]',
+      description: '\n- Error: ${errorMap['errorType']}\n- Message: ${errorMap['message']}'
+    );
   }
 }
