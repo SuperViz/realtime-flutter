@@ -1,4 +1,4 @@
-enum SocketEvent {
+enum SocketEvents {
   connect('connect'),
   disconnect('disconnect'),
   connectError('connect_error'),
@@ -11,5 +11,5 @@ enum SocketEvent {
 
   final String description;
 
-  const SocketEvent(this.description);
+  const SocketEvents(this.description);
 }

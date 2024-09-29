@@ -40,16 +40,16 @@ final class ClientConnection {
   }
 
   void _subscribeToManagerEvents() {
-    _socket.onEvent(SocketEvent.connect.description, _onConnect);
-    _socket.onEvent(SocketEvent.reconnect.description, _onReconnect);
-    _socket.onEvent(SocketEvent.disconnect.description, _onDisconnect);
-    _socket.onEvent(SocketEvent.connectError.description, _onConnectError);
-    _socket.onEvent(SocketEvent.reconnectError.description, _onReconnectError);
-    _socket.onEvent(SocketEvent.connectionError.description, _onConnectionError);
-    _socket.onEvent(SocketEvent.reconnectFailed.description, _onReconnectFailed);
-    _socket.onEvent(SocketEvent.reconnectAttempt.description, _onReconnecAttempt);
+    _socket.onEvent(SocketEvents.connect.description, _onConnect);
+    _socket.onEvent(SocketEvents.reconnect.description, _onReconnect);
+    _socket.onEvent(SocketEvents.disconnect.description, _onDisconnect);
+    _socket.onEvent(SocketEvents.connectError.description, _onConnectError);
+    _socket.onEvent(SocketEvents.reconnectError.description, _onReconnectError);
+    _socket.onEvent(SocketEvents.connectionError.description, _onConnectionError);
+    _socket.onEvent(SocketEvents.reconnectFailed.description, _onReconnectFailed);
+    _socket.onEvent(SocketEvents.reconnectAttempt.description, _onReconnecAttempt);
 
-    _socket.onEvent(SocketEvent.error.description, onCustomError);
+    _socket.onEvent(SocketEvents.error.description, onCustomError);
   }
 
    /// Change the state of the connection
@@ -94,10 +94,10 @@ final class ClientConnection {
   }
 
   void _onConnectionError(dynamic data) {
-    final error = SocketException.fromMap(data[0]);
+    final error = Exception(data['message']);
 
-    _logger.log(name: 'connection @ on connection error', description: 'Connection error', error: Exception(error));
-    _changeConnectionState(ClientState.connectionError, error.message);
+    _logger.log(name: 'connection @ on connection error', description: 'Connection error', error: error);
+    _changeConnectionState(ClientState.connectionError, error.toString());
   }
 
   void _onReconnectError(dynamic data) {
