@@ -2,6 +2,7 @@ import 'dart:async';
 
 import '../../enums/enums.dart';
 import '../../interfaces/interfaces.dart';
+import '../../types/types.dart';
 import '../../utils/utils.dart';
 import '../room/models/models.dart';
 import 'models/model.dart';
@@ -39,6 +40,34 @@ final class PresenceRoom {
 
     _registerSubjects();
     _subscribeToPresenceEvents();
+  }
+
+  /// Get the presences in the room
+  void get(void Function(List<PresenceEvent> data) next, ErrorCallback? error) {
+    final subject = StreamController<List<PresenceEvent>>();
+
+    subject.stream.listen(
+      next,
+      onError: error,
+    );
+
+    void callback(event) {
+      final presences = event['presences'].map((presence) => {
+        'connectionId': presence['connectionId'],
+        'data': presence['data'],
+        'id': presence['id'],
+        'name': presence['name'],
+        'timestamp': presence['timestamp'],
+      }).toList();
+
+      _logger.log(name: 'presence room @ get', description: event.toString());
+      _socket.offEvent(InternalPresenceEvents.get.description, callback);
+      subject.add(presences);
+      subject.close();
+    }
+
+    _socket.onEvent(InternalPresenceEvents.get.description, callback);
+    _socket.emit(InternalPresenceEvents.get.description, _roomId);
   }
 
   void destroy() {
