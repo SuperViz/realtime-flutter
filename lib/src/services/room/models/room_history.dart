@@ -1,9 +1,9 @@
-import 'room_details.dart';
+import 'models.dart';
 
 final class RoomHistory {
   final String roomId;
   final RoomDetails room;
-  final List<dynamic> events;
+  final List<SocketEvent> events;
   final String connectionId;
   final DateTime timestamp;
 
@@ -18,7 +18,7 @@ final class RoomHistory {
   Map<String, dynamic> toMap() => {
     'roomId': roomId,
     'room': room.toMap(),
-    'events': events,
+    'events': events.map((event) => event.toMap()),
     'connectionId': connectionId,
     'timestamp': timestamp,
   };
