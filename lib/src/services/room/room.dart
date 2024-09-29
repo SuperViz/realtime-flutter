@@ -4,8 +4,8 @@ import '../../enums/enums.dart';
 import '../../interfaces/interfaces.dart';
 import '../../types/types.dart';
 import '../../utils/utils.dart';
+import '../presence/presence.dart';
 import 'models/models.dart';
-import 'presence_room.dart';
 
 final class Room {
   final SocketClient _socket;
