@@ -12,4 +12,15 @@ base class PresenceEvent {
     required this.data,
     required this.timestamp,
   });
+
+  @override
+  String toString() {
+    return '''PresenceEvent:
+    id: $id,
+    name: $name,
+    connectionId: $connectionId,
+    data: $data,
+    timestamp: $timestamp
+    ''';
+  }
 }

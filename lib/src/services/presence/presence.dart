@@ -70,6 +70,21 @@ final class PresenceRoom {
     _socket.emit(InternalPresenceEvents.get.description, _roomId);
   }
 
+  /// Update the presence data in the room
+  /// - `payload` - The data to update
+  void update<T extends Map>(T payload) {
+    final body = PresenceEvent(
+      connectionId: _socket.id ?? 'Socket Without connection.',
+      data: payload,
+      id: _user.id,
+      name: _user.name ?? 'Unknow',
+      timestamp: DateTime.now().millisecondsSinceEpoch,
+    );
+
+    _socket.emit(PresenceEvents.update.description, [_roomId, body]);
+    _logger.log(name: 'presence room @ update', description: '$_roomId, ${body.toString()}');
+  }
+
   void destroy() {
     _socket.offEvent(PresenceEvents.leave.description, _onPresenceLeave);
     _socket.offEvent(PresenceEvents.update.description, _onPresenceUpdate);
@@ -79,7 +94,6 @@ final class PresenceRoom {
     _observers.clear();
   }
 
-  
   /// Register the subjects for the presence events
   void _registerSubjects() {
     _observers[PresenceEvents.joinedRoom] = StreamController<PresenceEvent>();
