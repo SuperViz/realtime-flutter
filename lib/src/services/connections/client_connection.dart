@@ -49,7 +49,7 @@ final class ClientConnection {
     _socket.onEvent(SocketEvents.reconnectFailed.description, _onReconnectFailed);
     _socket.onEvent(SocketEvents.reconnectAttempt.description, _onReconnecAttempt);
 
-    _socket.onEvent(SocketEvents.error.description, onCustomError);
+    _socket.onEvent(SocketEvents.error.description, _onCustomError);
   }
 
    /// Change the state of the connection
@@ -114,7 +114,7 @@ final class ClientConnection {
     _changeConnectionState(ClientState.reconnecting, 'Reconnect attempt $attempt');
   }
 
-  void onCustomError(dynamic data) {
+  void _onCustomError(dynamic data) {
     final error = SocketException.fromMap(data[0]);
 
     if (error.needsToDisconnect) {
