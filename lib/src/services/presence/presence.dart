@@ -101,6 +101,20 @@ final class PresenceRoom {
     _observers[PresenceEvents.update] = StreamController<PresenceEvent>();
   }
 
+  /// Listen to an event
+  /// - `event` - The event to listen to
+  /// - `callback` - The callback to execute when the event is emitted
+  void on(
+     PresenceEvents event,
+     EventCallback callback,
+     ErrorCallback? error,
+  ) {
+    _observers[event]?.stream.listen(
+      callback,
+      onError: error,
+    );
+  }
+
   /// Subscribe to the presence events
   void _subscribeToPresenceEvents() {
     _socket.onEvent(PresenceEvents.joinedRoom.description, _onPresenceJoin);
