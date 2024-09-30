@@ -115,6 +115,15 @@ final class PresenceRoom {
     );
   }
 
+  /// Stop listening to an event
+  /// - `event` - The event to stop listening to
+  /// - `callback` - The callback to remove from the event
+  void off(PresenceEvents event) {
+    _observers[event]?.close();
+    _observers.remove(event);
+    _observers[event] = StreamController<PresenceEvent>();
+  }
+
   /// Subscribe to the presence events
   void _subscribeToPresenceEvents() {
     _socket.onEvent(PresenceEvents.joinedRoom.description, _onPresenceJoin);
