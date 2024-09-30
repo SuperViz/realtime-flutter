@@ -15,6 +15,8 @@ final class Realtime {
   late final SocketClient _socket;
   late final ClientConnection _clientConnection;
 
+  ClientConnection get clientConnection => _clientConnection;
+
   Realtime({
     required SocketClient socket,
     required String apiKey,

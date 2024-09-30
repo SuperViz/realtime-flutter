@@ -12,7 +12,9 @@ final class ClientConnection {
 
   late Logger _logger;
   late StreamController<ConnectionState> _stateController;
-  ClientState state = ClientState.disconnected;
+  ClientState _state = ClientState.disconnected;
+
+  ClientState get state => _state;
 
   ClientConnection({
     required SocketClient socket,
@@ -23,7 +25,7 @@ final class ClientConnection {
   }
 
   void on({
-    required void Function(ConnectionState connectionState) next,
+    required ValueChanged<ConnectionState> next,
     required ErrorCallback? error,
   }) {
     if (_stateController.isClosed) {
@@ -54,7 +56,7 @@ final class ClientConnection {
 
    /// Change the state of the connection
   void _changeConnectionState(ClientState newState, [String? reason]) {
-    state = newState;
+    _state = newState;
 
     if (_stateController.isClosed) return;
 
