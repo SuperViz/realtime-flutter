@@ -12,8 +12,8 @@ final class Realtime {
   final String _secret;
   final String _clientId;
 
-  late SocketClient _socket;
-  late ClientConnection _clientConnection;
+  late final SocketClient _socket;
+  late final ClientConnection _clientConnection;
 
   Realtime({
     required SocketClient socket,
@@ -37,7 +37,7 @@ final class Realtime {
       ),
     );
 
-    _clientConnection = ClientConnection(socket: socket);
+    _clientConnection = ClientConnection(socket: _socket);
   }
 
   ClientState get state => _clientConnection.state;

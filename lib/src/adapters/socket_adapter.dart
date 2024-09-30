@@ -68,7 +68,7 @@ final class IoSocketAdapter implements SocketClient {
 
     socket!.off(
       event,
-      handlerCallback != null ? (data) => handlerCallback(data) : null,
+      handlerCallback,
     );
   }
 }
