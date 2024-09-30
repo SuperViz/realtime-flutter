@@ -25,7 +25,7 @@ final class IoSocketAdapter implements SocketClient {
   void onEvent(String event, EventHandler handlerCallback) {
     if (socket == null) return;
 
-    socket!.on(event, (data) => handlerCallback(data));
+    socket!.on(event, handlerCallback);
   }
 
   @override
@@ -35,7 +35,7 @@ final class IoSocketAdapter implements SocketClient {
     print("Connecting...");
 
     socket = io.io(
-      'https://io.superviz.com',
+      'https://io.superviz.com/${connectParams.environment}',
       io.OptionBuilder()
         .setTransports(['websocket'])
         .enableReconnection()
