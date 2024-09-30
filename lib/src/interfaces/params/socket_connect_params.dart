@@ -1,4 +1,4 @@
-interface class SocketConnectParams {
+final class SocketConnectParams {
   final String apiKey;
   final String secretKey;
   final String clientId;
