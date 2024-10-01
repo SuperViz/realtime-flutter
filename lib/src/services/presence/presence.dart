@@ -51,14 +51,11 @@ final class PresenceRoom {
       onError: error,
     );
 
-    void callback(event) {
-      final presences = event['presences'].map((presence) => {
-        'connectionId': presence['connectionId'],
-        'data': presence['data'],
-        'id': presence['id'],
-        'name': presence['name'],
-        'timestamp': presence['timestamp'],
-      }).toList();
+    void callback(dynamic data) {
+      final event = data[0];
+      final presences = event['presences'].map<PresenceEvent>(
+        (presence) => PresenceEvent.fromMap(presence)
+      ).toList();
 
       _logger.log(name: 'presence room @ get', description: event.toString());
       _socket.offEvent(InternalPresenceEvents.get.description, callback);
@@ -104,6 +101,7 @@ final class PresenceRoom {
   /// Listen to an event
   /// - `event` - The event to listen to
   /// - `callback` - The callback to execute when the event is emitted
+  /// - `error` - The callback to execute when the event emits an error
   void on(
      PresenceEvents event,
      EventCallback callback,
