@@ -130,14 +130,16 @@ final class Room {
       onError: error,
     );
 
-    void callback(RoomHistory event) {
-      _logger.log(name: 'room @ history', description: event.toString());
-      _socket.offEvent(InternalRoomEvents.get.description, (data) => callback(data));
-      subject.add(event);
+    void callback(dynamic event) {
+      final roomHistory = RoomHistory.fromMap(event[0]);
+
+      _logger.log(name: 'room @ history', description: roomHistory.toString());
+      _socket.offEvent(InternalRoomEvents.get.description, callback);
+      subject.add(roomHistory);
       subject.close();
     }
 
-    _socket.onEvent(InternalRoomEvents.get.description, (data) => callback(data));
+    _socket.onEvent(InternalRoomEvents.get.description, callback);
     _socket.emit(InternalRoomEvents.get.description, _roomName);
   }
 
