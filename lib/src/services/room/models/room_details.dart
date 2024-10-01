@@ -20,5 +20,13 @@ final class RoomDetails {
     'apiKey': apiKey,
     'createdAt': createdAt,
   };
+
+  factory RoomDetails.fromMap(Map map) => RoomDetails(
+    id: map['id'] as String?,
+    name: map['name'] as String?,
+    userId: map['userId'] as String,
+    apiKey: map['apiKey'] as String,
+    createdAt: DateTime.parse(map['createdAt']),
+  );
 }
 
