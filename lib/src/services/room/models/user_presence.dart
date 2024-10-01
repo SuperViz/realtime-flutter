@@ -11,4 +11,9 @@ final class UserPresence {
     'id': id,
     'name': name,
   };
+
+  factory UserPresence.fromMap(Map map) => UserPresence(
+    id: map['id'] as String,
+    name: map['name'] as String?,
+  );
 }
