@@ -13,6 +13,16 @@ base class PresenceEvent {
     required this.timestamp,
   });
 
+  factory PresenceEvent.fromMap(Map map) {
+    return PresenceEvent(
+      connectionId: map['connectionId'] as String,
+      data: map['data'] as dynamic,
+      id: map['id'] as String,
+      name: map['name'] as String,
+      timestamp: map['timestamp'] as int,
+    );
+  }
+
   @override
   String toString() {
     return '''PresenceEvent:
