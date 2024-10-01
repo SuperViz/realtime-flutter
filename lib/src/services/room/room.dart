@@ -20,7 +20,9 @@ final class Room {
   final Map<Function, StreamSubscription> _subscriptions = {};
   final Map<String, StreamController> _observers = {};
 
-  PresenceRoom? presence;
+  PresenceRoom? _presence;
+
+  PresenceRoom? get presence => _presence;
 
   Room._({
     required SocketClient io,
@@ -40,7 +42,7 @@ final class Room {
 
     _logger = DebuggerLoggerAdapter(scope: '@superviz/socket-client/room');
 
-    presence = PresenceRoom.register(io, user, roomName);
+    _presence = PresenceRoom.register(io, user, roomName);
 
     io.emit(RoomEvent.joinRoom.description, payload);
     _subscribeToRoomEvents();
@@ -150,7 +152,7 @@ final class Room {
     _observers.forEach((_, subject) => subject.close());
     _observers.clear();
 
-    presence?.destroy();
+    _presence?.destroy();
   }
 
   /// Publish an event to the client
