@@ -25,5 +25,14 @@ final class SocketEvent<T> {
     'data': data,
     'timestamp': timestamp,
   };
+
+  factory SocketEvent.fromMap(Map map) => SocketEvent(
+    name: map['name'] as String,
+    roomId: map['roomId'] as String,
+    connectionId: map['connectionId'] as String,
+    presence: UserPresence.fromMap(map['presence']),
+    data: map['data'],
+    timestamp: map['timestamp'] as int,
+  );
 }
 
