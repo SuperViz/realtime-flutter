@@ -15,6 +15,16 @@ final class RoomHistory {
     required this.timestamp,
   });
 
+  factory RoomHistory.fromMap(Map map) => RoomHistory(
+    roomId: map['roomId'] as String,
+    room: RoomDetails.fromMap(map['room']),
+    connectionId: map['connectionId'] as String,
+    timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
+    events: map['events'].map<SocketEvent>(
+      (event) => SocketEvent.fromMap(event),
+    ).toList(),
+  );
+
   Map<String, dynamic> toMap() => {
     'roomId': roomId,
     'room': room.toMap(),
