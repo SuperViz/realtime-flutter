@@ -3,7 +3,7 @@
 /// - `joinedRoom` - event to indicate a user has joined a room
 /// - `leave` - event to indicate a user has left a room
 /// - `update` - event to indicate a user has updated their presence
-/// - `ERROR` - event to indicate an error in the presence module
+/// - `error` - event to indicate an error in the presence module
 enum PresenceEvents {
   joinedRoom('presence.joined-room'),
   leave('presence.leave'),

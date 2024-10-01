@@ -32,8 +32,6 @@ final class IoSocketAdapter implements SocketClient {
   void connect(SocketConnectParams connectParams) {
     if (socket != null) return;
 
-    print("Connecting...");
-
     socket = io.io(
       'https://io.superviz.com/${connectParams.environment}',
       io.OptionBuilder()
