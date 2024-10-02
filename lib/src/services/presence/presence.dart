@@ -68,7 +68,7 @@ final class PresenceRoom {
   /// - `payload` - The data to update
   void update<T extends Map>(T payload) {
     final body = PresenceEvent(
-      connectionId: _socket.id ?? 'Socket Without connection.',
+      connectionId: _socket.id,
       data: payload,
       id: _user.id,
       name: _user.name ?? 'Unknow',
