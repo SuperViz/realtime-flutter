@@ -7,7 +7,11 @@ import '../interfaces/params/params.dart';
 import '../types/types.dart';
 
 final class IoSocketAdapter implements SocketClient {
-  IoSocketAdapter();
+  IoSocketAdapter._();
+
+  static final IoSocketAdapter _singleton = IoSocketAdapter._();
+
+  factory IoSocketAdapter() => _singleton;
 
   io.Socket? socket;
 
