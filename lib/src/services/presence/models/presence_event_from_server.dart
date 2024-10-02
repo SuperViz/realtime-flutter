@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'model.dart';
 
 final class PresenceEventFromServer extends PresenceEvent {
@@ -29,18 +27,14 @@ final class PresenceEventFromServer extends PresenceEvent {
   }
 
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'roomKey': roomKey,
       'roomId': roomId,
-      ...super.toMap(),
+      ...super.toJson(),
     };
   }
 
   @override
-  String toJson() => json.encode(toMap());
-
-  factory PresenceEventFromServer.fromJson(String source) => PresenceEventFromServer.fromMap(
-    json.decode(source) as Map<String, dynamic>,
-  );
+  String toString() => 'PresenceEventFromServer(roomKey: $roomKey, roomId: $roomId)';
 }

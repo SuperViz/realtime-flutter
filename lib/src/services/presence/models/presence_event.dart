@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 base class PresenceEvent {
   final String id;
   final String name;
-  final String connectionId;
+  final String? connectionId;
   final dynamic data;
   final int timestamp;
 
@@ -19,15 +17,13 @@ base class PresenceEvent {
     return PresenceEvent(
       id: map['id'] as String,
       name: map['name'] as String,
-      connectionId: map['connectionId'] as String,
+      connectionId: map['connectionId'] as String?,
       data: map['data'] as dynamic,
       timestamp: map['timestamp'] as int,
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'id': id,
       'name': name,
