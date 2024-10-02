@@ -43,13 +43,10 @@ final class PresenceRoom {
   }
 
   /// Get the presences in the room
-  void get(void Function(List<PresenceEvent> data) next, ErrorCallback? error) {
+  void get(void Function(List<PresenceEvent> data) next) {
     final subject = StreamController<List<PresenceEvent>>();
 
-    subject.stream.listen(
-      next,
-      onError: error,
-    );
+    subject.stream.listen(next);
 
     void callback(dynamic data) {
       final event = data[0];
@@ -104,12 +101,10 @@ final class PresenceRoom {
   /// - `error` - The callback to execute when the event emits an error
   void on(
      PresenceEvents event,
-     EventCallback callback,
-     ErrorCallback? error,
+     EventCallback<PresenceEvent> callback
   ) {
     _observers[event]?.stream.listen(
       callback,
-      onError: error,
     );
   }
 
