@@ -29,7 +29,20 @@ final class IoSocketAdapter implements SocketClient {
   void onEvent(String event, EventHandler handlerCallback) {
     if (socket == null) return;
 
-    socket!.on(event, handlerCallback);
+    socket!.on(event, (data) {
+      if (data is List) {
+        data.removeWhere((element) => (element is! Map) && (element is! List));
+        if (data.length > 1) {
+          return handlerCallback(data);
+        } else if (data.length == 1) {
+          return handlerCallback(data.first);
+        } else {
+          return handlerCallback([]);
+        }
+      }
+
+      return handlerCallback(data);
+    });
   }
 
   @override
