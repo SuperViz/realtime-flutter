@@ -117,7 +117,7 @@ final class ClientConnection {
   }
 
   void _onCustomError(dynamic data) {
-    final error = SocketException.fromMap(data[0]);
+    final error = SocketException.fromMap(data);
 
     if (error.needsToDisconnect) {
       _socket.disconnect();

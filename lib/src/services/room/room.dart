@@ -131,7 +131,7 @@ final class Room {
     );
 
     void callback(dynamic event) {
-      final roomHistory = RoomHistory.fromMap(event[0]);
+      final roomHistory = RoomHistory.fromMap(event);
 
       _logger.log(name: 'room @ history', description: roomHistory.toString());
       _socket.offEvent(InternalRoomEvents.get.description, callback);
@@ -179,12 +179,14 @@ final class Room {
 
   /// handles the event when a user joins a room.
   /// - `event` The socket event containing presence data.
-  void _onJoinedRoom(dynamic event) {
-    if (_roomName != event?[0]?['data']?['name']) return;
+  void _onJoinedRoom(dynamic data) {
+    final event = SocketEvent<Map?>.fromMap(data);
+
+    if (_roomName != event.data?['name']) return;
 
     _isJoined = true;
-    _socket.emit(RoomEvent.joinedRoom.description, [_roomName, event[0]['data']]);
-    _logger.log(name: 'room @ joined', description: event?[0]?['data']?['name']);
+    _socket.emit(RoomEvent.joinedRoom.description, [_roomName, event.data]);
+    _logger.log(name: 'room @ joined', description: event.data?['name']);
   }
 
   void _onHttpEvent (dynamic event) {

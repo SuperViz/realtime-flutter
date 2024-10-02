@@ -48,13 +48,13 @@ final class PresenceRoom {
 
     subject.stream.listen(next);
 
-    void callback(dynamic data) {
-      final event = data[0];
+    void callback(dynamic event) {
       final presences = event['presences'].map<PresenceEvent>(
         (presence) => PresenceEvent.fromMap(presence)
       ).toList();
 
-      _logger.log(name: 'presence room @ get', description: event.toString());
+      _logger.log(name: 'presence room @ get', description: presences.join(', '));
+
       _socket.offEvent(InternalPresenceEvents.get.description, callback);
       subject.add(presences);
       subject.close();
@@ -127,11 +127,11 @@ final class PresenceRoom {
   /// Handle the presence join event
   /// - `event` - The presence event
   void _onPresenceJoin(dynamic data) {
-    PresenceEventFromServer event = PresenceEventFromServer.fromMap(data[0]);
+    final event = PresenceEventFromServer.fromMap(data);
 
     if (event.roomId != _roomId) return;
 
-    _logger.log(name: 'presence room @ presence join', description: event.connectionId);
+    _logger.log(name: 'presence room @ presence join', description: event.name);
 
     _presences.add(event);
 
@@ -151,6 +151,7 @@ final class PresenceRoom {
   ///- ` event` - The presence event
   void _onPresenceLeave(dynamic data) {
     PresenceEventFromServer event = PresenceEventFromServer.fromMap(data);
+
     if (event.roomId != _roomId) return;
 
     _logger.log(name: 'presence room @ presence leave', description: event.name);
@@ -162,10 +163,11 @@ final class PresenceRoom {
   /// Handle the presence update event
   /// - `event` - The presence event
   void _onPresenceUpdate(dynamic data) {
-    PresenceEventFromServer event = PresenceEventFromServer.fromMap(data);
+    final event = PresenceEventFromServer.fromMap(data);
+
     if (event.roomId != _roomId) return;
 
-    _logger.log(name: 'presence room @ presence update', description: event.name);
+    _logger.log(name: 'presence room @ presence update', description: event.data.toString());
     _observers[PresenceEvents.update]!.add(
       PresenceEvent(
         connectionId: event.connectionId,
@@ -174,7 +176,7 @@ final class PresenceRoom {
         name: event.name,
         // roomId: event.roomId,
         timestamp: event.timestamp,
-      )
+      ),
     );
   }
 }
