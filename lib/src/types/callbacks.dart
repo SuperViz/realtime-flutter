@@ -1,4 +1,4 @@
-typedef ErrorCallback = void Function(Object, StackTrace);
+typedef ErrorCallback = void Function(Object error, StackTrace stackTrace);
 
 typedef EventHandler = dynamic Function(dynamic);
 
