@@ -4,7 +4,7 @@ final class SocketEvent<T> {
   final String name;
   final String roomId;
   final String connectionId;
-  final UserPresence presence;
+  final UserPresence? presence;
   final T data;
   final int timestamp;
 
@@ -30,7 +30,9 @@ final class SocketEvent<T> {
     name: map['name'] as String,
     roomId: map['roomId'] as String,
     connectionId: map['connectionId'] as String,
-    presence: UserPresence.fromMap(map['presence']),
+    presence: map['presence'] != null
+      ? UserPresence.fromMap(map['presence'])
+      : null,
     data: map['data'],
     timestamp: map['timestamp'] as int,
   );
