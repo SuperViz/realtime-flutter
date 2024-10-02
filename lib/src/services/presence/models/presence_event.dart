@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 base class PresenceEvent {
   final String id;
   final String name;
@@ -13,24 +15,30 @@ base class PresenceEvent {
     required this.timestamp,
   });
 
-  factory PresenceEvent.fromMap(Map map) {
+  factory PresenceEvent.fromMap(Map<String, dynamic> map) {
     return PresenceEvent(
-      connectionId: map['connectionId'] as String,
-      data: map['data'] as dynamic,
       id: map['id'] as String,
       name: map['name'] as String,
+      connectionId: map['connectionId'] as String,
+      data: map['data'] as dynamic,
       timestamp: map['timestamp'] as int,
     );
   }
 
+  String toJson() => json.encode(toMap());
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'connectionId': connectionId,
+      'data': data,
+      'timestamp': timestamp,
+    };
+  }
+
   @override
   String toString() {
-    return '''PresenceEvent:
-    id: $id,
-    name: $name,
-    connectionId: $connectionId,
-    data: $data,
-    timestamp: $timestamp
-    ''';
+    return 'PresenceEvent(id: $id, name: $name, connectionId: $connectionId, data: $data, timestamp: $timestamp)';
   }
 }
