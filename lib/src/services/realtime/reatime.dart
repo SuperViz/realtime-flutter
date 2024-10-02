@@ -46,7 +46,7 @@ final class Realtime {
 
   /// - `roomName` - The room name
   /// - `maxConnections` - The maximum number of connections allowed in the room
-  Room connect(String roomName, int? maxConnections) {
+  Room connect(String roomName, [int? maxConnections]) {
     return Room.register(
       io: _socket,
       user: _presence,
