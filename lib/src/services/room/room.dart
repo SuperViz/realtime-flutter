@@ -117,7 +117,7 @@ final class Room {
       'timestamp': DateTime.now().toIso8601String(),
     };
 
-    _socket.emit(RoomEvent.update.description, body);
+    _socket.emit(RoomEvent.update.description, [_roomName, body]);
     _logger.log(name: 'room @ emit', description: '$event $body');
   }
 
