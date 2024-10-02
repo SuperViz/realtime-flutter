@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'model.dart';
 
 final class PresenceEventFromServer extends PresenceEvent {
@@ -14,7 +16,7 @@ final class PresenceEventFromServer extends PresenceEvent {
     required this.roomId,
   });
 
-  factory PresenceEventFromServer.fromMap(Map data) {
+  factory PresenceEventFromServer.fromMap(Map<String, dynamic> data) {
     return PresenceEventFromServer(
       id: data['id'],
       name: data['name'],
@@ -25,4 +27,20 @@ final class PresenceEventFromServer extends PresenceEvent {
       roomId: data['roomId'],
     );
   }
+
+  @override
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'roomKey': roomKey,
+      'roomId': roomId,
+      ...super.toMap(),
+    };
+  }
+
+  @override
+  String toJson() => json.encode(toMap());
+
+  factory PresenceEventFromServer.fromJson(String source) => PresenceEventFromServer.fromMap(
+    json.decode(source) as Map<String, dynamic>,
+  );
 }
