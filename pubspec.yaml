@@ -13,3 +13,5 @@ dependencies:
 dev_dependencies:
   lints: ^4.0.0
   test: ^1.24.0
+  mockito: ^5.4.4
+  faker: ^2.2.0
