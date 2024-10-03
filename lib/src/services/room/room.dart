@@ -114,7 +114,7 @@ final class Room {
       'presence': _user.toMap(),
       'connectionId': _socket.id,
       'data': payload,
-      'timestamp': DateTime.now().toIso8601String(),
+      'timestamp': DateTime.now().millisecondsSinceEpoch,
     };
 
     _socket.emit(RoomEvent.update.description, [_roomName, body]);
