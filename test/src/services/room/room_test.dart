@@ -83,4 +83,40 @@ void main() {
       ).called(1);
     });
   });
+
+  group('emit method', () {
+    late final Map<String, dynamic> payload;
+    late final String roomUpdateEvent;
+
+    setUpAll(() {
+      payload = { 'name': faker.person.name() };
+
+      roomUpdateEvent = RoomEvent.update.description;
+
+      when(mockSocketClient.id).thenReturn(faker.guid.guid());
+    });
+
+    test('Should emit a room.update event with room name and correct payload', () {
+      room.emit(event, payload);
+
+      final body = {
+        'name': event,
+        'roomId': roomName,
+        'presence': user.toMap(),
+        'connectionId': mockSocketClient.id,
+        'data': payload,
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
+      };
+
+      var capturedArgs = verify(
+        mockSocketClient.emit(
+          roomUpdateEvent,
+          captureAny,
+        )
+      ).captured;
+
+      expect(capturedArgs.first[0], roomName);
+      expect(capturedArgs.first[1], body);
+    });
+  });
 }
