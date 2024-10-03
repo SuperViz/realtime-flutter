@@ -119,4 +119,24 @@ void main() {
       expect(capturedArgs.first[1], body);
     });
   });
+
+  group('disconnect method', () {
+    test('Should emit leave room event on socket', () {
+      room.disconnect();
+
+      verify(
+        mockSocketClient.emit(RoomEvent.leaveRoom.description, roomName),
+      ).called(1);
+    });
+
+    test('Should should call presence destroy', () {
+      room.disconnect();
+
+      verifyInOrder([
+        mockSocketClient.offEvent(PresenceEvents.leave.description, any),
+        mockSocketClient.offEvent(PresenceEvents.update.description, any),
+        mockSocketClient.offEvent(PresenceEvents.joinedRoom.description, any),
+      ]);
+    });
+  });
 }
