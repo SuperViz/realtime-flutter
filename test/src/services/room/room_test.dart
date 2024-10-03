@@ -73,4 +73,14 @@ void main() {
       ).called(1);
     });
   });
+
+  group('off method', () {
+    test('Should call offEvent with correct event', () {
+      room.off(event, callback);
+
+      verify(
+        mockSocketClient.offEvent(event),
+      ).called(1);
+    });
+  });
 }
