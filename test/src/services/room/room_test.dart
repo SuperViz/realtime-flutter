@@ -111,8 +111,6 @@ void main() {
     });
 
     test('Should emit a room.update event with room name and correct payload', () {
-      room.emit(event, payload);
-
       final body = {
         'name': event,
         'roomId': roomName,
@@ -121,6 +119,8 @@ void main() {
         'data': payload,
         'timestamp': DateTime.now().millisecondsSinceEpoch,
       };
+
+      room.emit(event, payload);
 
       var capturedArgs = verify(
         mockSocketClient.emit(
@@ -131,6 +131,55 @@ void main() {
 
       expect(capturedArgs.first[0], roomName);
       expect(capturedArgs.first[1], body);
+    });
+  });
+
+  group('history method', () {
+    test('Should socket register and emit internal room event', () {
+      final internalRoomEvent = InternalRoomEvents.get.description;
+
+      room.history((data) {});
+
+      verifyInOrder([
+        mockSocketClient.onEvent(internalRoomEvent, captureThat(isA<Function>())),
+        mockSocketClient.emit(internalRoomEvent, roomName),
+      ]);
+    });
+
+    test('Should unregister socket listem from internal room event', () {
+      final internalRoomEvent = InternalRoomEvents.get.description;
+
+      room.history((data) {});
+
+      final capturedArgs = verify(
+        mockSocketClient.onEvent(
+          internalRoomEvent,
+          captureThat(isA<void Function(dynamic)>()),
+        ),
+      ).captured;
+
+      final callback = capturedArgs[0];
+
+      callback({
+        'roomId': '',
+        'room': {
+          'id': '',
+          'name': '',
+          'userId': '',
+          'apiKey': '',
+          'createdAt': DateTime.now().toIso8601String(),
+        },
+        'connectionId': '',
+        'timestamp': 0,
+        'events': [],
+      });
+
+      verify(
+        mockSocketClient.offEvent(
+          internalRoomEvent,
+          callback,
+        ),
+      ).called(1);
     });
   });
 
