@@ -50,5 +50,27 @@ void main() {
         mockSocketClient.emit(event, roomId)
       ]);
     });
+
+    test('Should unregister socket listen to presence.get', () {
+      presence.get((data) {});
+
+      final capturedArgs = verify(
+        mockSocketClient.onEvent(
+          event,
+          captureThat(isA<void Function(dynamic)>()),
+        ),
+      ).captured;
+
+      final callback = capturedArgs[0];
+
+      callback({ 'presences': [] });
+
+      verify(
+        mockSocketClient.offEvent(
+          event,
+          callback,
+        ),
+      ).called(1);
+    });
   });
 }
