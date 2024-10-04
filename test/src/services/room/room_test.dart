@@ -17,10 +17,12 @@ void main() {
   late final void Function(dynamic) callback;
   late final String roomName;
   late final UserPresence user;
+  late final int maxConnections;
 
   late Room room;
 
   setUpAll(() {
+    mockSocketClient = MockSocketClient();
     event = RoomEvent.joinRoom.description;
     callback = (data) {};
     roomName = faker.conference.name();
@@ -28,8 +30,7 @@ void main() {
       id: faker.guid.guid(),
       name: faker.person.name(),
     );
-
-    mockSocketClient = MockSocketClient();
+    maxConnections = 250;
   });
 
   setUp(() {
@@ -38,6 +39,7 @@ void main() {
       user: user,
       roomName: roomName,
       apiKey: faker.guid.guid(),
+      maxConnections: maxConnections,
     );
 
     when(
@@ -62,6 +64,18 @@ void main() {
 
       realInvocation.positionalArguments.last(joinedRoomMock);
     });
+  });
+
+  test('Should emit room.join with correct value when register a room', () {
+    final payload = {
+      'name': roomName,
+      'user': user.toMap(),
+      'maxConnections': maxConnections,
+    };
+
+    verify(
+      mockSocketClient.emit(RoomEvent.joinRoom.description, payload),
+    ).called(1);
   });
 
   group('on method', () {
