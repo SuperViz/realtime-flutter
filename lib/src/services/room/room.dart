@@ -122,12 +122,11 @@ final class Room {
   }
 
   /// Get the presences in the room
-  void history(EventCallback next, ErrorCallback? error) {
+  void history(EventCallback next) {
     final subject = StreamController<RoomHistory>();
 
     subject.stream.listen(
       next,
-      onError: error,
     );
 
     void callback(dynamic event) {
