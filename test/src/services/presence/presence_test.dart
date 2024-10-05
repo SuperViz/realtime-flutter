@@ -5,6 +5,7 @@ import 'package:test/test.dart';
 
 import 'package:realtime/src/enums/enums.dart';
 import 'package:realtime/src/interfaces/interfaces.dart';
+import 'package:realtime/src/services/presence/models/model.dart';
 import 'package:realtime/src/services/presence/presence.dart';
 import 'package:realtime/src/services/room/models/models.dart';
 
@@ -24,6 +25,12 @@ void main() {
     user = UserPresence(
       id: faker.guid.guid(),
       name: faker.person.name(),
+    );
+
+    when(
+      mockSocketClient.id
+    ).thenReturn(
+      faker.guid.guid(),
     );
   });
 
@@ -84,6 +91,43 @@ void main() {
           any,
         ),
       ).called(1);
+    });
+
+    test('Should call socket emit with correct values', () {
+      final payload = { 'teste': 'unitario' };
+
+      presence.update(payload);
+
+      final capturedArgs = verify(
+        mockSocketClient.emit(
+          PresenceEvents.update.description,
+          captureThat(isA<List>()),
+        ),
+      ).captured;
+
+      final firstArgument = capturedArgs[0][0];
+
+      expect(
+        firstArgument,
+        isA<String>().having(
+          (value) => value,
+          'correct room id',
+          equals(roomId),
+        ),
+      );
+
+      final secondArgument = capturedArgs[0][1];
+
+      expect(
+        secondArgument,
+        isA<PresenceEvent>().having(
+          (presence) => presence.toJson(), 
+          'Should have encodable function',
+          isA<Map<String, dynamic>>(),
+        ),
+      );
+
+      expect(secondArgument.data, equals(payload));
     });
   });
 }
