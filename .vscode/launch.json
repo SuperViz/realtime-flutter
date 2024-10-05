@@ -5,6 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "superviz-realtime: run all tests",
+      "type": "dart",
+      "request": "launch",
+      "program": "./test/"
+    },
+    {
       "name": "superviz-realtime",
       "request": "launch",
       "type": "dart",
