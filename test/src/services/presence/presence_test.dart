@@ -73,4 +73,17 @@ void main() {
       ).called(1);
     });
   });
+
+  group('update method', () {
+    test('Should call socket emit presence.update', () {
+      presence.update({});
+
+      verify(
+        mockSocketClient.emit(
+          PresenceEvents.update.description,
+          any,
+        ),
+      ).called(1);
+    });
+  });
 }
