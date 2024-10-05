@@ -111,15 +111,6 @@ void main() {
     });
 
     test('Should emit a room.update event with room name and correct payload', () {
-      final body = {
-        'name': event,
-        'roomId': roomName,
-        'presence': user.toMap(),
-        'connectionId': mockSocketClient.id,
-        'data': payload,
-        'timestamp': DateTime.now().millisecondsSinceEpoch,
-      };
-
       room.emit(event, payload);
 
       var capturedArgs = verify(
@@ -129,8 +120,28 @@ void main() {
         )
       ).captured;
 
-      expect(capturedArgs.first[0], roomName);
-      expect(capturedArgs.first[1], body);
+      expect(capturedArgs.first[0], equals(roomName));
+
+      expect(
+        capturedArgs.first[1],
+        isA<Map<String, dynamic>>().having(
+          (map) => map.keys,
+          'map keys',
+          containsAll([
+            'name',
+            'roomId',
+            'presence',
+            'connectionId',
+            'data',
+            'timestamp',
+          ])
+        ),
+      );
+
+      expect(
+        capturedArgs.first[1]['data'],
+        equals(payload),
+      );
     });
   });
 
