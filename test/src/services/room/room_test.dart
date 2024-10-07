@@ -66,16 +66,18 @@ void main() {
     });
   });
 
-  test('Should emit room.join with correct value when register a room', () {
-    final payload = {
-      'name': roomName,
-      'user': user.toMap(),
-      'maxConnections': maxConnections,
-    };
+  group('constructor method', () {
+    test('Should emit room.join with correct value when register a room', () {
+      final payload = {
+        'name': roomName,
+        'user': user.toMap(),
+        'maxConnections': maxConnections,
+      };
 
-    verify(
-      mockSocketClient.emit(RoomEvent.joinRoom.description, payload),
-    ).called(1);
+      verify(
+        mockSocketClient.emit(RoomEvent.joinRoom.description, payload),
+      ).called(1);
+    });
   });
 
   group('on method', () {
