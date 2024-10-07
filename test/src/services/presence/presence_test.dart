@@ -130,4 +130,16 @@ void main() {
       expect(secondArgument.data, equals(payload));
     });
   });
+
+  group('destroy method', () {
+    test('Should unsubscribe from all presence events listeners', () {
+      presence.destroy();
+
+      verifyInOrder([
+        mockSocketClient.offEvent(PresenceEvents.leave.description, any),
+        mockSocketClient.offEvent(PresenceEvents.update.description, any),
+        mockSocketClient.offEvent(PresenceEvents.joinedRoom.description, any),
+      ]);
+    });
+  });
 }
