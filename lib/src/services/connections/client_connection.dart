@@ -26,13 +26,12 @@ final class ClientConnection {
 
   void on({
     required ValueChanged<ConnectionState> next,
-    required ErrorCallback? error,
   }) {
     if (_stateController.isClosed) {
       _stateController = StreamController<ConnectionState>();
     }
 
-    _stateController.stream.listen(next, onError: error);
+    _stateController.stream.listen(next);
   }
 
   void off() {
@@ -54,7 +53,7 @@ final class ClientConnection {
     _socket.onEvent(SocketEvents.error.description, _onCustomError);
   }
 
-   /// Change the state of the connection
+  /// Change the state of the connection
   void _changeConnectionState(ClientState newState, [String? reason]) {
     _state = newState;
 
