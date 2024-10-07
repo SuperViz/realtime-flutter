@@ -42,6 +42,16 @@ void main() {
     );
   });
 
+  group('constructor method', () {
+    test('Should subscribe socket on correct events', () {
+      verifyInOrder([
+        mockSocketClient.onEvent(PresenceEvents.joinedRoom.description, any),
+        mockSocketClient.onEvent(PresenceEvents.update.description, any),
+        mockSocketClient.onEvent(PresenceEvents.leave.description, any),
+      ]);
+    });
+  });
+
   group('get method', () {
     late final String event;
 
