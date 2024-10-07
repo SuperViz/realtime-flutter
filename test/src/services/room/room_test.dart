@@ -16,6 +16,7 @@ void main() {
   late final String event;
   late final void Function(dynamic) callback;
   late final String roomName;
+  late final String apiKey;
   late final UserPresence user;
   late final int maxConnections;
 
@@ -26,6 +27,7 @@ void main() {
     event = RoomEvent.joinRoom.description;
     callback = (data) {};
     roomName = faker.conference.name();
+    apiKey = faker.guid.guid();
     user = UserPresence(
       id: faker.guid.guid(),
       name: faker.person.name(),
@@ -38,7 +40,7 @@ void main() {
       io: mockSocketClient,
       user: user,
       roomName: roomName,
-      apiKey: faker.guid.guid(),
+      apiKey: apiKey,
       maxConnections: maxConnections,
     );
 
@@ -77,6 +79,14 @@ void main() {
       verify(
         mockSocketClient.emit(RoomEvent.joinRoom.description, payload),
       ).called(1);
+    });
+
+    test('Should subscribe on all correct events listeners', () {
+      verifyInOrder([
+        mockSocketClient.onEvent(RoomEvent.joinedRoom.description, any),
+        mockSocketClient.onEvent('http:$roomName:$apiKey', any),
+        mockSocketClient.onEvent(RoomEvent.error.description, any),
+      ]);
     });
   });
 
