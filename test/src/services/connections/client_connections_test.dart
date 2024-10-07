@@ -11,7 +11,8 @@ import 'client_connections_test.mocks.dart';
 @GenerateMocks([SocketClient])
 void main() {
   late final MockSocketClient mockSocketClient;
-  late final ClientConnection clientConnection;
+
+  late ClientConnection clientConnection;
 
   setUpAll(() {
     mockSocketClient = MockSocketClient();
@@ -37,5 +38,35 @@ void main() {
         mockSocketClient.onEvent(SocketEvents.error.description, any),
       ]);
     });
+
+    test(
+      'Should call socket disconnect when recive a socket-event.error with disconect parameter',
+      () {
+        final capturedArgs = verify(
+          mockSocketClient.onEvent(
+            SocketEvents.error.description,
+            captureThat(isA<Function>()),
+          ),
+        ).captured;
+
+        when(
+          mockSocketClient.disconnect(),
+        ).thenAnswer((_) {});
+
+        capturedArgs.first({
+          'errorType': 'error type',
+          'message': 'Message',
+          'connectionId': '',
+          'needsToDisconnect': true, // needsToDisconnect parsed as true
+          'level': SocketExceptionErrorLevel.error.name,
+        });
+
+        verify(
+          mockSocketClient.disconnect(),
+        ).called(1);
+
+        expect(clientConnection.state, equals(ClientState.disconnected));
+      },
+    );
   });
 }
