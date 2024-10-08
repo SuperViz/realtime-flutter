@@ -39,7 +39,7 @@ void main() {
       ]);
     });
 
-    test('Should change client state to connected on connected', () {
+    test('Should change client state to CONNECTED on connect', () {
       final capturedArgs = verify(
         mockSocketClient.onEvent(
           SocketEvents.connect.description,
@@ -52,7 +52,7 @@ void main() {
       expect(clientConnection.state, equals(ClientState.connected));
     });
 
-    test('Should change client state to connected on reconnect', () {
+    test('Should change client state to CONNECTED on reconnect', () {
       final capturedArgs = verify(
         mockSocketClient.onEvent(
           SocketEvents.reconnect.description,
@@ -65,7 +65,7 @@ void main() {
       expect(clientConnection.state, equals(ClientState.connected));
     });
 
-    test('Should change client state to disconnected on disconnect', () {
+    test('Should change client state to DISCONNECTED on disconnect', () {
       final capturedArgs = verify(
         mockSocketClient.onEvent(
           SocketEvents.disconnect.description,
@@ -76,6 +76,9 @@ void main() {
       capturedArgs.last(null);
 
       expect(clientConnection.state, equals(ClientState.disconnected));
+    });
+
+    test('Should change client state to CONNECTION_ERROR on connect error', () {
     });
 
     test(
