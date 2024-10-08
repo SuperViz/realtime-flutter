@@ -1,11 +1,9 @@
 import 'package:realtime/realtime.dart';
-import 'package:realtime/src/adapters/socket_adapter.dart';
 
 import 'package:realtime/src/services/room/models/models.dart';
 
 void main() {
   final realtime = Realtime(
-    socket: IoSocketAdapter(),
     apiKey: '',
     environment: 'dev',
     presence: UserPresence(
