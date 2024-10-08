@@ -43,6 +43,20 @@ void main() {
   });
 
   group('constructor method', () {
+    late Map<String, dynamic> presenceData;
+
+    setUpAll(() {
+      presenceData = {
+        'id': user.id,
+        'name': user.name,
+        'connectionId': roomId,
+        'data': {},
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
+        'roomKey': roomId,
+        'roomId': roomId,
+      };
+    });
+
     test('Should subscribe socket on correct events', () {
       verifyInOrder([
         mockSocketClient.onEvent(PresenceEvents.joinedRoom.description, any),
@@ -59,15 +73,29 @@ void main() {
         ),
       ).captured;
 
-      capturedArgs.last({
-        'id': user.id,
-        'name': user.name,
-        'connectionId': roomId,
-        'data': {},
-        'timestamp': DateTime.now().millisecondsSinceEpoch,
-        'roomKey': roomId,
-        'roomId': roomId,
-      });
+      capturedArgs.last(presenceData);
+    });
+
+    test('Should convert presence leave data to correct object', () {
+      final capturedArgs = verify(
+        mockSocketClient.onEvent(
+          PresenceEvents.leave.description,
+          captureThat(isA<Function>()),
+        ),
+      ).captured;
+
+      capturedArgs.last(presenceData);
+    });
+
+    test('Should convert presence update data to correct object', () {
+      final capturedArgs = verify(
+        mockSocketClient.onEvent(
+          PresenceEvents.update.description,
+          captureThat(isA<Function>()),
+        ),
+      ).captured;
+
+      capturedArgs.last(presenceData);
     });
   });
 
