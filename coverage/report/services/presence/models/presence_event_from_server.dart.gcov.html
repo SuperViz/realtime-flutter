@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryLo">58.8&nbsp;%</td>
             <td class="headerCovTableEntry">17</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">10</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2024-10-08 10:44:39</td>
+            <td class="headerValue">2024-10-08 11:05:19</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -66,7 +66,7 @@
 <span id="L4"><span class="lineNum">       4</span>              :   final String roomKey;</span>
 <span id="L5"><span class="lineNum">       5</span>              :   final String roomId;</span>
 <span id="L6"><span class="lineNum">       6</span>              : </span>
-<span id="L7"><span class="lineNum">       7</span> <span class="tlaUNC tlaBgUNC">           0 :   const PresenceEventFromServer({</span></span>
+<span id="L7"><span class="lineNum">       7</span> <span class="tlaGNC tlaBgGNC">           1 :   const PresenceEventFromServer({</span></span>
 <span id="L8"><span class="lineNum">       8</span>              :     required super.id,</span>
 <span id="L9"><span class="lineNum">       9</span>              :     required super.name,</span>
 <span id="L10"><span class="lineNum">      10</span>              :     required super.connectionId,</span>
@@ -76,19 +76,19 @@
 <span id="L14"><span class="lineNum">      14</span>              :     required this.roomId,</span>
 <span id="L15"><span class="lineNum">      15</span>              :   });</span>
 <span id="L16"><span class="lineNum">      16</span>              : </span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 :   factory PresenceEventFromServer.fromMap(Map&lt;String, dynamic&gt; data) {</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaUNC">           0 :     return PresenceEventFromServer(</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC">           0 :       id: data['id'],</span></span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaUNC">           0 :       name: data['name'],</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaUNC">           0 :       connectionId: data['connectionId'],</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaUNC">           0 :       data: data['data'],</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaUNC">           0 :       timestamp: data['timestamp'],</span></span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaUNC">           0 :       roomKey: data['roomKey'],</span></span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaUNC">           0 :       roomId: data['roomId'],</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           1 :   factory PresenceEventFromServer.fromMap(Map&lt;String, dynamic&gt; data) {</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           1 :     return PresenceEventFromServer(</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           1 :       id: data['id'],</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">           1 :       name: data['name'],</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           1 :       connectionId: data['connectionId'],</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           1 :       data: data['data'],</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           1 :       timestamp: data['timestamp'],</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           1 :       roomKey: data['roomKey'],</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           1 :       roomId: data['roomId'],</span></span>
 <span id="L26"><span class="lineNum">      26</span>              :     );</span>
 <span id="L27"><span class="lineNum">      27</span>              :   }</span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaUNC">           0 :   @override</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaUNC tlaBgUNC">           0 :   @override</span></span>
 <span id="L30"><span class="lineNum">      30</span>              :   Map&lt;String, dynamic&gt; toJson() {</span>
 <span id="L31"><span class="lineNum">      31</span> <span class="tlaUNC">           0 :     return &lt;String, dynamic&gt;{</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaUNC">           0 :       'roomKey': roomKey,</span></span>
