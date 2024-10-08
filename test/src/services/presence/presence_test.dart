@@ -80,7 +80,15 @@ void main() {
 
       final callback = capturedArgs[0];
 
-      callback({ 'presences': [] });
+      callback({
+        'presences': [{
+          'id': user.id,
+          'name': user.name,
+          'connectionId': roomId,
+          'data': {},
+          'timestamp': DateTime.now().millisecondsSinceEpoch,
+        }],
+      });
 
       verify(
         mockSocketClient.offEvent(
