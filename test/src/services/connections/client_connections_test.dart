@@ -81,6 +81,26 @@ void main() {
     test('Should change client state to CONNECTION_ERROR on connect error', () {
       final capturedArgs = verify(
         mockSocketClient.onEvent(
+          SocketEvents.connectError.description,
+          captureThat(isA<Function>()),
+        ),
+      ).captured;
+
+      // Parse a mocked socket error
+      capturedArgs.last({
+        'errorType': 'error type',
+        'message': 'Message',
+        'connectionId': '',
+        'needsToDisconnect': false, // needsToDisconnect parsed as true
+        'level': SocketExceptionErrorLevel.error.name,
+      });
+
+      expect(clientConnection.state, equals(ClientState.connectionError));
+    });
+
+    test('Should change client state to CONNECTION_ERROR on connection error', () {
+      final capturedArgs = verify(
+        mockSocketClient.onEvent(
           SocketEvents.connectionError.description,
           captureThat(isA<Function>()),
         ),

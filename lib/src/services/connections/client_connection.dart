@@ -88,10 +88,15 @@ final class ClientConnection {
   }
 
   void _onConnectError(dynamic data) {
-    final error = SocketException.fromMap(data[0]);
+    final error = SocketException.fromMap(data);
 
-    _logger.log(name: 'connection @ on connect error', description: 'Connection error', error: Exception(error));
-    _changeConnectionState(ClientState.connectionError);
+    _logger.log(
+      name: 'connection @ on connect error',
+      description: 'Connection error',
+      error: error,
+    );
+
+    _changeConnectionState(ClientState.connectionError, error.errorType);
   }
 
   void _onConnectionError(dynamic data) {
