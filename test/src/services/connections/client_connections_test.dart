@@ -166,13 +166,7 @@ void main() {
           mockSocketClient.disconnect(),
         ).thenAnswer((_) {});
 
-        capturedArgs.first({
-          'errorType': 'error type',
-          'message': 'Message',
-          'connectionId': '',
-          'needsToDisconnect': true, // needsToDisconnect parsed as true
-          'level': SocketExceptionErrorLevel.error.name,
-        });
+        capturedArgs.first(mockSocketExcptionMap);
 
         verify(
           mockSocketClient.disconnect(),
