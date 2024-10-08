@@ -184,17 +184,27 @@ void main() {
       final callback = capturedArgs[0];
 
       callback({
-        'roomId': '',
+        'roomId': roomName,
         'room': {
-          'id': '',
-          'name': '',
-          'userId': '',
-          'apiKey': '',
+          'id': roomName,
+          'name': roomName,
+          'userId': user.id,
+          'apiKey': apiKey,
           'createdAt': DateTime.now().toIso8601String(),
         },
-        'connectionId': '',
-        'timestamp': 0,
-        'events': [],
+        'connectionId': roomName,
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
+        'events': [{
+          'name': 'socket event name',
+          'roomId': roomName,
+          'connectionId': roomName,
+          'presence': {
+            'id': user.id,
+            'name': user.name,
+          },
+          'data': {},
+          'timestamp': DateTime.now().millisecondsSinceEpoch,
+        }],
       });
 
       verify(
