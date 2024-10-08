@@ -139,6 +139,19 @@ void main() {
       expect(clientConnection.state, equals(ClientState.reconnectError));
     });
 
+    test('Should change client state to RECONNECTING on reconnect attempt', () {
+      final capturedArgs = verify(
+        mockSocketClient.onEvent(
+          SocketEvents.reconnectAttempt.description,
+          captureThat(isA<Function>()),
+        ),
+      ).captured;
+
+      capturedArgs.last({ 'attempt': 1 });
+
+      expect(clientConnection.state, equals(ClientState.reconnecting));
+    });
+
     test(
       'Should call socket disconnect when recive a socket-event.error with disconect parameter',
       () {

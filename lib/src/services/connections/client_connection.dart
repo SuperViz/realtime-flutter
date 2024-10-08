@@ -83,7 +83,11 @@ final class ClientConnection {
   }
 
   void _onReconnectFailed(dynamic _) {
-    _logger.log(name: 'connection @ on reconnect failed', description: 'Failed to reconnect to the socket');
+    _logger.log(
+      name: 'connection @ on reconnect failed',
+      description: 'Failed to reconnect to the socket',
+    );
+
     _changeConnectionState(ClientState.reconnectError);
   }
 
@@ -124,10 +128,17 @@ final class ClientConnection {
   }
 
   void _onReconnecAttempt(dynamic data) {
-    final attempt = data[0]['attempt'] as int;
+    final attempt = data['attempt'] as int;
 
-    _logger.log(name: 'connection @ on reconnect attempt', description: 'Reconnect attempt $attempt');
-    _changeConnectionState(ClientState.reconnecting, 'Reconnect attempt $attempt');
+    _logger.log(
+      name: 'connection @ on reconnect attempt',
+      description: 'Reconnect attempt $attempt',
+    );
+
+    _changeConnectionState(
+      ClientState.reconnecting,
+      'Reconnect attempt $attempt',
+    );
   }
 
   void _onCustomError(dynamic data) {
