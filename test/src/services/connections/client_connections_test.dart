@@ -11,14 +11,14 @@ import 'client_connections_test.mocks.dart';
 @GenerateMocks([SocketClient])
 void main() {
   late final MockSocketClient mockSocketClient;
-  late final Map<String, dynamic> mockSocketExcptionMap;
+  late final Map<String, dynamic> mockSocketExceptionMap;
 
   late ClientConnection clientConnection;
 
   setUpAll(() {
     mockSocketClient = MockSocketClient();
 
-    mockSocketExcptionMap = {
+    mockSocketExceptionMap = {
       'errorType': 'error type',
       'message': 'Message',
       'connectionId': '',
@@ -95,7 +95,7 @@ void main() {
         ),
       ).captured;
 
-      capturedArgs.last(mockSocketExcptionMap);
+      capturedArgs.last(mockSocketExceptionMap);
 
       expect(clientConnection.state, equals(ClientState.connectionError));
     });
@@ -108,7 +108,7 @@ void main() {
         ),
       ).captured;
 
-      capturedArgs.last(mockSocketExcptionMap);
+      capturedArgs.last(mockSocketExceptionMap);
 
       expect(clientConnection.state, equals(ClientState.reconnectError));
     });
@@ -121,7 +121,7 @@ void main() {
         ),
       ).captured;
 
-      capturedArgs.last(mockSocketExcptionMap);
+      capturedArgs.last(mockSocketExceptionMap);
 
       expect(clientConnection.state, equals(ClientState.connectionError));
     });
@@ -134,7 +134,7 @@ void main() {
         ),
       ).captured;
 
-      capturedArgs.last(mockSocketExcptionMap);
+      capturedArgs.last(mockSocketExceptionMap);
 
       expect(clientConnection.state, equals(ClientState.reconnectError));
     });
@@ -166,7 +166,7 @@ void main() {
           mockSocketClient.disconnect(),
         ).thenAnswer((_) {});
 
-        capturedArgs.first(mockSocketExcptionMap);
+        capturedArgs.first(mockSocketExceptionMap);
 
         verify(
           mockSocketClient.disconnect(),
