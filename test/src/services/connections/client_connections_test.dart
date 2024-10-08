@@ -126,6 +126,19 @@ void main() {
       expect(clientConnection.state, equals(ClientState.connectionError));
     });
 
+    test('Should change client state to RECONNECT_ERROR on reconnection failed', () {
+      final capturedArgs = verify(
+        mockSocketClient.onEvent(
+          SocketEvents.reconnectFailed.description,
+          captureThat(isA<Function>()),
+        ),
+      ).captured;
+
+      capturedArgs.last(mockSocketExcptionMap);
+
+      expect(clientConnection.state, equals(ClientState.reconnectError));
+    });
+
     test(
       'Should call socket disconnect when recive a socket-event.error with disconect parameter',
       () {
