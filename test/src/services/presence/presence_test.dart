@@ -50,6 +50,25 @@ void main() {
         mockSocketClient.onEvent(PresenceEvents.leave.description, any),
       ]);
     });
+
+    test('Should convert presence join data to correct object', () {
+      final capturedArgs = verify(
+        mockSocketClient.onEvent(
+          PresenceEvents.joinedRoom.description,
+          captureThat(isA<Function>()),
+        ),
+      ).captured;
+
+      capturedArgs.last({
+        'id': user.id,
+        'name': user.name,
+        'connectionId': roomId,
+        'data': {},
+        'timestamp': DateTime.now().millisecondsSinceEpoch,
+        'roomKey': roomId,
+        'roomId': roomId,
+      });
+    });
   });
 
   group('get method', () {
