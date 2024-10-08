@@ -22,7 +22,7 @@ void main() {
       'errorType': 'error type',
       'message': 'Message',
       'connectionId': '',
-      'needsToDisconnect': false, // needsToDisconnect parsed as true
+      'needsToDisconnect': true, // needsToDisconnect parsed as true
       'level': SocketExceptionErrorLevel.error.name,
     };
   });
