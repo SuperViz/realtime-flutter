@@ -112,10 +112,15 @@ final class ClientConnection {
   }
 
   void _onReconnectError(dynamic data) {
-    final error = SocketException.fromMap(data[0]);
+    final error = SocketException.fromMap(data);
 
-    _logger.log(name: 'connection @ on reconnect error', description: 'Reconnect error');
-    _changeConnectionState(ClientState.reconnectError, error.message);
+    _logger.log(
+      name: 'connection @ on reconnect error',
+      description: 'Reconnect error',
+      error: error,
+    );
+
+    _changeConnectionState(ClientState.reconnectError, error.errorType);
   }
 
   void _onReconnecAttempt(dynamic data) {

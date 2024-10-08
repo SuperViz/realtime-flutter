@@ -11,11 +11,20 @@ import 'client_connections_test.mocks.dart';
 @GenerateMocks([SocketClient])
 void main() {
   late final MockSocketClient mockSocketClient;
+  late final Map<String, dynamic> mockSocketExcptionMap;
 
   late ClientConnection clientConnection;
 
   setUpAll(() {
     mockSocketClient = MockSocketClient();
+
+    mockSocketExcptionMap = {
+      'errorType': 'error type',
+      'message': 'Message',
+      'connectionId': '',
+      'needsToDisconnect': false, // needsToDisconnect parsed as true
+      'level': SocketExceptionErrorLevel.error.name,
+    };
   });
 
   setUp(() {
@@ -86,16 +95,22 @@ void main() {
         ),
       ).captured;
 
-      // Parse a mocked socket error
-      capturedArgs.last({
-        'errorType': 'error type',
-        'message': 'Message',
-        'connectionId': '',
-        'needsToDisconnect': false, // needsToDisconnect parsed as true
-        'level': SocketExceptionErrorLevel.error.name,
-      });
+      capturedArgs.last(mockSocketExcptionMap);
 
       expect(clientConnection.state, equals(ClientState.connectionError));
+    });
+
+    test('Should change client state to RECONNECT_ERROR on reconect error', () {
+      final capturedArgs = verify(
+        mockSocketClient.onEvent(
+          SocketEvents.reconnectError.description,
+          captureThat(isA<Function>()),
+        ),
+      ).captured;
+
+      capturedArgs.last(mockSocketExcptionMap);
+
+      expect(clientConnection.state, equals(ClientState.reconnectError));
     });
 
     test('Should change client state to CONNECTION_ERROR on connection error', () {
@@ -106,14 +121,7 @@ void main() {
         ),
       ).captured;
 
-      // Parse a mocked socket error
-      capturedArgs.last({
-        'errorType': 'error type',
-        'message': 'Message',
-        'connectionId': '',
-        'needsToDisconnect': false, // needsToDisconnect parsed as true
-        'level': SocketExceptionErrorLevel.error.name,
-      });
+      capturedArgs.last(mockSocketExcptionMap);
 
       expect(clientConnection.state, equals(ClientState.connectionError));
     });
