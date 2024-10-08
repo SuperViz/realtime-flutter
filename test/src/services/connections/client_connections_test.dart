@@ -39,6 +39,19 @@ void main() {
       ]);
     });
 
+    test('Should change client state to connected on connected', () {
+      final capturedArgs = verify(
+        mockSocketClient.onEvent(
+          SocketEvents.connect.description,
+          captureThat(isA<Function>()),
+        ),
+      ).captured;
+
+      capturedArgs.first(null);
+
+      expect(clientConnection.state, equals(ClientState.connected));
+    });
+
     test(
       'Should call socket disconnect when recive a socket-event.error with disconect parameter',
       () {
