@@ -95,10 +95,15 @@ final class ClientConnection {
   }
 
   void _onConnectionError(dynamic data) {
-    final error = Exception(data['message']);
+    final error = SocketException.fromMap(data);
 
-    _logger.log(name: 'connection @ on connection error', description: 'Connection error', error: error);
-    _changeConnectionState(ClientState.connectionError, error.toString());
+    _logger.log(
+      name: 'connection @ on connection error',
+      description: 'Connection error',
+      error: Exception(error.message),
+    );
+
+    _changeConnectionState(ClientState.connectionError, error.errorType);
   }
 
   void _onReconnectError(dynamic data) {
