@@ -47,7 +47,7 @@ void main() {
         ),
       ).captured;
 
-      capturedArgs.first(null);
+      capturedArgs.last(null);
 
       expect(clientConnection.state, equals(ClientState.connected));
     });
@@ -60,7 +60,7 @@ void main() {
         ),
       ).captured;
 
-      capturedArgs.first(null);
+      capturedArgs.last(null);
 
       expect(clientConnection.state, equals(ClientState.connected));
     });
@@ -73,7 +73,7 @@ void main() {
         ),
       ).captured;
 
-      capturedArgs.first(null);
+      capturedArgs.last(null);
 
       expect(clientConnection.state, equals(ClientState.disconnected));
     });
