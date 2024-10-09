@@ -40,4 +40,37 @@ void main() {
       clientId: clientId,
     );
   });
+
+  group('constructor method', () {
+    test('Should connect on socket with correct parameters', () {
+      when(
+        mockSocketClient.connect(any),
+      ).thenAnswer((_) {});
+
+      final capturedArgs = verify(
+        mockSocketClient.connect(captureAny),
+      ).captured;
+
+      expect(
+        capturedArgs.last,
+        isA<SocketConnectParams>().having(
+          (params) => params.apiKey,
+          'Socket connect parameter apiKey',
+          equals(apiKey),
+        ).having(
+          (params) => params.clientId,
+          'Socket connect parameter clientId',
+          equals(clientId),
+        ).having(
+          (params) => params.environment,
+          'Socket connect parameter environment',
+          equals(environment),
+        ).having(
+          (params) => params.secretKey,
+          'Socket connect parameter secretKey',
+          equals(secret),
+        ),
+      );
+    });
+  });
 }
