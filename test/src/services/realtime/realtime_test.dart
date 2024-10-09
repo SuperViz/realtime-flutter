@@ -72,5 +72,10 @@ void main() {
         ),
       );
     });
+
+    test('Should create client connection', () {
+      expect(realtime.clientConnection, isNotNull);
+      expect(realtime.clientConnection.state, equals(realtime.state));
+    });
   });
 }
