@@ -78,4 +78,20 @@ void main() {
       expect(realtime.clientConnection.state, equals(realtime.state));
     });
   });
+
+  group('destroy method', () {
+    setUpAll(() {
+      when(
+        mockSocketClient.disconnect(),
+      ).thenAnswer((_) {});
+    });
+
+    test('Should disconnect from socket', () {
+      realtime.destroy();
+
+      verify(
+        mockSocketClient.disconnect(),
+      ).called(1);
+    });
+  });
 }
