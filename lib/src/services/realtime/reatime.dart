@@ -1,4 +1,3 @@
-import '../../adapters/adapters.dart';
 import '../../enums/enums.dart';
 import '../../interfaces/interfaces.dart';
 import '../../interfaces/params/params.dart';
@@ -19,12 +18,13 @@ final class Realtime {
   ClientConnection get clientConnection => _clientConnection;
 
   Realtime({
+    required SocketClient socket,
     required String apiKey,
     required String environment,
     required UserPresence presence,
     required String secret,
     required String clientId,
-  }) : _socket = IoSocketAdapter(),
+  }) : _socket = socket,
   _apiKey = apiKey,
   _environment = environment,
   _presence = presence,
