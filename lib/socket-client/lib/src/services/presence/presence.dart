@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import '../../adapters/adapters.dart';
 import '../../enums/enums.dart';
 import '../../interfaces/interfaces.dart';
 import '../../types/types.dart';
-import '../../utils/utils.dart';
 import '../room/models/models.dart';
 import 'models/model.dart';
+
+export 'models/presence_event.dart';
 
 final class PresenceRoom {
   late Logger _logger;

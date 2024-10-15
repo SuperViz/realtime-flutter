@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import '../../adapters/adapters.dart';
 import '../../enums/enums.dart';
 import '../../interfaces/interfaces.dart';
 import '../../types/types.dart';
-import '../../utils/utils.dart';
 import '../presence/presence.dart';
 import 'models/models.dart';
+
+export 'models/user_presence.dart';
 
 final class Room {
   final SocketClient _socket;

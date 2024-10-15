@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import '../../adapters/adapters.dart';
 import '../../enums/enums.dart';
 import '../../exceptions/exceptions.dart';
 import '../../interfaces/interfaces.dart';
 import '../../types/types.dart';
-import '../../utils/utils.dart';
 import 'connection_state.dart';
 
 final class ClientConnection {
