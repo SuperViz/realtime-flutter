@@ -1,0 +1,4 @@
+enum IocState {
+  authError,
+  sameAccountError;
+}
