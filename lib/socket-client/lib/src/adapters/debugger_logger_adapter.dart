@@ -11,7 +11,7 @@ final class DebuggerLoggerAdapter implements Logger {
   @override
   FutureOr<void> log({
     required String name,
-    required String description,
+    String description = '',
     Exception? error,
     StackTrace? stackTrace,
   }) {
