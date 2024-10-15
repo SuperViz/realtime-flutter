@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../exceptions/exceptions.dart';
 import '../interfaces/http/http_client.dart';
 import '../interfaces/http/http_response.dart';
 
@@ -27,7 +28,10 @@ final class HttpAdapter implements HttpClient {
 
       return _formatResponseJson(response.body);
     } catch (e) {
-      rethrow;
+      throw HttpException(
+        message: 'Unexpected error.',
+        status: null,
+      );
     }
   }
 
@@ -46,7 +50,10 @@ final class HttpAdapter implements HttpClient {
 
       return _formatResponseJson(response.body);
     } catch (e) {
-      rethrow;
+      throw HttpException(
+        message: 'Unexpected error.',
+        status: null,
+      );
     }
   }
 
@@ -67,7 +74,10 @@ final class HttpAdapter implements HttpClient {
 
       return _formatResponseJson(response.body);
     } catch (e) {
-      rethrow;
+      throw HttpException(
+        message: 'Unexpected error.',
+        status: null,
+      );
     }
   }
 
@@ -88,7 +98,10 @@ final class HttpAdapter implements HttpClient {
 
       return _formatResponseJson(response.body);
     } catch (e) {
-      rethrow;
+      throw HttpException(
+        message: 'Unexpected error.',
+        status: null,
+      );
     }
   }
 
