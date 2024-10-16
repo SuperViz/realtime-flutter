@@ -16,8 +16,10 @@ final class RemoteConfigService {
   /// - `environment` - The environment to retrieve the remote configuration for. Defaults to EnvironmentTypes.PROD.
   /// returns A Future that resolves with the remote configuration object.
   static Future<RemoteConfig> getRemoteConfig([
-    EnvironmentTypes environment = EnvironmentTypes.prod,
+    EnvironmentTypes? environment,
   ]) async {
+    environment ??= EnvironmentTypes.prod;
+
     const version  = "lab";
 
     final remoteConfigParams = RemoteConfigParams(
