@@ -36,7 +36,7 @@ final class ConfigurationService {
     }
   }
 
-  T? get<T>(ConfigurationKeys key, [T? defaultValue]) {
+  T? get<T>(ConfigurationKeys key) {
     switch (key) {
       case ConfigurationKeys.roomId:
         return _configuration.roomId as T?;
