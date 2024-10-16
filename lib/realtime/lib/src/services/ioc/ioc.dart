@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:socket_client/socket_client.dart' as socket;
 
+import '../../types/types.dart';
 import '../config/config.dart';
 import 'enums/enums.dart';
-import 'models/participant.dart';
 
 final class Ioc {
   late socket.ConnectionState state;
