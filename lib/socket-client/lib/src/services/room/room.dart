@@ -7,7 +7,7 @@ import '../../types/types.dart';
 import '../presence/presence.dart';
 import 'models/models.dart';
 
-export 'models/user_presence.dart';
+export 'models/models.dart';
 
 final class Room {
   final SocketClient _socket;
