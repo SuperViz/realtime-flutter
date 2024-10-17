@@ -186,7 +186,7 @@ final class Realtime extends Observable {
   Future<void> _validateSecretAndClientId() async {
     final apiKey = await ApiService.fetchApiKey();
 
-    if (apiKey == null) {
+    if (apiKey.isEmpty) {
       _logger.log(
         name: '[SuperViz] - Real-Time Data Engine',
         description: 'Invalid Secret or ClientId',
