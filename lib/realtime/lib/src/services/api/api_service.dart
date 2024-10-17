@@ -51,7 +51,7 @@ class ApiService {
 
       final response = await _httpClient.post(
         url: url,
-        headers: { 'apiKey': apiKey },
+        body: { apiKey },
       );
 
       return response.data as bool;
