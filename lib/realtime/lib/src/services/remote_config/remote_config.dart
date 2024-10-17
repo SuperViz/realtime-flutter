@@ -29,7 +29,10 @@ final class RemoteConfigService {
 
     final url = createUrl(remoteConfigParams);
 
-    final response = await _httpClient.get(url: url);
+    final response = await _httpClient.request(
+      url: url,
+      method: HttpMethod.get,
+    );
 
     return RemoteConfig(
       apiUrl: response.data['apiUrl'].split('://').last,
