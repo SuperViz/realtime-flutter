@@ -54,6 +54,9 @@ final class Ioc {
     }
 
     this.state = state;
+
+    if (stateSubject.isClosed) return;
+
     stateSubject.add(state.state);
   }
 
