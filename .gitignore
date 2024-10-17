@@ -1,0 +1,7 @@
+# Files
+*.mocks.dart
+.DS_Store
+pubspec.lock
+
+# Folders
+.dart_tool/
