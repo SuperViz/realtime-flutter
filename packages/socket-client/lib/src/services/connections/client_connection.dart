@@ -46,9 +46,12 @@ final class ClientConnection {
     _socket.onEvent(SocketEvents.disconnect.description, _onDisconnect);
     _socket.onEvent(SocketEvents.connectError.description, _onConnectError);
     _socket.onEvent(SocketEvents.reconnectError.description, _onReconnectError);
-    _socket.onEvent(SocketEvents.connectionError.description, _onConnectionError);
-    _socket.onEvent(SocketEvents.reconnectFailed.description, _onReconnectFailed);
-    _socket.onEvent(SocketEvents.reconnectAttempt.description, _onReconnecAttempt);
+    _socket.onEvent(
+        SocketEvents.connectionError.description, _onConnectionError);
+    _socket.onEvent(
+        SocketEvents.reconnectFailed.description, _onReconnectFailed);
+    _socket.onEvent(
+        SocketEvents.reconnectAttempt.description, _onReconnecAttempt);
 
     _socket.onEvent(SocketEvents.error.description, _onCustomError);
   }
@@ -68,17 +71,26 @@ final class ClientConnection {
   }
 
   void _onConnect(dynamic _) {
-    _logger.log(name: 'connection @ on connect', description: 'Connected to the socket');
+    _logger.log(
+      name: 'connection @ on connect',
+      description: 'Connected to the socket',
+    );
     _changeConnectionState(ClientState.connected);
   }
 
   void _onDisconnect(dynamic _) {
-    _logger.log(name: 'connection @ on disconnect', description: 'Disconnected from the socket');
+    _logger.log(
+      name: 'connection @ on disconnect',
+      description: 'Disconnected from the socket',
+    );
     _changeConnectionState(ClientState.disconnected);
   }
 
   void _onReconnect(dynamic _) {
-    _logger.log(name: 'connection @ on reconnect', description: 'Reconnected to the socket');
+    _logger.log(
+      name: 'connection @ on reconnect',
+      description: 'Reconnected to the socket',
+    );
     _changeConnectionState(ClientState.connected);
   }
 
@@ -151,7 +163,7 @@ final class ClientConnection {
 
     _logger.log(
       name: '[SuperViz]',
-      description: '\n- Error: ${error.errorType}\n- Message: ${error.message}'
+      description: '\n- Error: ${error.errorType}\n- Message: ${error.message}',
     );
   }
 }

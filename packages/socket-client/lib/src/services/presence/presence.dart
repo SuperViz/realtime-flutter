@@ -35,9 +35,9 @@ final class PresenceRoom {
     required SocketClient socket,
     required UserPresence user,
     required String roomId,
-  }) : _socket = socket,
-    _user = user,
-    _roomId = roomId {
+  })  : _socket = socket,
+        _user = user,
+        _roomId = roomId {
     _logger = DebuggerLoggerAdapter(scope: '@superviz/socket-client/presence');
 
     _registerSubjects();
@@ -51,11 +51,14 @@ final class PresenceRoom {
     subject.stream.listen(next);
 
     void callback(dynamic event) {
-      final presences = event['presences'].map<PresenceEvent>(
-        (presence) => PresenceEvent.fromMap(presence)
-      ).toList();
+      final presences = event['presences']
+          .map<PresenceEvent>((presence) => PresenceEvent.fromMap(presence))
+          .toList();
 
-      _logger.log(name: 'presence room @ get', description: presences.join(', '));
+      _logger.log(
+        name: 'presence room @ get',
+        description: presences.join(', '),
+      );
 
       _socket.offEvent(InternalPresenceEvents.get.description, callback);
       subject.add(presences);
@@ -78,7 +81,10 @@ final class PresenceRoom {
     );
 
     _socket.emit(PresenceEvents.update.description, [_roomId, body]);
-    _logger.log(name: 'presence room @ update', description: '$_roomId, ${body.toString()}');
+    _logger.log(
+      name: 'presence room @ update',
+      description: '$_roomId, ${body.toString()}',
+    );
   }
 
   void destroy() {
@@ -102,12 +108,10 @@ final class PresenceRoom {
   /// - `callback` - The callback to execute when the event is emitted
   /// - `error` - The callback to execute when the event emits an error
   void on(
-     PresenceEvents event,
-     EventCallback<PresenceEvent> callback
+    PresenceEvents event,
+    EventCallback<PresenceEvent> callback,
   ) {
-    _observers[event]?.stream.listen(
-      callback,
-    );
+    _observers[event]?.stream.listen(callback);
   }
 
   /// Stop listening to an event
@@ -148,7 +152,6 @@ final class PresenceRoom {
     );
   }
 
-  
   /// Handle the presence leave event
   ///- ` event` - The presence event
   void _onPresenceLeave(dynamic data) {
@@ -156,12 +159,14 @@ final class PresenceRoom {
 
     if (event.roomId != _roomId) return;
 
-    _logger.log(name: 'presence room @ presence leave', description: event.name);
+    _logger.log(
+      name: 'presence room @ presence leave',
+      description: event.name,
+    );
     _presences.remove(event);
     _observers[PresenceEvents.leave]!.add(event);
   }
 
-  
   /// Handle the presence update event
   /// - `event` - The presence event
   void _onPresenceUpdate(dynamic data) {
@@ -169,7 +174,11 @@ final class PresenceRoom {
 
     if (event.roomId != _roomId) return;
 
-    _logger.log(name: 'presence room @ presence update', description: event.data.toString());
+    _logger.log(
+      name: 'presence room @ presence update',
+      description: event.data.toString(),
+    );
+
     _observers[PresenceEvents.update]!.add(
       PresenceEvent(
         connectionId: event.connectionId,

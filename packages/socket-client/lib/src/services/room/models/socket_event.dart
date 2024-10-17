@@ -18,23 +18,22 @@ final class SocketEvent<T> {
   });
 
   Map<String, dynamic> toMap() => {
-    'name': name,
-    'roomId': roomId,
-    'connectionId': connectionId,
-    'presence': presence,
-    'data': data,
-    'timestamp': timestamp,
-  };
+        'name': name,
+        'roomId': roomId,
+        'connectionId': connectionId,
+        'presence': presence,
+        'data': data,
+        'timestamp': timestamp,
+      };
 
   factory SocketEvent.fromMap(Map map) => SocketEvent(
-    name: map['name'] as String,
-    roomId: map['roomId'] as String,
-    connectionId: map['connectionId'] as String,
-    presence: map['presence'] != null
-      ? UserPresence.fromMap(map['presence'])
-      : null,
-    data: map['data'],
-    timestamp: map['timestamp'] as int,
-  );
+        name: map['name'] as String,
+        roomId: map['roomId'] as String,
+        connectionId: map['connectionId'] as String,
+        presence: map['presence'] != null
+            ? UserPresence.fromMap(map['presence'])
+            : null,
+        data: map['data'],
+        timestamp: map['timestamp'] as int,
+      );
 }
-

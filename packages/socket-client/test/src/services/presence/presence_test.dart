@@ -26,9 +26,7 @@ void main() {
       name: faker.person.name(),
     );
 
-    when(
-      mockSocketClient.id
-    ).thenReturn(
+    when(mockSocketClient.id).thenReturn(
       faker.guid.guid(),
     );
   });
@@ -127,13 +125,15 @@ void main() {
       final callback = capturedArgs[0];
 
       callback({
-        'presences': [{
-          'id': user.id,
-          'name': user.name,
-          'connectionId': roomId,
-          'data': {},
-          'timestamp': DateTime.now().millisecondsSinceEpoch,
-        }],
+        'presences': [
+          {
+            'id': user.id,
+            'name': user.name,
+            'connectionId': roomId,
+            'data': {},
+            'timestamp': DateTime.now().millisecondsSinceEpoch,
+          }
+        ],
       });
 
       verify(
@@ -158,7 +158,7 @@ void main() {
     });
 
     test('Should call socket emit with correct values', () {
-      final payload = { 'teste': 'unitario' };
+      final payload = {'teste': 'unitario'};
 
       presence.update(payload);
 
@@ -185,7 +185,7 @@ void main() {
       expect(
         secondArgument,
         isA<PresenceEvent>().having(
-          (presence) => presence.toJson(), 
+          (presence) => presence.toJson(),
           'Should have encodable function',
           isA<Map<String, dynamic>>(),
         ),

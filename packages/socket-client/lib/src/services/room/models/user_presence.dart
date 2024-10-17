@@ -8,12 +8,12 @@ final class UserPresence {
   });
 
   Map<String, dynamic> toMap() => {
-    'id': id,
-    'name': name,
-  };
+        'id': id,
+        'name': name,
+      };
 
   factory UserPresence.fromMap(Map map) => UserPresence(
-    id: map['id'] as String,
-    name: map['name'] as String?,
-  );
+        id: map['id'] as String,
+        name: map['name'] as String?,
+      );
 }

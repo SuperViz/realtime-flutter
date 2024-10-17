@@ -14,19 +14,18 @@ final class RoomDetails {
   });
 
   Map<String, dynamic> toMap() => {
-    'id': id,
-    'name': name,
-    'userId': userId,
-    'apiKey': apiKey,
-    'createdAt': createdAt,
-  };
+        'id': id,
+        'name': name,
+        'userId': userId,
+        'apiKey': apiKey,
+        'createdAt': createdAt,
+      };
 
   factory RoomDetails.fromMap(Map map) => RoomDetails(
-    id: map['id'] as String?,
-    name: map['name'] as String?,
-    userId: map['userId'] as String,
-    apiKey: map['apiKey'] as String,
-    createdAt: DateTime.parse(map['createdAt']),
-  );
+        id: map['id'] as String?,
+        name: map['name'] as String?,
+        userId: map['userId'] as String,
+        apiKey: map['apiKey'] as String,
+        createdAt: DateTime.parse(map['createdAt']),
+      );
 }
-

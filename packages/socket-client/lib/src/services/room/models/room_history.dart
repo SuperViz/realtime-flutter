@@ -16,22 +16,22 @@ final class RoomHistory {
   });
 
   factory RoomHistory.fromMap(Map map) => RoomHistory(
-    roomId: map['roomId'] as String,
-    room: RoomDetails.fromMap(map['room']),
-    connectionId: map['connectionId'] as String,
-    timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
-    events: map['events'].map<SocketEvent>(
-      (event) => SocketEvent.fromMap(event),
-    ).toList(),
-  );
+        roomId: map['roomId'] as String,
+        room: RoomDetails.fromMap(map['room']),
+        connectionId: map['connectionId'] as String,
+        timestamp: DateTime.fromMillisecondsSinceEpoch(map['timestamp'] as int),
+        events: map['events']
+            .map<SocketEvent>((event) => SocketEvent.fromMap(event))
+            .toList(),
+      );
 
   Map<String, dynamic> toMap() => {
-    'roomId': roomId,
-    'room': room.toMap(),
-    'events': events.map((event) => event.toMap()),
-    'connectionId': connectionId,
-    'timestamp': timestamp,
-  };
+        'roomId': roomId,
+        'room': room.toMap(),
+        'events': events.map((event) => event.toMap()),
+        'connectionId': connectionId,
+        'timestamp': timestamp,
+      };
 
   @override
   String toString() => toMap().toString();

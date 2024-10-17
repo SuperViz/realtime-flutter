@@ -52,23 +52,27 @@ void main() {
 
       expect(
         capturedArgs.last,
-        isA<SocketConnectParams>().having(
-          (params) => params.apiKey,
-          'Socket connect parameter apiKey',
-          equals(apiKey),
-        ).having(
-          (params) => params.clientId,
-          'Socket connect parameter clientId',
-          equals(clientId),
-        ).having(
-          (params) => params.environment,
-          'Socket connect parameter environment',
-          equals(environment),
-        ).having(
-          (params) => params.secretKey,
-          'Socket connect parameter secretKey',
-          equals(secret),
-        ),
+        isA<SocketConnectParams>()
+            .having(
+              (params) => params.apiKey,
+              'Socket connect parameter apiKey',
+              equals(apiKey),
+            )
+            .having(
+              (params) => params.clientId,
+              'Socket connect parameter clientId',
+              equals(clientId),
+            )
+            .having(
+              (params) => params.environment,
+              'Socket connect parameter environment',
+              equals(environment),
+            )
+            .having(
+              (params) => params.secretKey,
+              'Socket connect parameter secretKey',
+              equals(secret),
+            ),
       );
     });
 

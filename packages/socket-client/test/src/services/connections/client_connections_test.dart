@@ -43,7 +43,8 @@ void main() {
         mockSocketClient.onEvent(SocketEvents.reconnectError.description, any),
         mockSocketClient.onEvent(SocketEvents.connectionError.description, any),
         mockSocketClient.onEvent(SocketEvents.reconnectFailed.description, any),
-        mockSocketClient.onEvent(SocketEvents.reconnectAttempt.description, any),
+        mockSocketClient.onEvent(
+            SocketEvents.reconnectAttempt.description, any),
         mockSocketClient.onEvent(SocketEvents.error.description, any),
       ]);
     });
@@ -113,7 +114,8 @@ void main() {
       expect(clientConnection.state, equals(ClientState.reconnectError));
     });
 
-    test('Should change client state to CONNECTION_ERROR on connection error', () {
+    test('Should change client state to CONNECTION_ERROR on connection error',
+        () {
       final capturedArgs = verify(
         mockSocketClient.onEvent(
           SocketEvents.connectionError.description,
@@ -126,7 +128,8 @@ void main() {
       expect(clientConnection.state, equals(ClientState.connectionError));
     });
 
-    test('Should change client state to RECONNECT_ERROR on reconnection failed', () {
+    test('Should change client state to RECONNECT_ERROR on reconnection failed',
+        () {
       final capturedArgs = verify(
         mockSocketClient.onEvent(
           SocketEvents.reconnectFailed.description,
@@ -147,7 +150,7 @@ void main() {
         ),
       ).captured;
 
-      capturedArgs.last({ 'attempt': 1 });
+      capturedArgs.last({'attempt': 1});
 
       expect(clientConnection.state, equals(ClientState.reconnecting));
     });

@@ -36,5 +36,6 @@ final class PresenceEventFromServer extends PresenceEvent {
   }
 
   @override
-  String toString() => 'PresenceEventFromServer(roomKey: $roomKey, roomId: $roomId)';
+  String toString() =>
+      'PresenceEventFromServer(roomKey: $roomKey, roomId: $roomId)';
 }

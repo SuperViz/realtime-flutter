@@ -32,10 +32,10 @@ final class Room {
     required String roomName,
     required String apiKey,
     required int maxConnections,
-  }) : _socket = io,
-      _user = user,
-      _roomName = roomName,
-      _apiKey = apiKey {
+  })  : _socket = io,
+        _user = user,
+        _roomName = roomName,
+        _apiKey = apiKey {
     final payload = {
       'name': roomName,
       'user': user.toMap(),
@@ -146,7 +146,10 @@ final class Room {
 
   /// Disconnect from the room
   void disconnect() {
-    _logger.log(name: 'room @ disconnect', description: 'Leaving room: $_roomName');
+    _logger.log(
+      name: 'room @ disconnect',
+      description: 'Leaving room: $_roomName',
+    );
     _socket.emit(RoomEvent.leaveRoom.description, _roomName);
 
     // unsubscribe from all events
@@ -169,7 +172,7 @@ final class Room {
     subject.add(data);
   }
 
-   /// Subscribe to room events
+  /// Subscribe to room events
   void _subscribeToRoomEvents() {
     _socket.onEvent(RoomEvent.joinedRoom.description, _onJoinedRoom);
     _socket.onEvent('http:$_roomName:$_apiKey', _onHttpEvent);
@@ -190,7 +193,7 @@ final class Room {
     _logger.log(name: 'room @ joined', description: event.data?['name']);
   }
 
-  void _onHttpEvent (dynamic event) {
+  void _onHttpEvent(dynamic event) {
     _publishEventToClient(event['name'], event);
   }
 }

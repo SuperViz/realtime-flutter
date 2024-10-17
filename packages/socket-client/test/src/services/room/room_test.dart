@@ -43,9 +43,8 @@ void main() {
       maxConnections: maxConnections,
     );
 
-    when(
-      mockSocketClient.onEvent(RoomEvent.joinedRoom.description, any)
-    ).thenAnswer((realInvocation) {
+    when(mockSocketClient.onEvent(RoomEvent.joinedRoom.description, any))
+        .thenAnswer((realInvocation) {
       final joinedRoomMock = <String, dynamic>{
         "name": RoomEvent.joinedRoom.description,
         "roomId": faker.guid.guid(),
@@ -114,39 +113,37 @@ void main() {
     late final String roomUpdateEvent;
 
     setUpAll(() {
-      payload = { 'name': faker.person.name() };
+      payload = {'name': faker.person.name()};
 
       roomUpdateEvent = RoomEvent.update.description;
 
       when(mockSocketClient.id).thenReturn(faker.guid.guid());
     });
 
-    test('Should emit a room.update event with room name and correct payload', () {
+    test('Should emit a room.update event with room name and correct payload',
+        () {
       room.emit(event, payload);
 
-      var capturedArgs = verify(
-        mockSocketClient.emit(
-          roomUpdateEvent,
-          captureAny,
-        )
-      ).captured;
+      var capturedArgs = verify(mockSocketClient.emit(
+        roomUpdateEvent,
+        captureAny,
+      )).captured;
 
       expect(capturedArgs.first[0], equals(roomName));
 
       expect(
         capturedArgs.first[1],
         isA<Map<String, dynamic>>().having(
-          (map) => map.keys,
-          'map keys',
-          containsAll([
-            'name',
-            'roomId',
-            'presence',
-            'connectionId',
-            'data',
-            'timestamp',
-          ])
-        ),
+            (map) => map.keys,
+            'map keys',
+            containsAll([
+              'name',
+              'roomId',
+              'presence',
+              'connectionId',
+              'data',
+              'timestamp',
+            ])),
       );
 
       expect(
@@ -163,7 +160,8 @@ void main() {
       room.history((data) {});
 
       verifyInOrder([
-        mockSocketClient.onEvent(internalRoomEvent, captureThat(isA<Function>())),
+        mockSocketClient.onEvent(
+            internalRoomEvent, captureThat(isA<Function>())),
         mockSocketClient.emit(internalRoomEvent, roomName),
       ]);
     });
@@ -193,17 +191,19 @@ void main() {
         },
         'connectionId': roomName,
         'timestamp': DateTime.now().millisecondsSinceEpoch,
-        'events': [{
-          'name': 'socket event name',
-          'roomId': roomName,
-          'connectionId': roomName,
-          'presence': {
-            'id': user.id,
-            'name': user.name,
-          },
-          'data': {},
-          'timestamp': DateTime.now().millisecondsSinceEpoch,
-        }],
+        'events': [
+          {
+            'name': 'socket event name',
+            'roomId': roomName,
+            'connectionId': roomName,
+            'presence': {
+              'id': user.id,
+              'name': user.name,
+            },
+            'data': {},
+            'timestamp': DateTime.now().millisecondsSinceEpoch,
+          }
+        ],
       });
 
       verify(

@@ -1,4 +1,3 @@
-
 /// Events that the server listens to in the presence module
 /// - `joinedRoom` - event to indicate a user has joined a room
 /// - `leave` - event to indicate a user has left a room

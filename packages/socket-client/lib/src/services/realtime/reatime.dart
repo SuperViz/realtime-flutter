@@ -23,18 +23,18 @@ final class Realtime {
     required UserPresence presence,
     required String secret,
     required String clientId,
-  }) : _socket = socket,
-  _apiKey = apiKey,
-  _environment = environment,
-  _presence = presence,
-  _secret = secret,
-  _clientId = clientId {
+  })  : _socket = socket,
+        _apiKey = apiKey,
+        _environment = environment,
+        _presence = presence,
+        _secret = secret,
+        _clientId = clientId {
     _socket.connect(
       SocketConnectParams(
         apiKey: _apiKey,
         secretKey: _secret,
         clientId: _clientId,
-        environment: _environment
+        environment: _environment,
       ),
     );
 
