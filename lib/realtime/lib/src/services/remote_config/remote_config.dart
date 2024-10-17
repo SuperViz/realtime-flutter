@@ -32,7 +32,7 @@ final class RemoteConfigService {
     final response = await _httpClient.get(url: url);
 
     return RemoteConfig(
-      apiUrl: response.data['apiUrl'] as String,
+      apiUrl: response.data['apiUrl'].split('://').last,
       version: EnvironmentTypes.values.firstWhere(
         (environment) => environment.environment == response.data['version'],
       ),
