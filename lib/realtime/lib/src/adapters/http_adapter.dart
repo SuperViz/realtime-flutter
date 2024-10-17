@@ -106,6 +106,8 @@ final class HttpAdapter implements HttpClient {
   }
 
   HttpResponse _formatResponseJson(String json) {
+    if (json.isEmpty) return HttpResponse(data: null);
+
     final data = jsonDecode(json);
 
     return HttpResponse(data: data);
