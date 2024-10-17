@@ -62,12 +62,12 @@ final class Ioc {
 
   /// create a new socket client
   void createClient() {
-    final environment = _config.get<String>(ConfigurationKeys.environment);
+    final environment = _config.get<EnvironmentTypes>(ConfigurationKeys.environment);
 
     client = socket.Realtime(
       socket: socket.IoSocketAdapter(),
       apiKey: _config.get<String>(ConfigurationKeys.apiKey)!,
-      environment: environment!,
+      environment: environment!.environment,
       presence: socket.UserPresence(
         id: _participant.id,
         name: _participant.name,
