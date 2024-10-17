@@ -13,7 +13,7 @@ final class Channel extends Observable {
   final String _name;
   final Ioc _ioc;
   final Participant _localParticipant;
-  final _callbacksToSubscribeWhenJoined = <({ String event, void Function(dynamic) callback })>[];
+  final _callbacksToSubscribeWhenJoined = <({ String event, void Function(List) callback })>[];
 
   RealtimeChannelState _state = RealtimeChannelState.disconnected;
 
@@ -65,24 +65,25 @@ final class Channel extends Observable {
       return;
     }
 
+    super.publish(event, data);
     _channel.emit('message:$_name', { 'name': event, 'payload': data });
   }
 
   /// Subscribes to a specific event and registers a callback function to handle the received data.
   /// If the channel is not yet available, the subscription will be queued and executed once the channel is joined.
-  /// - `type` - The name of the event to subscribe to.
+  /// - `event` - The name of the event to subscribe to.
   /// - `listener` - The listener function to handle the received data. It takes a parameter of type 'RealtimeMessage' or 'string'.
   @override
-  void subscribe({
-    required String type,
-    required void Function(dynamic data) listener,
-  }) {
+  void subscribe(
+    String event,
+    void Function(List data) listener,
+  ) {
     if (_state != RealtimeChannelState.connected) {
-      _callbacksToSubscribeWhenJoined.add(( event: type, callback: listener ));
+      _callbacksToSubscribeWhenJoined.add(( event: event, callback: listener ));
       return;
     }
 
-    super.subscribe(type: type, listener: listener);
+    super.subscribe(event, listener);
   }
 
   /// Change realtime component state and publish state to client
@@ -109,8 +110,8 @@ final class Channel extends Observable {
 
       for (var callbackToSubscribe in _callbacksToSubscribeWhenJoined) {
         subscribe(
-          type: callbackToSubscribe.event,
-          listener: callbackToSubscribe.callback,
+          callbackToSubscribe.event,
+          callbackToSubscribe.callback,
         );
       }
 

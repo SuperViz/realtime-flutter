@@ -3,7 +3,9 @@ import 'package:socket_client/socket_client.dart' as socket;
 import 'observer.dart';
 
 abstract class Observable {
-  abstract socket.Logger _logger;
+  final _logger = socket.DebuggerLoggerAdapter(
+    scope: '@superviz/realtime',
+  );
 
   final _observers = <String, Observer>{};
   Map<String, Observer> get observers => _observers;
@@ -11,11 +13,11 @@ abstract class Observable {
   /// Subscribe to an event
   /// - `type` - event type
   /// - `listener` - event callback
-  void subscribe({
-    required String type,
-    required void Function(dynamic data) listener,
-  }) {
-    _logger.log(name: 'subscribed to $type event');
+  void subscribe(
+    String type,
+    void Function(List data) listener,
+  ) {
+    _logger.log(name: '[SuperViz] - Subscribed to event', description: type);
 
     if (_observers[type] == null) {
       _observers[type] = Observer();

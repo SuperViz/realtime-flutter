@@ -4,7 +4,7 @@ import 'package:socket_client/socket_client.dart' as socket;
 
 class Observer {
   late final socket.Logger _logger;
-  late List<dynamic Function(dynamic)> _callbacks;
+  late List<dynamic Function(List)> _callbacks;
 
   Observer() {
     _logger = socket.DebuggerLoggerAdapter(scope: '@superviz/observer-helper');
@@ -13,7 +13,7 @@ class Observer {
 
   /// Subscribe to observer
   /// - `callback` - Callback to subscribe
-  void subscribe(dynamic Function(dynamic) callback) {
+  void subscribe(dynamic Function(List) callback) {
     _callbacks.add(callback);
   }
 
@@ -56,7 +56,7 @@ class Observer {
   /// Call listener with params
   /// - `listener` Function to execute and return result when the task is completed.
   /// - `params` Params to parse to listener.
-  Future<dynamic> _callListener(dynamic Function(dynamic) listener, List params) {
+  Future<dynamic> _callListener(dynamic Function(List) listener, List params) {
     final completer = Completer();
 
     Future.microtask(() {
