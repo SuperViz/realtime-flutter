@@ -5,7 +5,6 @@ import 'package:test/test.dart';
 
 import 'package:socket_client/src/enums/enums.dart';
 import 'package:socket_client/src/interfaces/interfaces.dart';
-import 'package:socket_client/src/services/presence/models/model.dart';
 import 'package:socket_client/src/services/presence/presence.dart';
 import 'package:socket_client/src/services/room/models/models.dart';
 

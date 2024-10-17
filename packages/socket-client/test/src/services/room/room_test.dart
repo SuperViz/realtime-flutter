@@ -5,7 +5,6 @@ import 'package:faker/faker.dart';
 
 import 'package:socket_client/src/enums/enums.dart';
 import 'package:socket_client/src/interfaces/interfaces.dart';
-import 'package:socket_client/src/services/room/models/models.dart';
 import 'package:socket_client/src/services/room/room.dart';
 
 import 'room_test.mocks.dart';

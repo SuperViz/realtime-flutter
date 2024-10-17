@@ -2,7 +2,6 @@ import '../../enums/enums.dart';
 import '../../interfaces/interfaces.dart';
 import '../../interfaces/params/params.dart';
 import '../connections/connections.dart';
-import '../room/models/models.dart';
 import '../room/room.dart';
 
 final class Realtime {
