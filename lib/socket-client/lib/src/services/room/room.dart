@@ -39,7 +39,7 @@ final class Room {
     final payload = {
       'name': roomName,
       'user': user.toMap(),
-      'maxConnections': maxConnections,
+      'maxConnections': maxConnections > 0 ? maxConnections : 'unlimited',
     };
 
     _logger = DebuggerLoggerAdapter(scope: '@superviz/socket-client/room');
