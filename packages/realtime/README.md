@@ -83,7 +83,7 @@ channel.subscribe("test", (event) {
 
 ## Documentation
 
-For more detailed information on how to use SuperViz Real-time, please refer to our [official documentation](https://docs.superviz.com/).
+For more detailed information on how to use SuperViz Real-time, please refer to our [official documentation](https://docs.superviz.com/realtime).
 
 ## Getting Started
 

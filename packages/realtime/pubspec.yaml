@@ -1,6 +1,9 @@
 name: superviz_realtime
 description: The superviz's realtime package
 repository: https://github.com/SuperViz/realtime-flutter/tree/master/packages/realtime
+documentation: https://docs.superviz.com/realtime
+homepage: https://superviz.com/
+publish_to: pub.dev
 version: 1.0.0
 
 environment:
