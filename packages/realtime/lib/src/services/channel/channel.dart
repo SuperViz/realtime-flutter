@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:socket_client/socket_client.dart' as socket;
+import 'package:superviz_socket_client/superviz_socket_client.dart' as socket;
 
 import '../../components/realtime/enums/enums.dart';
 import '../../components/realtime/types/types.dart';
@@ -13,7 +13,8 @@ final class Channel extends Observable {
   final String _name;
   final Ioc _ioc;
   final Participant _localParticipant;
-  final _callbacksToSubscribeWhenJoined = <({ String event, void Function(List) callback })>[];
+  final _callbacksToSubscribeWhenJoined =
+      <({String event, void Function(List) callback})>[];
 
   RealtimeChannelState _state = RealtimeChannelState.disconnected;
 
@@ -28,9 +29,9 @@ final class Channel extends Observable {
     required Ioc ioc,
     required Participant localParticipant,
     int connectionLimit = 200,
-  }) : _ioc = ioc,
-      _name = name,
-      _localParticipant = localParticipant {
+  })  : _ioc = ioc,
+        _name = name,
+        _localParticipant = localParticipant {
     _logger = socket.DebuggerLoggerAdapter(scope: '@superviz/realtime-channel');
     _channel = _ioc.createRoom('realtime:$name', connectionLimit);
     localParticipant = localParticipant;
@@ -58,7 +59,8 @@ final class Channel extends Observable {
   @override
   void publish(String event, [Map<String, dynamic>? data]) {
     if (_state != RealtimeChannelState.connected) {
-      final message = 'Realtime channel $_name has not started yet. You can\'t publish event $event before start';
+      final message =
+          'Realtime channel $_name has not started yet. You can\'t publish event $event before start';
 
       _logger.log(name: '[SuperViz]', description: message);
 
@@ -66,7 +68,7 @@ final class Channel extends Observable {
     }
 
     super.publish(event, data);
-    _channel.emit('message:$_name', { 'name': event, 'payload': data });
+    _channel.emit('message:$_name', {'name': event, 'payload': data});
   }
 
   /// Subscribes to a specific event and registers a callback function to handle the received data.
@@ -79,7 +81,7 @@ final class Channel extends Observable {
     void Function(List data) listener,
   ) {
     if (_state != RealtimeChannelState.connected) {
-      _callbacksToSubscribeWhenJoined.add(( event: event, callback: listener ));
+      _callbacksToSubscribeWhenJoined.add((event: event, callback: listener));
       return;
     }
 
@@ -138,7 +140,8 @@ final class Channel extends Observable {
     String? eventName,
   ) async {
     if (_state != RealtimeChannelState.connected) {
-      const message = 'Realtime component has not started yet. You can\'t retrieve history before start';
+      const message =
+          'Realtime component has not started yet. You can\'t retrieve history before start';
 
       _logger.log(name: message);
       _logger.log(name: '[SuperViz]', description: message);
@@ -153,7 +156,8 @@ final class Channel extends Observable {
           completer.complete(null);
         }
 
-        final groupMessages = data.events.fold<Map<String, List<RealtimeMessage>>>(
+        final groupMessages =
+            data.events.fold<Map<String, List<RealtimeMessage>>>(
           {},
           (group, socket.SocketEvent event) {
             if (group[event.data['name']] == null) {
@@ -179,7 +183,7 @@ final class Channel extends Observable {
         }
 
         if (eventName != null) {
-          completer.complete({ eventName: groupMessages[eventName]! });
+          completer.complete({eventName: groupMessages[eventName]!});
         }
 
         completer.complete(groupMessages);

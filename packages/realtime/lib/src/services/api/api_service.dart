@@ -52,7 +52,7 @@ class ApiService {
       final response = await _httpClient.request(
         url: url,
         method: HttpMethod.post,
-        body: { apiKey },
+        body: {apiKey},
       );
 
       return response.data as bool;
@@ -61,13 +61,16 @@ class ApiService {
     }
   }
 
-  static Future<ComponentLimits> fetchLimits(String baseUrl, String apikey) async {
+  static Future<ComponentLimits> fetchLimits(
+    String baseUrl,
+    String apikey,
+  ) async {
     const path = '/user/check_limits_v2';
     final url = createUrl(baseUrl: baseUrl, path: path);
     final result = await _httpClient.request(
       url: url,
       method: HttpMethod.get,
-      headers: { 'apiKey': apikey },
+      headers: {'apiKey': apikey},
     );
     return ComponentLimits.fromMap(result.data['limits']);
   }
@@ -116,7 +119,7 @@ class ApiService {
     await _httpClient.request(
       url: url,
       method: HttpMethod.post,
-      headers: { 'apikey': apikey! },
+      headers: {'apikey': apikey!},
       body: body,
     );
   }

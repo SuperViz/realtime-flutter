@@ -2,5 +2,8 @@ interface class Participant {
   final String id;
   final String? name;
 
-  Participant({required this.id, required this.name});
+  const Participant({
+    required this.id,
+    this.name,
+  });
 }

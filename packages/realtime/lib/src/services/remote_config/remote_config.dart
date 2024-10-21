@@ -13,14 +13,18 @@ final class RemoteConfigService {
   );
 
   /// Retrieves the remote configuration for the specified environment.
-  /// - `environment` - The environment to retrieve the remote configuration for. Defaults to EnvironmentTypes.PROD.
-  /// returns A Future that resolves with the remote configuration object.
+  /// - `environment` - The environment to retrieve the remote configuration for.
+  /// ```dart
+  /// default: EnvironmentTypes.prod
+  /// ```
+  ///
+  /// returns a Future that resolves with the remote configuration object.
   static Future<RemoteConfig> getRemoteConfig([
     EnvironmentTypes? environment,
   ]) async {
     environment ??= EnvironmentTypes.prod;
 
-    const version  = "lab";
+    const version = "lab";
 
     final remoteConfigParams = RemoteConfigParams(
       version: version,

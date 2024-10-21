@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:socket_client/socket_client.dart' as socket;
+import 'package:superviz_socket_client/superviz_socket_client.dart' as socket;
 
 import '../../types/types.dart';
 import '../config/config.dart';
@@ -62,7 +62,8 @@ final class Ioc {
 
   /// create a new socket client
   void createClient() {
-    final environment = _config.get<EnvironmentTypes>(ConfigurationKeys.environment);
+    final environment =
+        _config.get<EnvironmentTypes>(ConfigurationKeys.environment);
 
     client = socket.Realtime(
       socket: socket.IoSocketAdapter(),

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:socket_client/socket_client.dart' as socket;
+import 'package:superviz_socket_client/superviz_socket_client.dart' as socket;
 
 class Observer {
   late final socket.Logger _logger;
@@ -20,9 +20,11 @@ class Observer {
   /// Unsubscribe from observer
   /// - `callbackToRemove` - Callback to remove
   void unsubscribe(dynamic Function(dynamic) callbackToRemove) {
-    _callbacks = _callbacks.where(
-      (callback) => callback != callbackToRemove,
-    ).toList();
+    _callbacks = _callbacks
+        .where(
+          (callback) => callback != callbackToRemove,
+        )
+        .toList();
   }
 
   /// Publish event to all subscribers

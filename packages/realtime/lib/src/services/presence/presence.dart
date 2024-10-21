@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:socket_client/socket_client.dart' as socket;
+import 'package:superviz_socket_client/superviz_socket_client.dart' as socket;
 
 final class RealtimePresence {
   late final socket.Logger _logger;
@@ -8,7 +8,9 @@ final class RealtimePresence {
   final socket.Room _room;
 
   RealtimePresence(socket.Room room) : _room = room {
-    _logger = socket.DebuggerLoggerAdapter(scope: '@superviz/realtime-presence');
+    _logger = socket.DebuggerLoggerAdapter(
+      scope: '@superviz/realtime-presence',
+    );
   }
 
   void update<T extends Map>(T data) {

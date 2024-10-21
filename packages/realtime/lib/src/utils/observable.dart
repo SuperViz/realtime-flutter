@@ -1,4 +1,4 @@
-import 'package:socket_client/socket_client.dart' as socket;
+import 'package:superviz_socket_client/superviz_socket_client.dart' as socket;
 
 import 'observer.dart';
 
@@ -52,10 +52,6 @@ abstract class Observable {
 
     if (!hasListenerRegistered) return;
 
-    _observers[type]!.publish(
-      data != null
-        ? [data]
-        : []
-    );
+    _observers[type]!.publish(data != null ? [data] : []);
   }
 }
