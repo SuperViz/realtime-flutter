@@ -1,0 +1,46 @@
+name: Socket client - Publish package
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "packages/socket-client/**"
+      - ".github/workflows/socket-client.ci.yml"
+
+jobs:
+  pakcages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Moving to realtime folder
+        uses: cd packages/socket-client/
+
+      - uses: actions/checkout@v4
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - run: git config --global user.name SuperViz
+      - run: git config --global user.email ci@superviz.com
+
+      - name: Intalling dependencies
+        uses: dart pub get
+
+      - name: Running build runner
+        uses: dart run build_runner build
+
+      - name: Analyze project source
+        run: dart analyze
+
+      - name: Verify formatting
+        run: dart format --output=write --set-exit-if-changed .
+
+      - name: Running build runner
+        uses: dart run build_runner build
+
+      - name: Running tests
+        uses: dart test
+
+      - name: Publish package
+        uses: dart pub publish --dry-run .
