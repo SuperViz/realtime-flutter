@@ -1,25 +1,19 @@
-import 'package:realtime/realtime.dart';
-import 'package:realtime/src/components/realtime/types/types.dart';
+import 'package:superviz_realtime/superviz_realtime.dart';
 
 void main() async {
   final realtime = Realtime(
-    AuthenticationParams(
-      clientId: '722a950b-86a9-487e-a742-4e0a30d5491d',
-      secret: 'sk_orewlu3iogeuyjy6eyh8ulmdgdjmg1',
+    RealtimeAuthenticationParams(
+      clientId: '',
+      secret: '',
     ),
-    EnvironmentParams(
-      debug: true,
-      environment: EnvironmentTypes.dev,
+    RealtimeEnvironmentParams(
       participant: Participant(
-        id: 'b502e42c-aa22-496b-94d8-9d689d9954e2',
-        name: 'Maelito',
+        id: '',
       ),
     ),
   );
 
   final channel = await realtime.connect('ExampleChannel');
-  
-
 
   print('Observers: ${channel.observers}');
 
@@ -33,7 +27,7 @@ void main() async {
 
   print('Participants: $participants');
 
-  channel.publish('Qualquer', { 'name': 'Maelzinho' });
+  channel.publish('Qualquer', {'name': 'Maelzinho'});
 
   Future.delayed(
     const Duration(seconds: 20),
