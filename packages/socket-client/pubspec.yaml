@@ -1,6 +1,7 @@
 name: superviz_socket_client
 description: The socket client to superviz dart pakcages
 repository: https://github.com/SuperViz/realtime-flutter/tree/master/packages/socket-client
+homepage: https://superviz.com/
 version: 1.0.0
 
 environment:
