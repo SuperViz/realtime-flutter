@@ -1,5 +1,6 @@
-name: realtime
-description: A starting point for Dart libraries or applications.
+name: superviz_realtime
+description: The superviz's realtime package
+repository: https://github.com/SuperViz/realtime-flutter/tree/master/packages/realtime
 version: 1.0.0
 
 environment:
@@ -7,7 +8,7 @@ environment:
 
 dependencies:
   http: ^1.2.2
-  socket_client:
+  superviz_socket_client:
     path: "../socket-client"
 
 dev_dependencies:
