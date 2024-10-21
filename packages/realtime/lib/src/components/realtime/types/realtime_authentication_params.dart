@@ -1,8 +1,8 @@
-final class AuthenticationParams {
+final class RealtimeAuthenticationParams {
   final String clientId;
   final String secret;
 
-  const AuthenticationParams({
+  const RealtimeAuthenticationParams({
     required this.clientId,
     required this.secret,
   });

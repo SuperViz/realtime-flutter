@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:socket_client/socket_client.dart' as socket;
+import 'package:superviz_socket_client/superviz_socket_client.dart' as socket;
 
 import '../../services/ioc/ioc.dart';
 import '../../services/services.dart';
@@ -9,6 +9,9 @@ import '../../utils/utils.dart';
 import '../enums/enums.dart';
 import 'enums/enums.dart';
 import 'types/types.dart';
+
+export 'types/types.dart'
+    show RealtimeAuthenticationParams, RealtimeEnvironmentParams;
 
 final class Realtime extends Observable {
   late final Ioc _ioc;
@@ -22,12 +25,13 @@ final class Realtime extends Observable {
 
   RealtimeComponentState _state = RealtimeComponentState.stopped;
 
-  Realtime(AuthenticationParams auth, EnvironmentParams params) {
+  Realtime(
+    RealtimeAuthenticationParams auth,
+    RealtimeEnvironmentParams params,
+  ) {
     _logger = socket.DebuggerLoggerAdapter(scope: '@superviz/realtime');
 
     _setConfigs(auth, params);
-
-    // if (!params.debug) debug.disable();
 
     _start();
   }
@@ -35,7 +39,10 @@ final class Realtime extends Observable {
   // #region Component Lifecycle
   /// Start the realtime component and get everything ready to start connecting to channels.
   Future<void> _start() async {
-    _logger.log(name: '[SuperViz] - Real-Time Data Engine', description: 'Starting');
+    _logger.log(
+      name: '[SuperViz] - Real-Time Data Engine',
+      description: 'Starting',
+    );
 
     await _setApiUrl();
 
@@ -71,12 +78,16 @@ final class Realtime extends Observable {
   /// Change realtime component state and publish state to client
   /// - `state` - The state to change realtime component to.
   void _changeState(RealtimeComponentState state) {
-    _logger.log(name: 'realtime component @ changeState - state changed', description: state.description);
+    _logger.log(
+      name: 'realtime component @ changeState',
+      description: 'state changed to ${state.description}',
+    );
+
     _state = state;
 
     publish(
       RealtimeComponentEvent.realtimeStateChanged.description,
-      { 'state': _state },
+      {'state': _state},
     );
   }
 
@@ -127,13 +138,16 @@ final class Realtime extends Observable {
   /// Set configs for the realtime component, taking in consideration the authentication method (apiKey or secret) and the params passed by the user (if there is or not a participant)
   /// - `auth` - Authentication method.
   /// - `params` - Params passed by the user.
-  void _setConfigs(AuthenticationParams auth, EnvironmentParams params) {
+  void _setConfigs(
+    RealtimeAuthenticationParams auth,
+    RealtimeEnvironmentParams params,
+  ) {
     _config.set<String>(ConfigurationKeys.secret, auth.secret);
     _config.set<String>(ConfigurationKeys.clientId, auth.clientId);
 
     _config.set(
       ConfigurationKeys.environment,
-      params.environment ?? EnvironmentTypes.prod.environment,
+      params.environment,
     );
 
     if (params.participant == null) {
@@ -161,7 +175,7 @@ final class Realtime extends Observable {
 
   // #region Validations
   /// Validate if the user reached the limit usage of the Real-Time Data Engine.
-  /// 
+  ///
   /// Can throws a Exception with message.
   Future<void> _validateLimits() async {
     final apiUrl = _config.get<String>(ConfigurationKeys.apiUrl);
@@ -170,18 +184,24 @@ final class Realtime extends Observable {
     final componentLimits = await ApiService.fetchLimits(apiUrl!, apiKey!);
 
     _connectionLimit = int.tryParse(
-      componentLimits.realtime['maxParticipants'],
-    ) ?? -1; 
+          componentLimits.realtime['maxParticipants'],
+        ) ??
+        -1;
 
     if (componentLimits.realtime['canUse']) return;
 
-    _logger.log(name: '[SuperViz]', description: 'You reached the limit usage of Real-Time Data Engine');
+    _logger.log(
+      name: '[SuperViz]',
+      description: 'You reached the limit usage of Real-Time Data Engine',
+    );
 
-    throw Exception('[SuperViz] - You reached the limit usage of Real-Time Data Engine');
+    throw Exception(
+      '[SuperViz] - You reached the limit usage of Real-Time Data Engine',
+    );
   }
 
   /// Fetch apiKey using the secret and clientId to confirm that they are valid
-  /// 
+  ///
   /// Can throws a Exception with message.
   Future<void> _validateSecretAndClientId() async {
     final apiKey = await ApiService.fetchApiKey();
@@ -192,14 +212,16 @@ final class Realtime extends Observable {
         description: 'Invalid Secret or ClientId',
       );
 
-      throw Exception('[SuperViz | Real-Time Data Engine] - Invalid Secret or ClientId');
+      throw Exception(
+        '[SuperViz | Real-Time Data Engine] - Invalid Secret or ClientId',
+      );
     }
 
     _config.set<String>(ConfigurationKeys.apiKey, apiKey);
   }
 
   /// Validate if the apiKey is valid
-  /// 
+  ///
   /// Can throws a Exception with message.
   Future<void> _validateApiKey() async {
     final apiKey = _config.get<String>(ConfigurationKeys.apiKey);
@@ -210,7 +232,9 @@ final class Realtime extends Observable {
         description: 'API Key is required',
       );
 
-      throw Exception('[SuperViz | Real-Time Data Engine] - API Key is required');
+      throw Exception(
+        '[SuperViz | Real-Time Data Engine] - API Key is required',
+      );
     }
 
     final isValid = await isValidApiKey();
