@@ -1,12 +1,8 @@
 import 'package:faker/faker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:superviz_socket_client/superviz_socket_client.dart';
 import 'package:test/test.dart';
-
-import 'package:socket_client/src/enums/enums.dart';
-import 'package:socket_client/src/interfaces/interfaces.dart';
-import 'package:socket_client/src/services/presence/presence.dart';
-import 'package:socket_client/src/services/room/models/models.dart';
 
 import 'presence_test.mocks.dart';
 

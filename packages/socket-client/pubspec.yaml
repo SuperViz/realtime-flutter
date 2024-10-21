@@ -1,5 +1,6 @@
-name: socket_client
-description: A starting point for Dart libraries or applications.
+name: superviz_socket_client
+description: The socket client to superviz dart pakcages
+repository: https://github.com/SuperViz/realtime-flutter/tree/master/packages/socket-client
 version: 1.0.0
 
 environment:

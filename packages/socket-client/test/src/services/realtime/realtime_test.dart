@@ -1,11 +1,8 @@
 import 'package:faker/faker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:superviz_socket_client/superviz_socket_client.dart';
 import 'package:test/test.dart';
-
-import 'package:socket_client/socket_client.dart';
-import 'package:socket_client/src/interfaces/interfaces.dart';
-import 'package:socket_client/src/interfaces/params/params.dart';
 
 import 'realtime_test.mocks.dart';
 
