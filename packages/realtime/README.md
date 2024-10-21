@@ -1,39 +1,98 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+<p align="center">
+  <a href="https://superviz.com/" target="blank"><img src="https://avatars.githubusercontent.com/u/56120553?s=200&v=4" width="120" alt="SuperViz Logo" /></a>
+</p>
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
+<p align="center">
+  <img alt="Package versions", src="https://img.shields.io/pub/v/superviz_realtime.svg">
+  <img alt="Discord" src="https://img.shields.io/discord/1171797567223378002">
+  <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/superviz/superviz">
+  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/superviz/superviz">
+</p>
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
+# SuperViz Real-time
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+SuperViz Real-time is a powerful package that enables real-time communication and collaboration in Dart-based applications. It provides a simple yet flexible API for creating channels, publishing events, and subscribing to real-time updates.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Easy integration with Flutter projects
+- Real-time communication between participants
+- Flexible event publishing and subscription system
+- Support for both package manager and CDN installation methods
 
-## Getting started
+## Installation
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### Using the pub manager
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
+```bash
+dart pub add superviz_realtime
 ```
 
-## Additional information
+### or
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```bash
+flutter pub add superviz_realtime
+```
+
+This will add a line like this to your package's pubspec.yaml (and run an implicit flutter pub get):
+
+```yaml
+dependencies:
+  path_provider: ^2.1.4
+```
+
+### Import it
+
+Now in your Dart code, you can use:
+
+```dart
+import 'package:superviz_realtime/superviz_realtime.dart';
+```
+
+## Example
+
+```dart
+import 'package:superviz_realtime/superviz_realtime.dart';
+
+// Initialize Real-time
+final realtime = Realtime(
+  RealtimeAuthenticationParams(
+    clientId: 'CLIENT_ID',
+    secret: 'SECRET_KEY',
+  ),
+  RealtimeEnvironmentParams(
+    participant: Participant(
+      id: 'PARTICIPANT_ID',
+    ),
+    // Optional parameter (default value: false):
+    debug: false,
+  ),
+);
+
+// Connect to a channel
+final channel = await realtime.connect("my-channel");
+
+// Publish an event
+channel.publish("test", { 'message': "Hello, world!" });
+
+// Subscribe to events
+channel.subscribe("test", (event) {
+  print("Received test event: $event");
+});
+```
+
+## Documentation
+
+For more detailed information on how to use SuperViz Real-time, please refer to our [official documentation](https://docs.superviz.com/).
+
+## Getting Started
+
+To start using SuperViz Real-time, you'll need to [create an account](https://dashboard.superviz.com/) to retrieve your Developer Key or Client ID and Secret.
+
+## Support
+
+If you have any questions or need assistance, please join our [Discord community](https://discord.gg/weZ3Bfv6WZ) or open an issue on our [GitHub repository](https://github.com/superviz/superviz).
+
+## License
+
+SuperViz Real-Time is licensed under the [BSD 2-Clause License](LICENSE).
