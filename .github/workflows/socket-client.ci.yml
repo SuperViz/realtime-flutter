@@ -12,19 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
 
       - run: git config --global user.name SuperViz
       - run: git config --global user.email ci@superviz.com
 
-      - run: ls
       - run: cd packages/socket-client
+
+      - run: npx -p node@v18-lts -c "npx semantic-release"
 
       - name: Run npm install
         run: npm install --save-dev semantic-release-pub
 
       - name: Run Semantic release
-        run: npx semantic-release
+        run: npx semantic-release -d
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
