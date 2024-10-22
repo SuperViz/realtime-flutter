@@ -1,10 +1,8 @@
-# .github/workflows/publish.yml
 name: Socket client - Publish to pub.dev
 
 on:
-  push:
-    tags:
-      - "@superviz/flutter-socket-client/**"
+  workflow_run:
+    workflows: configure_superviz_socket_client
 
 jobs:
   publish_superviz_socket_client:
