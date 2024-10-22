@@ -20,7 +20,8 @@ jobs:
           sdk: stable
 
       - run: git config --global user.name SuperViz
-      - run: git config --global user.email ci@superviz.com
+      - run: git config --global user.email dev@superviz.com
+
       - run: cd packages/socket-client
 
       - name: Intalling dependencies

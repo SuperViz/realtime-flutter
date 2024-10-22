@@ -23,7 +23,7 @@ jobs:
           node-version: ">=20.8.1"
 
       - run: git config --global user.name SuperViz
-      - run: git config --global user.email ci@superviz.com
+      - run: git config --global user.email dev@superviz.com
 
       - name: Install dependencies and run Semantic release
         run: |
