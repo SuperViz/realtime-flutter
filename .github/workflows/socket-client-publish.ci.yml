@@ -59,4 +59,4 @@ jobs:
       - name: Publish
         run: |
           cd packages/socket-client
-          dart pub publish
+          dart pub publish --force
