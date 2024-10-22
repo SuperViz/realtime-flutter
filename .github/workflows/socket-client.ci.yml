@@ -19,6 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
+        with:
+          node-version: ">=20.8.1"
 
       - run: git config --global user.name SuperViz
       - run: git config --global user.email ci@superviz.com
