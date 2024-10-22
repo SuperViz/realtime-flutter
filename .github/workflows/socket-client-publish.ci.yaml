@@ -36,6 +36,12 @@ jobs:
       - name: Verify formatting
         run: dart format --output=write --set-exit-if-changed .
 
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "chore(release): format code [skip ci]" || echo "No changes to commit"
+          git push --follow-tags
+
       - name: Running build runner
         run: dart run build_runner build
 

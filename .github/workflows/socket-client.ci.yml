@@ -33,7 +33,7 @@ jobs:
           npm audit signatures
           npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Commit changes
         run: |
           git add .
