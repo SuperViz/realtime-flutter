@@ -7,6 +7,12 @@ on:
       - "packages/socket-client/**"
       - ".github/workflows/socket-client.ci.yml"
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
 jobs:
   configure_superviz_socket_client:
     runs-on: ubuntu-latest
@@ -18,8 +24,6 @@ jobs:
       - run: git config --global user.email ci@superviz.com
 
       - run: cd packages/socket-client
-
-      - run: npx -p node@v18-lts -c "npx semantic-release"
 
       - name: Run npm install
         run: npm install --save-dev semantic-release-pub
