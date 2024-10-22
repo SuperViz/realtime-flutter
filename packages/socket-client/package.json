@@ -1,5 +1,5 @@
 {
-  "name": "superviz_socket_client",
+  "name": "superviz-flutter-socket-client",
   "private": true,
   "devDependencies": {
     "semantic-release-pub": "^0.8.30"
