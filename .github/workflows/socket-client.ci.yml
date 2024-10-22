@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Moving to realtime folder
-        run: cd ./packages/socket-client/
+        run: cd packages/socket-client
 
       - uses: actions/checkout@v4
 
