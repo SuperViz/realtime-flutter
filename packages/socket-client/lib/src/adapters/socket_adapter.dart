@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 import '../interfaces/interfaces.dart';
-import '../interfaces/params/params.dart';
 import '../types/types.dart';
 
 final class IoSocketAdapter implements SocketClient {
