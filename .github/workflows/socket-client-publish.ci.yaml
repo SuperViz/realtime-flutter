@@ -25,19 +25,25 @@ jobs:
       - run: git config --global user.name SuperViz
       - run: git config --global user.email dev@superviz.com
 
-      - run: cd packages/socket-client
-
       - name: Intalling dependencies
-        run: dart pub get
+        run: |
+          cd packages/socket-client
+          dart pub get
 
       - name: Running build runner
-        run: dart run build_runner build
+        run: |
+          cd packages/socket-client
+          dart run build_runner build
 
       - name: Analyze project source
-        run: dart analyze
+        run: |
+          cd packages/socket-client
+          dart analyze
 
       - name: Verify formatting
-        run: dart format --output=write --set-exit-if-changed .
+        run: |
+          cd packages/socket-client
+          dart format --output=write --set-exit-if-changed .
 
       - name: Commit changes
         run: |
@@ -46,10 +52,16 @@ jobs:
           git push --follow-tags
 
       - name: Running build runner
-        run: dart run build_runner build
+        run: |
+          cd packages/socket-client
+          dart run build_runner build
 
       - name: Running tests
-        run: dart test
+        run: |
+          cd packages/socket-client
+          dart test
 
       - name: Publish
-        run: dart pub publish
+        run: |
+          cd packages/socket-client
+          dart pub publish
