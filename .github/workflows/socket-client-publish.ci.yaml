@@ -5,10 +5,11 @@ on:
     types: completed
     workflows: Socket client - Configure pakcage
 
+permissions:
+  id-token: write
+
 jobs:
   publish_superviz_socket_client:
-    permissions:
-      id-token: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
