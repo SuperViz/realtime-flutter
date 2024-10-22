@@ -25,15 +25,11 @@ jobs:
       - run: git config --global user.name SuperViz
       - run: git config --global user.email ci@superviz.com
 
-      - run: cd packages/socket-client
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
-        run: npm audit signatures
-
-      - name: Run Semantic release
-        run: npx semantic-release -d
+      - name: Install dependencies and run Semantic release
+        run: |
+          cd packages/socket-client
+          npm install
+          npm audit signatures
+          npx semantic-release -d
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
