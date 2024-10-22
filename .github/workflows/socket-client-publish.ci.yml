@@ -30,11 +30,6 @@ jobs:
           cd packages/socket-client
           dart pub get
 
-      - name: Analyze project source
-        run: |
-          cd packages/socket-client
-          dart analyze
-
       - name: Verify formatting
         run: |
           cd packages/socket-client
@@ -50,6 +45,11 @@ jobs:
         run: |
           cd packages/socket-client
           dart run build_runner build
+
+      - name: Analyze project source
+        run: |
+          cd packages/socket-client
+          dart analyze
 
       - name: Running tests
         run: |
