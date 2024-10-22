@@ -1,4 +1,4 @@
-name: Socket client tests
+name: Socket client - Run all tests
 
 on:
   pull_request:
