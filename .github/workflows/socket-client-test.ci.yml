@@ -32,16 +32,22 @@ jobs:
           dart pub get
 
       - name: Verify formatting
+        id: format_check
         run: |
           cd packages/socket-client
           dart format --output=write --set-exit-if-changed .
+        continue-on-error: true
+
+      - name: Check if formatting changed
+        id: format_changed
+        run: echo "name=formatting_changed::$(test -n "$(git status --porcelain)" && echo true || echo false)" >> $GITHUB_ENV
 
       - name: Commit changes
+        if: steps.format_changed.outputs.formatting_changed == 'true'
         run: |
-          git pull
           git add .
           git commit -m "chore(release): format code [skip ci]" || echo "No changes to commit"
-          git push --follow-tags
+          git push
 
       - name: Running build runner
         run: |
