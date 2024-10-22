@@ -30,6 +30,6 @@ jobs:
           cd packages/socket-client
           npm install
           npm audit signatures
-          npx semantic-release -d
+          npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
