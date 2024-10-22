@@ -40,66 +40,13 @@ jobs:
           git commit -m "chore(release): update package versions [skip ci]" || echo "No changes to commit"
           git push --follow-tags
 
-  test:
-    needs: configure_superviz_socket_client
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
-    concurrency: publish
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
-
-      - run: git config --global user.name SuperViz
-      - run: git config --global user.email dev@superviz.com
-
-      - name: Intalling dependencies
-        run: |
-          cd packages/socket-client
-          dart pub get
-
-      - name: Verify formatting
-        run: |
-          cd packages/socket-client
-          dart format --output=write --set-exit-if-changed .
-
-      - name: Commit changes
-        run: |
-          git pull
-          git add .
-          git commit -m "chore(release): format code [skip ci]" || echo "No changes to commit"
-          git push --follow-tags
-
-      - name: Running build runner
-        run: |
-          cd packages/socket-client
-          dart run build_runner build
-
-      - name: Analyze project source
-        run: |
-          cd packages/socket-client
-          dart analyze
-
-      - name: Running tests
-        run: |
-          cd packages/socket-client
-          dart test
-
   publish:
-    needs: ["configure_superviz_socket_client", "test"]
+    needs: "configure_superviz_socket_client"
     permissions:
       contents: write
       issues: write
       pull-requests: write
       id-token: write
-    concurrency: publish
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
     with:
       environment: pub.dev
