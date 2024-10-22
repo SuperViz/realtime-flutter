@@ -1,0 +1,28 @@
+{
+  "tagFormat": "@superviz/flutter-socket-client/${version}",
+  "release": {
+    "branches": [
+      "master",
+      {
+        "name": "beta",
+        "channel": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "lab",
+        "channel": "lab",
+        "prerelease": true
+      }
+    ]
+  },
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "semantic-release-pub",
+      {
+        "cli": "dart"
+      }
+    ]
+  ]
+}
