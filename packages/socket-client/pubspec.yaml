@@ -8,7 +8,6 @@ topics:
   - realtime
   - superviz
 
-publish_to: pub.dev
 version: 1.0.0
 
 environment:
