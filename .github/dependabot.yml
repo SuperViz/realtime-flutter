@@ -4,3 +4,8 @@ updates:
     directory: "packages/socket-client"
     schedule:
       interval: "daily"
+
+  - package-ecosystem: "pub"
+    directory: "packages/realtime"
+    schedule:
+      interval: "daily"
