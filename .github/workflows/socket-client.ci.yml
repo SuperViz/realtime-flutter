@@ -27,8 +27,11 @@ jobs:
 
       - run: cd packages/socket-client
 
-      - name: Run npm install
-        run: npm install --save-dev semantic-release-pub
+      - name: Install dependencies
+        run: npm clean-install
+
+      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        run: npm audit signatures
 
       - name: Run Semantic release
         run: npx semantic-release -d
