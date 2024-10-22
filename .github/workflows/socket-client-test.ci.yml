@@ -40,7 +40,7 @@ jobs:
 
       - name: Check if formatting changed
         id: format_changed
-        run: echo "::set-output name=formatting_changed::$(test -n "$(git status --porcelain)" && echo true || echo false)"
+        run: echo "name=formatting_changed::$(test -n "$(git status --porcelain)" && echo true || echo false)" >> $GITHUB_ENV
 
       - name: Commit changes
         if: steps.format_changed.outputs.formatting_changed == 'true'
