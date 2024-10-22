@@ -18,6 +18,9 @@ jobs:
 
       - uses: actions/setup-node@v4
 
+      - run: git config --global user.name SuperViz
+      - run: git config --global user.email ci@superviz.com
+
       - name: Run npm install
         run: npm install --save-dev semantic-release-pub
 
