@@ -2,6 +2,7 @@ name: Socket client - Publish to pub.dev
 
 on:
   workflow_run:
+    types: completed
     workflows: configure_superviz_socket_client
 
 jobs:
