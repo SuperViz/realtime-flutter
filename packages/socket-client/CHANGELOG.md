@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.0.0...superviz-socket-client-1.0.1) (2024-10-22)
+
+
+### Bug Fixes
+
+* change package description on pubspec ([343a7d6](https://github.com/SuperViz/realtime-flutter/commit/343a7d6d44de0145db6540c51ff1fa631fad7c48))
+
 # 1.0.0 (2024-10-22)
 
 
