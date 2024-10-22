@@ -55,7 +55,7 @@
       "semantic-release-pub",
       {
         "cli": "dart",
-        "publishPub": false
+        "publishPub": true
       }
     ]
   ]
