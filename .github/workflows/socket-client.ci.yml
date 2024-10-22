@@ -11,15 +11,15 @@ jobs:
   configure_superviz_socket_client:
     runs-on: ubuntu-latest
     steps:
-      - name: Moving to realtime folder
-        run: cd packages/socket-client
-
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
 
       - run: git config --global user.name SuperViz
       - run: git config --global user.email ci@superviz.com
+
+      - run: ls
+      - run: cd packages/socket-client
 
       - name: Run npm install
         run: npm install --save-dev semantic-release-pub
