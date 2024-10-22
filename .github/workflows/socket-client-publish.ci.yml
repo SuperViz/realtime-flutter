@@ -2,8 +2,8 @@ name: Socket client - Publish to pub.dev
 
 on:
   workflow_run:
-    types: [completed]
-    workflows: ["Socket client - Configure package"]
+    types: completed
+    workflows: Socket client - Configure pakcage
 
 permissions:
   id-token: write
