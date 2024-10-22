@@ -35,12 +35,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-      - name: Check if has any changes
-        id: format_changed
-        run: echo "formatting_changed=$(test -n "$(git status --porcelain)" && echo true || echo false)" >> $GITHUB_ENV
-
       - name: Commit changes
-        if: steps.format_changed.outputs.formatting_changed == 'true'
         run: |
           git add .
           git commit -m "chore(release): update package versions [skip ci]" || echo "No changes to commit"
