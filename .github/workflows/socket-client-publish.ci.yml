@@ -6,7 +6,19 @@ on:
     workflows: Socket client - Configure pakcage
 
 jobs:
-  publish_superviz_socket_client:
+  publish:
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    concurrency: publish
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    with:
+      environment: pub.dev
+      working-directory: packages/socket-client
+
+  test:
     permissions:
       contents: write
       issues: write
@@ -55,14 +67,3 @@ jobs:
         run: |
           cd packages/socket-client
           dart test
-  publish:
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
-    concurrency: publish
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    with:
-      environment: pub.dev
-      working-directory: packages/socket-client
