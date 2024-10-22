@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   publish_superviz_socket_client:
+    concurrency: publish
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -55,13 +56,9 @@ jobs:
         run: |
           cd packages/socket-client
           dart test
-
-      - name: Login in Pub
-        run: |
-          cd packages/socket-client
-          dart pub login
-
-      - name: Publish
-        run: |
-          cd packages/socket-client
-          dart pub publish --force
+  publish:
+    concurrency: publish
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    with:
+      environment: pub.dev
+      working-directory: packages/socket-client
