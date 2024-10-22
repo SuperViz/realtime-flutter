@@ -2,6 +2,8 @@
 *.mocks.dart
 .DS_Store
 pubspec.lock
+package-lock.json
 
 # Folders
 .dart_tool/
+node_modules/
