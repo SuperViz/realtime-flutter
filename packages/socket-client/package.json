@@ -1,6 +1,8 @@
 {
   "name": "flutter-socket-client",
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "semantic-release-pub": "^0.8.30"
   }
 }
