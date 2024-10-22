@@ -27,15 +27,21 @@ jobs:
       - run: git config --global user.email dev@superviz.com
 
       - name: Install dependencies and run Semantic release
+        working-directory: packages/socket-client
         run: |
-          cd packages/socket-client
           npm install
           npm audit signatures
           npx semantic-release
+
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      - name: Check if has any changes
+        id: format_changed
+        run: echo "name=formatting_changed::$(test -n "$(git status --porcelain)" && echo true || echo false)" >> $GITHUB_ENV
+
       - name: Commit changes
+        if: steps.format_changed.outputs.formatting_changed == 'true'
         run: |
           git add .
           git commit -m "chore(release): update package versions [skip ci]" || echo "No changes to commit"
