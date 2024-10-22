@@ -1,5 +1,5 @@
 name: superviz_socket_client
-description: The superviz's realtime package
+description: The superviz's socket client package
 repository: https://github.com/SuperViz/realtime-flutter/tree/master/packages/realtime
 documentation: https://docs.superviz.com/realtime
 homepage: https://superviz.com/
