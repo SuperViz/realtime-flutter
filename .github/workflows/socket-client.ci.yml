@@ -46,3 +46,15 @@ jobs:
           git add .
           git commit -m "chore(release): update package versions [skip ci]" || echo "No changes to commit"
           git push
+
+  publish:
+    needs: "configure_superviz_socket_client"
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    with:
+      environment: pub.dev
+      working-directory: packages/socket-client
