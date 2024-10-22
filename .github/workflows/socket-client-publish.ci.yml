@@ -2,8 +2,12 @@ name: Socket client - Publish to pub.dev
 
 on:
   workflow_run:
-    types: completed
-    workflows: Socket client - Configure pakcage
+    types: [completed]
+    workflows: ["Socket client - Configure package"]
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   publish:
@@ -24,36 +28,33 @@ jobs:
         with:
           sdk: stable
 
-      - run: git config --global user.name SuperViz
-      - run: git config --global user.email dev@superviz.com
-
-      - name: Intalling dependencies
+      - name: Set up Git
         run: |
-          cd packages/socket-client
-          dart pub get
+          git config --global user.name "SuperViz"
+          git config --global user.email "dev@superviz.com"
+
+      - name: Install dependencies
+        working-directory: packages/socket-client
+        run: dart pub get
 
       - name: Verify formatting
-        run: |
-          cd packages/socket-client
-          dart format --output=write --set-exit-if-changed .
+        working-directory: packages/socket-client
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Run build runner
+        working-directory: packages/socket-client
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Analyze project source
+        working-directory: packages/socket-client
+        run: dart analyze
+
+      - name: Run tests
+        working-directory: packages/socket-client
+        run: dart test
 
       - name: Commit changes
         run: |
           git add .
-          git commit -m "chore(release): format code [skip ci]" || echo "No changes to commit"
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore(release): format code and update generated files [skip ci]"
           git push --follow-tags
-
-      - name: Running build runner
-        run: |
-          cd packages/socket-client
-          dart run build_runner build
-
-      - name: Analyze project source
-        run: |
-          cd packages/socket-client
-          dart analyze
-
-      - name: Running tests
-        run: |
-          cd packages/socket-client
-          dart test
