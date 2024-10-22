@@ -28,7 +28,7 @@ jobs:
       - run: cd packages/socket-client
 
       - name: Install dependencies
-        run: npm clean-install
+        run: npm install
 
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
