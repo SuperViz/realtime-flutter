@@ -1,4 +1,4 @@
-name: Socket client - Publish package
+name: Socket client - Configure pakcage
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - ".github/workflows/socket-client.ci.yml"
 
 jobs:
-  superviz_socket_client:
+  configure_superviz_socket_client:
     runs-on: ubuntu-latest
     steps:
       - name: Moving to realtime folder
@@ -18,34 +18,10 @@ jobs:
 
       - uses: actions/setup-node@v4
 
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
-
-      - run: git config --global user.name SuperViz
-      - run: git config --global user.email ci@superviz.com
-
-      - name: Intalling dependencies
-        run: dart pub get
-
-      - name: Running build runner
-        run: dart run build_runner build
-
-      - name: Analyze project source
-        run: dart analyze
-
-      - name: Verify formatting
-        run: dart format --output=write --set-exit-if-changed .
-
-      - name: Running build runner
-        run: dart run build_runner build
-
-      - name: Running tests
-        run: dart test
-
       - name: Run npm install
         run: npm install --save-dev semantic-release-pub
 
       - name: Run Semantic release
         run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}

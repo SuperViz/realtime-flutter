@@ -21,7 +21,8 @@
     [
       "semantic-release-pub",
       {
-        "cli": "dart"
+        "cli": "dart",
+        "publishPub": false
       }
     ]
   ]

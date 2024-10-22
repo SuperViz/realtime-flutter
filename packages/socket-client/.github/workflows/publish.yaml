@@ -1,0 +1,44 @@
+# .github/workflows/publish.yml
+name: Socket client - Publish to pub.dev
+
+on:
+  push:
+    tags:
+      - "@superviz/flutter-socket-client/[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  publish_superviz_socket_client:
+    permissions:
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - run: git config --global user.name SuperViz
+      - run: git config --global user.email ci@superviz.com
+
+      - name: Intalling dependencies
+        run: dart pub get
+
+      - name: Running build runner
+        run: dart run build_runner build
+
+      - name: Analyze project source
+        run: dart analyze
+
+      - name: Verify formatting
+        run: dart format --output=write --set-exit-if-changed .
+
+      - name: Running build runner
+        run: dart run build_runner build
+
+      - name: Running tests
+        run: dart test
+
+      - name: Publish
+        run: dart pub publish
