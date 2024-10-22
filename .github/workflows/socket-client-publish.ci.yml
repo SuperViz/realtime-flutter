@@ -7,11 +7,6 @@ on:
 
 jobs:
   publish:
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
     concurrency: publish
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
     with:
@@ -19,11 +14,6 @@ jobs:
       working-directory: packages/socket-client
 
   test:
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
     concurrency: publish
     runs-on: ubuntu-latest
     steps:
