@@ -30,11 +30,6 @@ jobs:
           cd packages/socket-client
           dart pub get
 
-      - name: Running build runner
-        run: |
-          cd packages/socket-client
-          dart run build_runner build
-
       - name: Analyze project source
         run: |
           cd packages/socket-client
