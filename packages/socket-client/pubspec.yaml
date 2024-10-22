@@ -8,7 +8,7 @@ topics:
   - realtime
   - superviz
 
-version: 1.0.3
+version: 1.0.0
 
 environment:
   sdk: ^3.5.3
