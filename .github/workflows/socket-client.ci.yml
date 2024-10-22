@@ -1,0 +1,27 @@
+name: Socket client - Configure pakcage
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "packages/socket-client/**"
+      - ".github/workflows/socket-client.ci.yml"
+
+jobs:
+  configure_superviz_socket_client:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Moving to realtime folder
+        run: cd packages/socket-client/
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+
+      - name: Run npm install
+        run: npm install --save-dev semantic-release-pub
+
+      - name: Run Semantic release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
