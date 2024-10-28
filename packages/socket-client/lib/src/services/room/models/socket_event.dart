@@ -2,7 +2,7 @@ import 'models.dart';
 
 final class SocketEvent<T> {
   final String name;
-  final String roomId;
+  final String? roomId;
   final String connectionId;
   final UserPresence? presence;
   final T data;
@@ -28,7 +28,7 @@ final class SocketEvent<T> {
 
   factory SocketEvent.fromMap(Map map) => SocketEvent(
         name: map['name'] as String,
-        roomId: map['roomId'] as String,
+        roomId: map['roomId'] as String?,
         connectionId: map['connectionId'] as String,
         presence: map['presence'] != null
             ? UserPresence.fromMap(map['presence'])
