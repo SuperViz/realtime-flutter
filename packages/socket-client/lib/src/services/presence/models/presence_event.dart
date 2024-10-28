@@ -37,4 +37,16 @@ base class PresenceEvent {
   String toString() {
     return 'PresenceEvent(id: $id, name: $name, connectionId: $connectionId, data: $data, timestamp: $timestamp)';
   }
+
+  @override
+  bool operator ==(covariant PresenceEvent other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id && other.connectionId == connectionId;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^ connectionId.hashCode;
+  }
 }
