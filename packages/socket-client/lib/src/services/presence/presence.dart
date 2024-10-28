@@ -98,9 +98,12 @@ final class PresenceRoom {
 
   /// Register the subjects for the presence events
   void _registerSubjects() {
-    _observers[PresenceEvents.joinedRoom] = StreamController<PresenceEvent>();
-    _observers[PresenceEvents.leave] = StreamController<PresenceEvent>();
-    _observers[PresenceEvents.update] = StreamController<PresenceEvent>();
+    _observers[PresenceEvents.joinedRoom] =
+        StreamController<PresenceEvent>.broadcast();
+    _observers[PresenceEvents.leave] =
+        StreamController<PresenceEvent>.broadcast();
+    _observers[PresenceEvents.update] =
+        StreamController<PresenceEvent>.broadcast();
   }
 
   /// Listen to an event
