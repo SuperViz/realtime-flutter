@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/SuperViz/realtime-flutter/compare/superviz-realtime-1.0.0...superviz-realtime-1.0.1) (2024-10-29)
+
+
+### Bug Fixes
+
+* incorrect package name on install dependency ([2ae5978](https://github.com/SuperViz/realtime-flutter/commit/2ae59780c0fd52cc511bbd6c31f568ceabb9d327))
+
 # 1.0.0 (2024-10-29)
 
 
