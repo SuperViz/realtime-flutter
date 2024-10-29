@@ -8,7 +8,7 @@ on:
       - ".github/workflows/realtime.ci.yml"
 
 jobs:
-  configure-superviz--realtime:
+  configure-superviz-realtime:
     defaults:
       run:
         working-directory: packages/realtime
@@ -44,7 +44,7 @@ jobs:
           git push
 
   publish:
-    needs: "configure-superviz--realtime"
+    needs: "configure-superviz-realtime"
     permissions:
       contents: write
       issues: write
