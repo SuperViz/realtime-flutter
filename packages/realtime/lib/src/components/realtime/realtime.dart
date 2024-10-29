@@ -108,10 +108,10 @@ final class Realtime extends Observable {
     if (_state != RealtimeComponentState.started) {
       final completer = Completer<Channel>();
 
-      subscribe(
+      subscribe<Map<String, RealtimeComponentState>>(
         RealtimeComponentEvent.realtimeStateChanged.description,
         (data) {
-          final state = data.first['state'];
+          final state = data['state'];
 
           if (state != RealtimeComponentState.started) return;
 
