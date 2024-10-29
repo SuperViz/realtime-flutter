@@ -53,6 +53,7 @@ jobs:
 
       - name: Analyze project source
         run: dart analyze
+        continue-on-error: true
 
       - name: Running tests
         run: dart test

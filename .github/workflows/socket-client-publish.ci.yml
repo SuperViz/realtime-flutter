@@ -3,7 +3,7 @@ name: Socket client - Publish package
 on:
   push:
     tags:
-      - "superviz-socket-client-*"
+      - "superviz-socket-client-**"
 
 jobs:
   publish:
