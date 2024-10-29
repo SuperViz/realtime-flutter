@@ -14,9 +14,11 @@ final class Channel extends Observable {
   String get name => _name;
 
   final Ioc _ioc;
+
   final Participant _localParticipant;
-  final _callbacksToSubscribeWhenJoined =
-      <({String event, void Function(List) callback})>[];
+  Participant get user => _localParticipant;
+
+  final _callbacksToSubscribeWhenJoined = <void Function()>[];
 
   RealtimeChannelState _state = RealtimeChannelState.disconnected;
 
@@ -39,11 +41,11 @@ final class Channel extends Observable {
     localParticipant = localParticipant;
 
     _subscribeToRealtimeEvents();
-    _logger.log(name: 'started');
+    _logger.log(name: '[SuperViz] - Channel', description: 'Started');
     _participant = RealtimePresence(_channel);
   }
 
-  Future<void> disconnect() async {
+  void disconnect() {
     if (_state == RealtimeChannelState.disconnected) {
       _logger.log(name: 'Realtime channel is already disconnected');
       return;
@@ -76,18 +78,20 @@ final class Channel extends Observable {
   /// Subscribes to a specific event and registers a callback function to handle the received data.
   /// If the channel is not yet available, the subscription will be queued and executed once the channel is joined.
   /// - `event` - The name of the event to subscribe to.
-  /// - `listener` - The listener function to handle the received data. It takes a parameter of type 'RealtimeMessage' or 'string'.
+  /// - `listener` - The listener function to handle the received data.
   @override
-  void subscribe(
+  void subscribe<T>(
     String event,
-    void Function(List data) listener,
+    void Function(T value) listener,
   ) {
     if (_state != RealtimeChannelState.connected) {
-      _callbacksToSubscribeWhenJoined.add((event: event, callback: listener));
+      _callbacksToSubscribeWhenJoined.add(
+        () => subscribe<T>(event, listener),
+      );
       return;
     }
 
-    super.subscribe(event, listener);
+    super.subscribe<T>(event, listener);
   }
 
   /// Change realtime component state and publish state to client
@@ -113,10 +117,7 @@ final class Channel extends Observable {
       _changeState(RealtimeChannelState.connected);
 
       for (var callbackToSubscribe in _callbacksToSubscribeWhenJoined) {
-        subscribe(
-          callbackToSubscribe.event,
-          callbackToSubscribe.callback,
-        );
+        callbackToSubscribe();
       }
 
       _logger.log(name: 'joined room');
@@ -206,6 +207,6 @@ final class Channel extends Observable {
       description: '$event $data',
     );
 
-    observers[event]?.publish([data]);
+    observers[event]?.publish(data);
   }
 }
