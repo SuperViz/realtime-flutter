@@ -71,7 +71,6 @@ final class Channel extends Observable {
       return;
     }
 
-    super.publish(event, data);
     _channel.emit('message:$_name', {'name': event, 'payload': data});
   }
 
