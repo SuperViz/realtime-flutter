@@ -8,7 +8,7 @@ on:
       - ".github/workflows/socket-client-publish.ci.yml"
 
 jobs:
-  test:
+  socket-client-tests:
     defaults:
       run:
         working-directory: packages/socket-client
