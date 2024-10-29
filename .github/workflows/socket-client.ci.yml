@@ -1,4 +1,4 @@
-name: Socket client - Configure package
+name: Socket client - Configure and publish package
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
     paths:
       - "packages/socket-client/**"
       - ".github/workflows/socket-client.ci.yml"
-      - ".github/workflows/socket-client-publish.ci.yml"
 
 jobs:
   configure_superviz_socket_client:
@@ -36,3 +35,36 @@ jobs:
           npx semantic-release
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+  publish:
+    needs: configure_superviz_socket_client
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/socket-client
+    steps:
+      # Checkout repository
+      - uses: actions/checkout@v4
+
+      - run: git pull
+
+      # Setup Dart SDK
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      # Minimal package setup and dry run checks.
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Publish - dry run
+        run: dart pub publish --dry-run
+
+      - name: Publish to pub.dev
+        run: dart pub publish -f
