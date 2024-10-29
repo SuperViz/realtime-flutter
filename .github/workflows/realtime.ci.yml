@@ -1,17 +1,17 @@
-name: Socket client - Configure and publish pakcage
+name: Realtime - Publish package
 
 on:
   push:
     branches: ["master"]
     paths:
-      - "packages/socket-client/**"
-      - ".github/workflows/socket-client.ci.yml"
+      - "packages/realtime/**"
+      - ".github/workflows/realtime.ci.yml"
 
 jobs:
-  configure_superviz_socket_client:
+  configure-superviz--realtime:
     defaults:
       run:
-        working-directory: packages/socket-client
+        working-directory: packages/realtime
     permissions:
       contents: write
       issues: write
@@ -44,7 +44,7 @@ jobs:
           git push
 
   publish:
-    needs: "configure_superviz_socket_client"
+    needs: "configure-superviz--realtime"
     permissions:
       contents: write
       issues: write
@@ -53,4 +53,4 @@ jobs:
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
     with:
       environment: pub.dev
-      working-directory: packages/socket-client
+      working-directory: packages/realtime

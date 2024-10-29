@@ -26,14 +26,22 @@ final class Realtime extends Observable {
   RealtimeComponentState _state = RealtimeComponentState.stopped;
 
   Realtime(
-    RealtimeAuthenticationParams auth,
-    RealtimeEnvironmentParams params,
-  ) {
-    _logger = socket.DebuggerLoggerAdapter(scope: '@superviz/realtime');
+    RealtimeAuthenticationParams realtimeAuthenticationParams, [
+    RealtimeEnvironmentParams realtimeEnvironmentParams =
+        const RealtimeEnvironmentParams(),
+  ]) {
+    try {
+      _logger = socket.DebuggerLoggerAdapter(scope: '@superviz/realtime');
 
-    _setConfigs(auth, params);
+      _setConfigs(
+        realtimeAuthenticationParams,
+        realtimeEnvironmentParams,
+      );
 
-    _start();
+      _start();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   // #region Component Lifecycle
@@ -50,7 +58,6 @@ final class Realtime extends Observable {
 
     await Future.wait([
       _validateLimits(),
-      // _validateApiKey(),
     ]);
 
     _ioc = Ioc(_localParticipant);
@@ -101,10 +108,10 @@ final class Realtime extends Observable {
     if (_state != RealtimeComponentState.started) {
       final completer = Completer<Channel>();
 
-      subscribe(
+      subscribe<Map<String, RealtimeComponentState>>(
         RealtimeComponentEvent.realtimeStateChanged.description,
         (data) {
-          final state = data.first['state'];
+          final state = data['state'];
 
           if (state != RealtimeComponentState.started) return;
 
@@ -153,7 +160,6 @@ final class Realtime extends Observable {
     if (params.participant == null) {
       _localParticipant = Participant(
         id: 'sv-${generateHash()}',
-        name: null,
       );
 
       return;
@@ -164,13 +170,19 @@ final class Realtime extends Observable {
 
   /// Set the api url based on the environment
   Future<void> _setApiUrl() async {
-    final environment = _config.get<EnvironmentTypes>(
-      ConfigurationKeys.environment,
-    );
+    try {
+      final environment = _config.get<EnvironmentTypes>(
+        ConfigurationKeys.environment,
+      );
 
-    final remoteConfig = await RemoteConfigService.getRemoteConfig(environment);
+      final remoteConfig = await RemoteConfigService.getRemoteConfig(
+        environment,
+      );
 
-    _config.set<String>(ConfigurationKeys.apiUrl, remoteConfig.apiUrl);
+      _config.set<String>(ConfigurationKeys.apiUrl, remoteConfig.apiUrl);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   // #region Validations

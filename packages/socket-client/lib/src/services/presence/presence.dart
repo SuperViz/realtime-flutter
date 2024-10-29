@@ -45,15 +45,15 @@ final class PresenceRoom {
   }
 
   /// Get the presences in the room
-  void get(void Function(List<PresenceEvent> data) next) {
-    final subject = StreamController<List<PresenceEvent>>();
+  void get(void Function(Set<PresenceEvent> data) next) {
+    final subject = StreamController<Set<PresenceEvent>>();
 
     subject.stream.listen(next);
 
     void callback(dynamic event) {
-      final presences = event['presences']
+      final presences = (event['presences'] as List)
           .map<PresenceEvent>((presence) => PresenceEvent.fromMap(presence))
-          .toList();
+          .toSet();
 
       _logger.log(
         name: 'presence room @ get',
@@ -98,9 +98,12 @@ final class PresenceRoom {
 
   /// Register the subjects for the presence events
   void _registerSubjects() {
-    _observers[PresenceEvents.joinedRoom] = StreamController<PresenceEvent>();
-    _observers[PresenceEvents.leave] = StreamController<PresenceEvent>();
-    _observers[PresenceEvents.update] = StreamController<PresenceEvent>();
+    _observers[PresenceEvents.joinedRoom] =
+        StreamController<PresenceEvent>.broadcast();
+    _observers[PresenceEvents.leave] =
+        StreamController<PresenceEvent>.broadcast();
+    _observers[PresenceEvents.update] =
+        StreamController<PresenceEvent>.broadcast();
   }
 
   /// Listen to an event

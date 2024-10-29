@@ -7,7 +7,7 @@ final class RealtimeEnvironmentParams {
   final bool debug;
 
   const RealtimeEnvironmentParams({
-    required this.participant,
+    this.participant,
     this.environment = EnvironmentTypes.prod,
     this.debug = false,
   });

@@ -22,28 +22,32 @@ final class RemoteConfigService {
   static Future<RemoteConfig> getRemoteConfig([
     EnvironmentTypes? environment,
   ]) async {
-    environment ??= EnvironmentTypes.prod;
+    try {
+      environment ??= EnvironmentTypes.prod;
 
-    const version = "lab";
+      const version = "lab";
 
-    final remoteConfigParams = RemoteConfigParams(
-      version: version,
-      env: environment,
-    );
+      final remoteConfigParams = RemoteConfigParams(
+        version: version,
+        env: environment,
+      );
 
-    final url = createUrl(remoteConfigParams);
+      final url = createUrl(remoteConfigParams);
 
-    final response = await _httpClient.request(
-      url: url,
-      method: HttpMethod.get,
-    );
+      final response = await _httpClient.request(
+        url: url,
+        method: HttpMethod.get,
+      );
 
-    return RemoteConfig(
-      apiUrl: response.data['apiUrl'].split('://').last,
-      version: EnvironmentTypes.values.firstWhere(
-        (environment) => environment.environment == response.data['version'],
-      ),
-    );
+      return RemoteConfig(
+        apiUrl: response.data['apiUrl'].split('://').last,
+        version: EnvironmentTypes.values.firstWhere(
+          (environment) => environment.environment == response.data['version'],
+        ),
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 
   /// Creates a URL for fetching remote configuration data based on the provided version and environment.

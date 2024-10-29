@@ -43,13 +43,13 @@ final class RealtimePresence {
     _room.presence?.off(event);
   }
 
-  Future<List<socket.PresenceEvent>> getAll() async {
+  Future<Set<socket.PresenceEvent>> getAll() async {
     _logger.log(
       name: 'Realtime Presence @ get all',
       description: '',
     );
 
-    final completer = Completer<List<socket.PresenceEvent>>();
+    final completer = Completer<Set<socket.PresenceEvent>>();
 
     _room.presence!.get(
       (data) => completer.complete(data),

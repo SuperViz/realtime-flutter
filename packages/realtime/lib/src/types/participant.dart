@@ -1,9 +1,9 @@
 interface class Participant {
   final String id;
-  final String? name;
+  final String name;
 
   const Participant({
     required this.id,
-    this.name,
+    this.name = '',
   });
 }

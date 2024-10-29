@@ -41,6 +41,16 @@ final class HttpAdapter implements HttpClient {
             message: response.body,
             status: response.statusCode,
           );
+        case 403:
+          throw HttpException(
+            message: response.body,
+            status: response.statusCode,
+          );
+        case 500:
+          throw HttpException(
+            message: response.body,
+            status: response.statusCode,
+          );
         default:
           return _formatResponseJson(response.body);
       }
@@ -48,7 +58,7 @@ final class HttpAdapter implements HttpClient {
       rethrow;
     } catch (e) {
       throw HttpException(
-        message: 'Unexpected error.',
+        message: '[Superviz] - Unexpected error on http.',
         status: null,
       );
     }

@@ -13,9 +13,9 @@ abstract class Observable {
   /// Subscribe to an event
   /// - `type` - event type
   /// - `listener` - event callback
-  void subscribe(
+  void subscribe<T>(
     String type,
-    void Function(List data) listener,
+    void Function(T value) listener,
   ) {
     _logger.log(name: '[SuperViz] - Subscribed to event', description: type);
 
@@ -29,7 +29,7 @@ abstract class Observable {
   /// Unsubscribes from a specific event.
   /// - `event` - The event to unsubscribe from.
   /// - `callback` - A callback function to be called when the event is unsubscribed.
-  void unsubscribe({
+  void unsubscribe<T>({
     required String event,
     required void Function(dynamic data) callback,
   }) {
@@ -52,6 +52,6 @@ abstract class Observable {
 
     if (!hasListenerRegistered) return;
 
-    _observers[type]!.publish(data != null ? [data] : []);
+    _observers[type]!.publish(data);
   }
 }
