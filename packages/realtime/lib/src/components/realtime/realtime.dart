@@ -30,10 +30,18 @@ final class Realtime extends Observable {
     RealtimeEnvironmentParams realtimeEnvironmentParams =
         const RealtimeEnvironmentParams(),
   ]) {
+    try {
+      _logger = socket.DebuggerLoggerAdapter(scope: '@superviz/realtime');
 
-    _setConfigs(auth, params);
+      _setConfigs(
+        realtimeAuthenticationParams,
+        realtimeEnvironmentParams,
+      );
 
-    _start();
+      _start();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   // #region Component Lifecycle
