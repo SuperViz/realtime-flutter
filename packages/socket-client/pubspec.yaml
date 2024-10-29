@@ -5,6 +5,8 @@ documentation: https://docs.superviz.com/realtime
 homepage: https://superviz.com/
 issue_tracker: https://github.com/SuperViz/realtime-flutter/issues
 topics:
+  - socket-client
+  - superviz-socket-client
   - realtime
   - superviz
 

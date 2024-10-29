@@ -7,8 +7,8 @@ issue_tracker: https://github.com/SuperViz/realtime-flutter/issues
 topics:
   - realtime
   - superviz
+  - superviz-realtime
 
-publish_to: pub.dev
 version: 1.0.0
 
 environment:
