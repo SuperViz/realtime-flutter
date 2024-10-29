@@ -3,7 +3,7 @@ name: Realtime - Publish package
 on:
   push:
     tags:
-      - "superviz-realtime-[0-9]+.[0-9]+.[0-9]+"
+      - "superviz-realtime-*.*.*"
 
 jobs:
   publish-package:
