@@ -9,6 +9,9 @@ on:
 
 jobs:
   test:
+    defaults:
+      run:
+        working-directory: packages/socket-client
     permissions:
       contents: write
       issues: write
@@ -27,15 +30,11 @@ jobs:
       - run: git config --global user.email dev@superviz.com
 
       - name: Intalling dependencies
-        run: |
-          cd packages/socket-client
-          dart pub get
+        run: dart pub get
 
       - name: Verify formatting
         id: format_check
-        run: |
-          cd packages/socket-client
-          dart format --output=write --set-exit-if-changed .
+        run: dart format --output=write --set-exit-if-changed .
         continue-on-error: true
 
       - name: Check if formatting changed
@@ -50,16 +49,10 @@ jobs:
           git push
 
       - name: Running build runner
-        run: |
-          cd packages/socket-client
-          dart run build_runner build
+        run: dart run build_runner build
 
       - name: Analyze project source
-        run: |
-          cd packages/socket-client
-          dart analyze
+        run: dart analyze
 
       - name: Running tests
-        run: |
-          cd packages/socket-client
-          dart test
+        run: dart test

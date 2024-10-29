@@ -10,6 +10,9 @@ on:
 
 jobs:
   configure_superviz_socket_client:
+    defaults:
+      run:
+        working-directory: packages/socket-client
     permissions:
       contents: write
       issues: write
@@ -27,7 +30,6 @@ jobs:
       - run: git config --global user.email dev@superviz.com
 
       - name: Install dependencies and run Semantic release
-        working-directory: packages/socket-client
         run: |
           npm install
           npm audit signatures
