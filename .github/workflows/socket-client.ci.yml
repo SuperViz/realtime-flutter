@@ -1,4 +1,4 @@
-name: Socket client - Configure and publish pakcage
+name: Socket client - Configure package
 
 on:
   push:
@@ -42,36 +42,3 @@ jobs:
           git commit -m "chore(release): update package versions [skip ci]" || echo "No changes to commit"
           git push --tags
           git push
-
-  publish:
-    needs: "configure_superviz_socket_client"
-    permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/socket-client
-    steps:
-      # Checkout repository
-      - uses: actions/checkout@v4
-
-      - run: git pull
-
-      # Setup Dart SDK
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
-
-      # Minimal package setup and dry run checks.
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Publish - dry run
-        run: dart pub publish --dry-run
-
-      - name: Publish to pub.dev
-        run: dart pub publish -f
