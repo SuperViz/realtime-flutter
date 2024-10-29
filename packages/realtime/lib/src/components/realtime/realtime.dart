@@ -170,13 +170,19 @@ final class Realtime extends Observable {
 
   /// Set the api url based on the environment
   Future<void> _setApiUrl() async {
-    final environment = _config.get<EnvironmentTypes>(
-      ConfigurationKeys.environment,
-    );
+    try {
+      final environment = _config.get<EnvironmentTypes>(
+        ConfigurationKeys.environment,
+      );
 
-    final remoteConfig = await RemoteConfigService.getRemoteConfig(environment);
+      final remoteConfig = await RemoteConfigService.getRemoteConfig(
+        environment,
+      );
 
-    _config.set<String>(ConfigurationKeys.apiUrl, remoteConfig.apiUrl);
+      _config.set<String>(ConfigurationKeys.apiUrl, remoteConfig.apiUrl);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   // #region Validations
