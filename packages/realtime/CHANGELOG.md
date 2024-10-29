@@ -5,6 +5,13 @@
 
 * remove initial changelog register ([8b0969e](https://github.com/SuperViz/realtime-flutter/commit/8b0969e1b2207972e8e7234ac8ac7acf1e98a75a))
 
+## [1.0.2](https://github.com/SuperViz/realtime-flutter/compare/superviz-realtime-1.0.1...superviz-realtime-1.0.2) (2024-10-29)
+
+
+### Bug Fixes
+
+* remove initial changelog register ([8b0969e](https://github.com/SuperViz/realtime-flutter/commit/8b0969e1b2207972e8e7234ac8ac7acf1e98a75a))
+
 ## [1.0.1](https://github.com/SuperViz/realtime-flutter/compare/superviz-realtime-1.0.0...superviz-realtime-1.0.1) (2024-10-29)
 
 
