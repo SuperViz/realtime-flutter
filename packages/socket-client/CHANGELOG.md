@@ -1,3 +1,27 @@
+# [1.1.0](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.0.0...superviz-socket-client-1.1.0) (2024-10-29)
+
+
+### Bug Fixes
+
+* call complete after completed ([052f0de](https://github.com/SuperViz/realtime-flutter/commit/052f0de868c4c6cac88480d32f0999f606e73ede))
+* erro on handler of channel message ([49a62d0](https://github.com/SuperViz/realtime-flutter/commit/49a62d0343bdc4ac8412c41cb012fe6906e23dcf))
+* erro on listen to presence events ([d12a508](https://github.com/SuperViz/realtime-flutter/commit/d12a50865e1b57d4fd2a2d0d4b1b30e8cbfee528))
+* error on subscribe events before socket channel connection ([c8e3735](https://github.com/SuperViz/realtime-flutter/commit/c8e37355878e2ff96f47ff0dfac7c3775f7edbb4))
+* error on type subscription ([c0686d9](https://github.com/SuperViz/realtime-flutter/commit/c0686d9a2432557c171c9cc316527aa96f0aecbc))
+* make roomId nullable ([1cc5cf0](https://github.com/SuperViz/realtime-flutter/commit/1cc5cf08a7825c8447a3d812dc240a70a03d70d9))
+* remove call of super ([04f2a98](https://github.com/SuperViz/realtime-flutter/commit/04f2a98d931cff37a08f2f0b0c7443ab705aa8a7))
+* set an empty name in case of non declared value ([cd74f7d](https://github.com/SuperViz/realtime-flutter/commit/cd74f7dfcfba02dd89e81e7f79b204cf0ae6d867))
+* throws http error 403 and 401 ([2a9e8d5](https://github.com/SuperViz/realtime-flutter/commit/2a9e8d55a57a9dc98c51f25a0a5a006c3c5584c2))
+
+
+### Features
+
+* change to set data on recive all presence on room ([9e53534](https://github.com/SuperViz/realtime-flutter/commit/9e53534c93de0c543834a1afd1fd871734b01707))
+* change to set data on recive all presence on room ([432e21a](https://github.com/SuperViz/realtime-flutter/commit/432e21a255e42414cc8691a951d418e1410ee778))
+* create realtime ci workflow ([d35d179](https://github.com/SuperViz/realtime-flutter/commit/d35d1793769dddfe5860082cda3192e7e4529a2a))
+* create reatime chat example ([34257cc](https://github.com/SuperViz/realtime-flutter/commit/34257cc2d39750953666164216d99c2ccdd382ce))
+* make participant an optional parameter ([b5a82d6](https://github.com/SuperViz/realtime-flutter/commit/b5a82d66ae368f0c6596bebd61f9564f9e02eaf6))
+
 # 1.0.0 (2024-10-22)
 
 
