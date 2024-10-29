@@ -26,10 +26,10 @@ final class Realtime extends Observable {
   RealtimeComponentState _state = RealtimeComponentState.stopped;
 
   Realtime(
-    RealtimeAuthenticationParams auth,
-    RealtimeEnvironmentParams params,
-  ) {
-    _logger = socket.DebuggerLoggerAdapter(scope: '@superviz/realtime');
+    RealtimeAuthenticationParams realtimeAuthenticationParams, [
+    RealtimeEnvironmentParams realtimeEnvironmentParams =
+        const RealtimeEnvironmentParams(),
+  ]) {
 
     _setConfigs(auth, params);
 
@@ -50,7 +50,6 @@ final class Realtime extends Observable {
 
     await Future.wait([
       _validateLimits(),
-      // _validateApiKey(),
     ]);
 
     _ioc = Ioc(_localParticipant);
@@ -153,7 +152,6 @@ final class Realtime extends Observable {
     if (params.participant == null) {
       _localParticipant = Participant(
         id: 'sv-${generateHash()}',
-        name: null,
       );
 
       return;
