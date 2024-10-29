@@ -125,10 +125,10 @@ final class Channel extends Observable {
       _changeState(RealtimeChannelState.connected);
     });
 
-    _channel.on('message:$_name}', (event) {
-      _logger.log(name: 'message received', description: event);
+    _channel.on('message:$_name', (event) {
+      _logger.log(name: 'message received', description: event.toString());
 
-      _publishEventToClient<RealtimeMessage>(event, (
+      _publishEventToClient<RealtimeMessage>(event['data']['name'], (
         connectionId: event['connectionId'],
         data: event['data']['payload'],
         name: event['data']['name'],
@@ -168,7 +168,7 @@ final class Channel extends Observable {
             }
 
             group[event.data['name']]?.add((
-              data: event.data['payload'],
+              data: event.data['payload'] ?? {},
               connectionId: event.connectionId,
               name: event.data['name'],
               participantId: event.presence?.id,
