@@ -92,7 +92,7 @@ final class Realtime extends Observable {
 
     _state = state;
 
-    publish(
+    publish<Map<String, RealtimeComponentState>>(
       RealtimeComponentEvent.realtimeStateChanged.description,
       {'state': _state},
     );

@@ -61,7 +61,7 @@ final class Channel extends Observable {
   /// - `event` - The name of the event to publish.
   /// - `data` - Data to be sent along with the event.
   @override
-  void publish(String event, [Map<String, dynamic>? data]) {
+  void publish<T>(String event, [T? data]) {
     if (_state != RealtimeChannelState.connected) {
       final message =
           'Realtime channel $_name has not started yet. You can\'t publish event $event before start';

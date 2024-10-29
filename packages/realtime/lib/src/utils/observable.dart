@@ -47,7 +47,7 @@ abstract class Observable {
   /// Publish an event to client
   /// - `type` - Event type.
   /// - `data` - Event data.
-  void publish(String type, [Map<String, dynamic>? data]) {
+  void publish<T>(String type, [T? data]) {
     final hasListenerRegistered = _observers.keys.any((key) => key == type);
 
     if (!hasListenerRegistered) return;
