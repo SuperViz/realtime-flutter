@@ -249,7 +249,3 @@
 * update main readme ([468ebc2](https://github.com/SuperViz/realtime-flutter/commit/468ebc2225c681220d7a708d8a0181e1bce7b13e))
 * verify data convertion on presence join ([4b0dd84](https://github.com/SuperViz/realtime-flutter/commit/4b0dd840d0a5d0bcf905570a1c5f296513b3875f))
 * verify data convertion on presence leave and update ([80164ee](https://github.com/SuperViz/realtime-flutter/commit/80164eeeff1c6e760ec3513dda17e9b9e48b7817))
-
-## 1.0.0
-
-- Initial version.
