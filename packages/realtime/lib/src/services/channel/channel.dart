@@ -11,6 +11,8 @@ import '../presence/presence.dart';
 
 final class Channel extends Observable {
   final String _name;
+  String get name => _name;
+
   final Ioc _ioc;
   final Participant _localParticipant;
   final _callbacksToSubscribeWhenJoined =
