@@ -8,7 +8,7 @@ on:
       - ".github/workflows/realtime.ci.yml"
 
 jobs:
-  configure-superviz--realtime:
+  configure-superviz-realtime:
     defaults:
       run:
         working-directory: packages/realtime
@@ -44,13 +44,34 @@ jobs:
           git push
 
   publish:
-    needs: "configure-superviz--realtime"
+    needs: "configure-superviz-realtime"
     permissions:
       contents: write
       issues: write
       pull-requests: write
       id-token: write
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    with:
-      environment: pub.dev
-      working-directory: packages/realtime
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/realtime
+    steps:
+      # Checkout repository
+      - uses: actions/checkout@v4
+
+      - run: git pull
+
+      # Setup Dart SDK
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      # Minimal package setup and dry run checks.
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Publish - dry run
+        run: dart pub publish --dry-run
+
+      - name: Publish to pub.dev
+        run: dart pub publish -f
