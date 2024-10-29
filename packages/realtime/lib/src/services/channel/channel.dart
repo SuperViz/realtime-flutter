@@ -180,13 +180,13 @@ final class Channel extends Observable {
         );
 
         if (eventName != null && groupMessages[eventName] == null) {
-          completer.completeError(
+          return completer.completeError(
             Exception('Event $eventName not found in the history'),
           );
         }
 
         if (eventName != null) {
-          completer.complete({eventName: groupMessages[eventName]!});
+          return completer.complete({eventName: groupMessages[eventName]!});
         }
 
         completer.complete(groupMessages);
