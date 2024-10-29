@@ -6,6 +6,7 @@ on:
     paths:
       - "packages/socket-client/**"
       - ".github/workflows/socket-client.ci.yml"
+      - ".github/workflows/socket-client-publish.ci.yml"
 
 jobs:
   configure_superviz_socket_client:
