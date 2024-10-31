@@ -23,21 +23,21 @@ final class RealtimePresence {
   }
 
   void subscribe(
-    socket.PresenceEvents event,
-    void Function(socket.PresenceEvent event) callback,
+    String event,
+    PresenceCallback callback,
   ) {
     _logger.log(
       name: 'Realtime Presence @ subscribe',
-      description: event.description,
+      description: event,
     );
 
     _room.presence?.on(event, callback);
   }
 
-  void unsubscribe(socket.PresenceEvents event) {
+  void unsubscribe(String event) {
     _logger.log(
       name: 'Realtime Presence @ unsubscribe',
-      description: event.description,
+      description: event,
     );
 
     _room.presence?.off(event);
