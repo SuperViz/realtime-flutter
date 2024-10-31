@@ -1,3 +1,23 @@
+# [1.2.0](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.1.0...superviz-socket-client-1.2.0) (2024-10-31)
+
+
+### Bug Fixes
+
+* error on typed publish ([73ded1a](https://github.com/SuperViz/realtime-flutter/commit/73ded1af43f2134be4a9a8ad290ecce573b094ed))
+* incorrect package name on install dependency ([2ae5978](https://github.com/SuperViz/realtime-flutter/commit/2ae59780c0fd52cc511bbd6c31f568ceabb9d327))
+* remove initial changelog register ([8b0969e](https://github.com/SuperViz/realtime-flutter/commit/8b0969e1b2207972e8e7234ac8ac7acf1e98a75a))
+* removing non-existent event from PresenceEvents ([49cd9d1](https://github.com/SuperViz/realtime-flutter/commit/49cd9d11943b8529f6487004889b56a76a63e838))
+
+
+### Features
+
+* on and off methods accept Strings as event ([a65eff0](https://github.com/SuperViz/realtime-flutter/commit/a65eff056259e6bbf005f6c7496f19889788ec25))
+
+
+### BREAKING CHANGES
+
+* The type key of observers parse to be a String
+
 # [1.1.0](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.0.0...superviz-socket-client-1.1.0) (2024-10-29)
 
 
