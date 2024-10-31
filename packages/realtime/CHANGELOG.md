@@ -1,3 +1,40 @@
+# [2.0.0](https://github.com/SuperViz/realtime-flutter/compare/superviz-realtime-1.0.1...superviz-realtime-2.0.0) (2024-10-31)
+
+
+### Bug Fixes
+
+* error to register a listener on presence event ([eaefad6](https://github.com/SuperViz/realtime-flutter/commit/eaefad668feebc7fba53c69145b396c0ec9feabf))
+* path to export channel types ([545f922](https://github.com/SuperViz/realtime-flutter/commit/545f922a1386c12cc87771d5f7ff875e0b38e9b6))
+* removing non-existent event from PresenceEvents ([49cd9d1](https://github.com/SuperViz/realtime-flutter/commit/49cd9d11943b8529f6487004889b56a76a63e838))
+* removing unused typedef ([ecab113](https://github.com/SuperViz/realtime-flutter/commit/ecab113f700f00d44dba3759169f3ec79e9a5a44))
+* type inference on publish and subscribe ([8ddedb8](https://github.com/SuperViz/realtime-flutter/commit/8ddedb89fdaf52e6ba5aba7b4c7c25569526f2f7))
+* wrong refs on img shields io ([a774390](https://github.com/SuperViz/realtime-flutter/commit/a774390854dcfcd783084819ac5c9eaab7dcdc8b))
+
+
+### Build System
+
+* update superviz_socket_client package's version ([e12d0f2](https://github.com/SuperViz/realtime-flutter/commit/e12d0f23db9c6d525cc4264ebf3b38069deffbc0))
+
+
+### Features
+
+* accept String as event to subscribe ([85fc328](https://github.com/SuperViz/realtime-flutter/commit/85fc32875d65a4750f6d79a4ce97b33a5cc851a6))
+* create callback typedef ([437bbcd](https://github.com/SuperViz/realtime-flutter/commit/437bbcd7b687b46078011e6a59f4d54045cc767d))
+* create presence callback typedef ([8650f9a](https://github.com/SuperViz/realtime-flutter/commit/8650f9afd78119c2979871d491995f982263252e))
+* generic type on publish event method ([ff9899c](https://github.com/SuperViz/realtime-flutter/commit/ff9899c8d91d58a8fe6701420b4925e1dce26ec2))
+* make getAll method sync ([f8f5e01](https://github.com/SuperViz/realtime-flutter/commit/f8f5e011f4c554eecbdd6909f0243b7a7e91ccf8))
+* move realtime message typedef to correct folder ([26689eb](https://github.com/SuperViz/realtime-flutter/commit/26689ebcc680be79ddc9f7652357f6c3e32befa5))
+* on and off methods accept Strings as event ([a65eff0](https://github.com/SuperViz/realtime-flutter/commit/a65eff056259e6bbf005f6c7496f19889788ec25))
+
+
+### BREAKING CHANGES
+
+* Update package to version 2.0.0
+* Update to new release of superviz_socket_client package
+* The return of the getAll method in RealtimePresence is synchronous.
+* now the event to subscribe in RealtimePresence should be a String
+* The type key of observers parse to be a String
+
 ## [1.0.1](https://github.com/SuperViz/realtime-flutter/compare/superviz-realtime-1.0.0...superviz-realtime-1.0.1) (2024-10-29)
 
 
