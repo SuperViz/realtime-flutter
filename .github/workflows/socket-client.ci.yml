@@ -38,6 +38,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
+      - name: Commit, push changes, and push tags
+        run: |
+          git add .
+          git commit -m "chore(release): update package versions [skip ci]" || echo "No changes to commit"
+          git push
+          git push --tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+
   publish:
     needs: configure_superviz_socket_client
     permissions:
