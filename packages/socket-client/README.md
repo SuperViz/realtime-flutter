@@ -5,9 +5,9 @@
 <p align="center">
   <img alt="Package versions", src="https://img.shields.io/pub/v/superviz_socket_client.svg">
   <img alt="Discord" src="https://img.shields.io/discord/1171797567223378002">
-  <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/superviz/sdk">
-  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/superviz/sdk">
-  <img alt="License" src="https://img.shields.io/github/license/superviz/sdk">
+  <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/superviz/realtime-flutter">
+  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/superviz/realtime-flutter">
+  <img alt="License" src="https://img.shields.io/github/license/superviz/realtime-flutter">
 </p>
 
 SuperViz provides powerful SDKs and APIs that enable developers to easily integrate real-time features into mobile applications. Our platform accelerates development across various industries with robust, scalable infrastructure and a low-code approach.
