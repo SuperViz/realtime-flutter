@@ -6,8 +6,7 @@
 enum PresenceEvents {
   joinedRoom('presence.joined-room'),
   leave('presence.leave'),
-  update('presence.update'),
-  error('presence.error');
+  update('presence.update');
 
   final String description;
 
