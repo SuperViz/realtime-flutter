@@ -5,8 +5,8 @@
 <p align="center">
   <img alt="Package versions", src="https://img.shields.io/pub/v/superviz_realtime.svg">
   <img alt="Discord" src="https://img.shields.io/discord/1171797567223378002">
-  <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/superviz/superviz">
-  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/superviz/superviz">
+  <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/superviz/realtime-flutter">
+  <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/superviz/realtime-flutter">
 </p>
 
 # SuperViz Real-time

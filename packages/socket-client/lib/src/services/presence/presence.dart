@@ -17,7 +17,7 @@ final class PresenceRoom {
   final String _roomId;
 
   final _presences = <PresenceEvent>{};
-  final _observers = <PresenceEvents, StreamController<PresenceEvent>>{};
+  final _observers = <String, StreamController<PresenceEvent>>{};
 
   factory PresenceRoom.register(
     SocketClient io,
@@ -98,11 +98,11 @@ final class PresenceRoom {
 
   /// Register the subjects for the presence events
   void _registerSubjects() {
-    _observers[PresenceEvents.joinedRoom] =
+    _observers[PresenceEvents.joinedRoom.description] =
         StreamController<PresenceEvent>.broadcast();
-    _observers[PresenceEvents.leave] =
+    _observers[PresenceEvents.leave.description] =
         StreamController<PresenceEvent>.broadcast();
-    _observers[PresenceEvents.update] =
+    _observers[PresenceEvents.update.description] =
         StreamController<PresenceEvent>.broadcast();
   }
 
@@ -111,7 +111,7 @@ final class PresenceRoom {
   /// - `callback` - The callback to execute when the event is emitted
   /// - `error` - The callback to execute when the event emits an error
   void on(
-    PresenceEvents event,
+    String event,
     EventCallback<PresenceEvent> callback,
   ) {
     _observers[event]?.stream.listen(callback);
@@ -120,7 +120,7 @@ final class PresenceRoom {
   /// Stop listening to an event
   /// - `event` - The event to stop listening to
   /// - `callback` - The callback to remove from the event
-  void off(PresenceEvents event) {
+  void off(String event) {
     _observers[event]?.close();
     _observers.remove(event);
     _observers[event] = StreamController<PresenceEvent>();
@@ -144,7 +144,7 @@ final class PresenceRoom {
 
     _presences.add(event);
 
-    _observers[PresenceEvents.joinedRoom]?.add(
+    _observers[PresenceEvents.joinedRoom.description]?.add(
       PresenceEvent(
         connectionId: event.connectionId,
         data: event.data,
@@ -167,7 +167,7 @@ final class PresenceRoom {
       description: event.name,
     );
     _presences.remove(event);
-    _observers[PresenceEvents.leave]!.add(event);
+    _observers[PresenceEvents.leave.description]!.add(event);
   }
 
   /// Handle the presence update event
@@ -182,7 +182,7 @@ final class PresenceRoom {
       description: event.data.toString(),
     );
 
-    _observers[PresenceEvents.update]!.add(
+    _observers[PresenceEvents.update.description]!.add(
       PresenceEvent(
         connectionId: event.connectionId,
         data: event.data,

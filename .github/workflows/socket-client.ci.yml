@@ -2,6 +2,8 @@ name: Socket client - Configure and publish package
 
 on:
   push:
+    tags:
+      - "superviz-socket-client-[0-9]+.[0-9]+.[0-9]+**"
     branches: ["master"]
     paths:
       - "packages/socket-client/**"
