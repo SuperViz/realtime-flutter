@@ -20,35 +20,6 @@ SuperViz Real-time is a powerful package that enables real-time communication an
 - Flexible event publishing and subscription system
 - Support for both package manager and CDN installation methods
 
-## Installation
-
-### Using the pub manager
-
-```bash
-dart pub add superviz_realtime
-```
-
-### or
-
-```bash
-flutter pub add superviz_realtime
-```
-
-This will add a line like this to your package's pubspec.yaml (and run an implicit flutter pub get):
-
-```yaml
-dependencies:
-  superviz_realtime: ^1.0.0
-```
-
-### Import it
-
-Now in your Dart code, you can use:
-
-```dart
-import 'package:superviz_realtime/superviz_realtime.dart';
-```
-
 ## Example
 
 ```dart
@@ -73,11 +44,11 @@ final realtime = Realtime(
 final channel = await realtime.connect("my-channel");
 
 // Publish an event
-channel.publish("test", { 'message': "Hello, world!" });
+channel.publish<Map<String, String>>("test", { 'message': "Hello world!" });
 
 // Subscribe to events
-channel.subscribe("test", (event) {
-  print("Received test event: $event");
+channel.subscribe<Map<String, String>>("test", (event) {
+  print("Received test event: ${event.data['message']}");
 });
 ```
 
