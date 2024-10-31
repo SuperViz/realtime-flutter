@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.2.0...superviz-socket-client-2.0.0) (2024-10-31)
+
+
+### Bug Fixes
+
+* wrong refs on img shields io ([a774390](https://github.com/SuperViz/realtime-flutter/commit/a774390854dcfcd783084819ac5c9eaab7dcdc8b))
+
+
+### BREAKING CHANGES
+
+* Update package to version 2.0.0
+
 # [1.2.0](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.1.0...superviz-socket-client-1.2.0) (2024-10-31)
 
 
