@@ -1,35 +1,3 @@
-## [1.1.1](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.1.0...superviz-socket-client-1.1.1) (2024-10-29)
-
-
-### Bug Fixes
-
-* incorrect package name on install dependency ([2ae5978](https://github.com/SuperViz/realtime-flutter/commit/2ae59780c0fd52cc511bbd6c31f568ceabb9d327))
-* remove initial changelog register ([8b0969e](https://github.com/SuperViz/realtime-flutter/commit/8b0969e1b2207972e8e7234ac8ac7acf1e98a75a))
-
-## [1.1.1](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.1.0...superviz-socket-client-1.1.1) (2024-10-29)
-
-
-### Bug Fixes
-
-* incorrect package name on install dependency ([2ae5978](https://github.com/SuperViz/realtime-flutter/commit/2ae59780c0fd52cc511bbd6c31f568ceabb9d327))
-* remove initial changelog register ([8b0969e](https://github.com/SuperViz/realtime-flutter/commit/8b0969e1b2207972e8e7234ac8ac7acf1e98a75a))
-
-## [1.1.1](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.1.0...superviz-socket-client-1.1.1) (2024-10-29)
-
-
-### Bug Fixes
-
-* incorrect package name on install dependency ([2ae5978](https://github.com/SuperViz/realtime-flutter/commit/2ae59780c0fd52cc511bbd6c31f568ceabb9d327))
-* remove initial changelog register ([8b0969e](https://github.com/SuperViz/realtime-flutter/commit/8b0969e1b2207972e8e7234ac8ac7acf1e98a75a))
-
-## [1.1.1](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.1.0...superviz-socket-client-1.1.1) (2024-10-29)
-
-
-### Bug Fixes
-
-* incorrect package name on install dependency ([2ae5978](https://github.com/SuperViz/realtime-flutter/commit/2ae59780c0fd52cc511bbd6c31f568ceabb9d327))
-* remove initial changelog register ([8b0969e](https://github.com/SuperViz/realtime-flutter/commit/8b0969e1b2207972e8e7234ac8ac7acf1e98a75a))
-
 # [1.1.0](https://github.com/SuperViz/realtime-flutter/compare/superviz-socket-client-1.0.0...superviz-socket-client-1.1.0) (2024-10-29)
 
 
