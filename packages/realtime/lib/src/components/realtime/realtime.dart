@@ -44,7 +44,6 @@ final class Realtime extends Observable {
     }
   }
 
-  // #region Component Lifecycle
   /// Start the realtime component and get everything ready to start connecting to channels.
   Future<void> _start() async {
     _logger.log(
@@ -92,13 +91,12 @@ final class Realtime extends Observable {
 
     _state = state;
 
-    publish<Map<String, RealtimeComponentState>>(
+    publish<RealtimeComponentState>(
       RealtimeComponentEvent.realtimeStateChanged.description,
-      {'state': _state},
+      _state,
     );
   }
 
-  // #region Channel Lifecycle
   /// Connect to a channel and return the channel instance. If the channel already exists, it will return a saved instance of the channel, otherwise, it will create a connection from zero.
   /// - `name` - The channel name.
   Future<Channel> connect(String name) async {
@@ -108,12 +106,10 @@ final class Realtime extends Observable {
     if (_state != RealtimeComponentState.started) {
       final completer = Completer<Channel>();
 
-      subscribe<Map<String, RealtimeComponentState>>(
+      subscribe<RealtimeComponentState>(
         RealtimeComponentEvent.realtimeStateChanged.description,
         (data) {
-          final state = data['state'];
-
-          if (state != RealtimeComponentState.started) return;
+          if (data != RealtimeComponentState.started) return;
 
           completer.complete(connect(name));
         },
@@ -141,7 +137,6 @@ final class Realtime extends Observable {
     }
   }
 
-  // #region Set configs
   /// Set configs for the realtime component, taking in consideration the authentication method (apiKey or secret) and the params passed by the user (if there is or not a participant)
   /// - `auth` - Authentication method.
   /// - `params` - Params passed by the user.
@@ -185,7 +180,6 @@ final class Realtime extends Observable {
     }
   }
 
-  // #region Validations
   /// Validate if the user reached the limit usage of the Real-Time Data Engine.
   ///
   /// Can throws a Exception with message.
@@ -230,33 +224,5 @@ final class Realtime extends Observable {
     }
 
     _config.set<String>(ConfigurationKeys.apiKey, apiKey);
-  }
-
-  /// Validate if the apiKey is valid
-  ///
-  /// Can throws a Exception with message.
-  Future<void> _validateApiKey() async {
-    final apiKey = _config.get<String>(ConfigurationKeys.apiKey);
-
-    if (apiKey == null) {
-      _logger.log(
-        name: '[SuperViz] - Real-Time Data Engine',
-        description: 'API Key is required',
-      );
-
-      throw Exception(
-        '[SuperViz | Real-Time Data Engine] - API Key is required',
-      );
-    }
-
-    final isValid = await isValidApiKey();
-
-    if (!isValid) {
-      _logger.log(
-        name: '[SuperViz] - Real-Time Data Engine',
-        description: 'Invalid API Key',
-      );
-      throw Exception('[SuperViz | Real-Time Data Engine] - Invalid API Key');
-    }
   }
 }

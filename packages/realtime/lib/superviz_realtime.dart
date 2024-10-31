@@ -11,6 +11,6 @@ export 'src/components/realtime/enums/enums.dart'
         RealtimeChannelState;
 export 'src/components/realtime/realtime.dart'
     show Realtime, RealtimeAuthenticationParams, RealtimeEnvironmentParams;
-export 'src/components/realtime/types/types.dart' show RealtimeMessage;
+export 'src/services/channel/types/types.dart';
 export 'src/services/services.dart' show Channel, EnvironmentTypes;
 export 'src/types/types.dart' show Group, Participant;

@@ -26,11 +26,11 @@ class Observer {
 
   /// Publish event to all subscribers
   /// - `event` - Event to publish
-  void publish(dynamic event) {
+  void publish<T>(T event) {
     if (_callbacks.isEmpty) return;
 
     for (var callback in _callbacks) {
-      _callListener(callback, event).onError((error, stacktrace) {
+      _callListener<T>(callback, event).onError((error, stacktrace) {
         _logger.log(
           name: 'superviz-sdk:observer-helper:publish:error',
           description: '''
@@ -56,9 +56,9 @@ class Observer {
   /// Call listener with params
   /// - `listener` Function to execute and return result when the task is completed.
   /// - `params` Params to parse to listener.
-  Future<void> _callListener(
+  Future<void> _callListener<T>(
     Function listener,
-    dynamic params,
+    T params,
   ) {
     final completer = Completer();
 
