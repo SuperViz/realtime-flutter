@@ -1,6 +1,6 @@
-import 'dart:async';
-
 import 'package:superviz_socket_client/superviz_socket_client.dart' as socket;
+
+import 'types/types.dart';
 
 final class RealtimePresence {
   late final socket.Logger _logger;
@@ -43,18 +43,18 @@ final class RealtimePresence {
     _room.presence?.off(event);
   }
 
-  Future<Set<socket.PresenceEvent>> getAll() async {
+  Set<socket.PresenceEvent> getAll() {
     _logger.log(
       name: 'Realtime Presence @ get all',
       description: '',
     );
 
-    final completer = Completer<Set<socket.PresenceEvent>>();
+    final presences = <socket.PresenceEvent>{};
 
     _room.presence!.get(
-      (data) => completer.complete(data),
+      (data) => presences.addAll(data),
     );
 
-    return completer.future;
+    return presences;
   }
 }
