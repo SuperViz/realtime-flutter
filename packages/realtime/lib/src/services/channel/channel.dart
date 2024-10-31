@@ -3,12 +3,17 @@ import 'dart:async';
 import 'package:superviz_socket_client/superviz_socket_client.dart' as socket;
 
 import '../../components/realtime/enums/enums.dart';
-import '../../components/realtime/types/types.dart';
 import '../../types/types.dart';
 import '../../utils/utils.dart';
 import '../ioc/ioc.dart';
 import '../presence/presence.dart';
+import 'types/types.dart';
 
+/// A channel can be used to dispatch different types of messages or events in
+/// your application. It allows you to create a dedicated communication path for
+///  specific types of messages, ensuring that only the intended participants
+/// receive them. It allows you to subscribe to events, publish messages, and
+/// handle channel states.
 final class Channel extends Observable {
   final String _name;
   String get name => _name;
@@ -45,6 +50,8 @@ final class Channel extends Observable {
     _participant = RealtimePresence(_channel);
   }
 
+  /// When you disconnect from the channel, you will no longer receive events
+  /// or messages from it.
   void disconnect() {
     if (_state == RealtimeChannelState.disconnected) {
       _logger.log(name: 'Realtime channel is already disconnected');
@@ -58,7 +65,7 @@ final class Channel extends Observable {
   }
 
   /// Publishes an event with data to the channel.
-  /// - `event` - The name of the event to publish.
+  /// - `event` - The name of the event to be dispatched.
   /// - `data` - Data to be sent along with the event.
   @override
   void publish<T>(String event, [T? data]) {
@@ -77,20 +84,20 @@ final class Channel extends Observable {
   /// Subscribes to a specific event and registers a callback function to handle the received data.
   /// If the channel is not yet available, the subscription will be queued and executed once the channel is joined.
   /// - `event` - The name of the event to subscribe to.
-  /// - `listener` - The listener function to handle the received data.
+  /// - `callback` - The callback function to handle the received data.
   @override
   void subscribe<T>(
     String event,
-    void Function(T value) listener,
+    Callback<T> callback,
   ) {
     if (_state != RealtimeChannelState.connected) {
       _callbacksToSubscribeWhenJoined.add(
-        () => subscribe<T>(event, listener),
+        () => subscribe<T>(event, callback),
       );
       return;
     }
 
-    super.subscribe<T>(event, listener);
+    super.subscribe<T>(event, callback);
   }
 
   /// Change realtime component state and publish state to client
@@ -110,19 +117,22 @@ final class Channel extends Observable {
   }
 
   void _subscribeToRealtimeEvents() {
-    _channel.presence?.on(socket.PresenceEvents.joinedRoom, (event) {
-      if (event.id != _localParticipant.id) return;
+    _channel.presence?.on(
+      socket.PresenceEvents.joinedRoom.description,
+      (event) {
+        if (event.id != _localParticipant.id) return;
 
-      _changeState(RealtimeChannelState.connected);
+        _changeState(RealtimeChannelState.connected);
 
-      for (var callbackToSubscribe in _callbacksToSubscribeWhenJoined) {
-        callbackToSubscribe();
-      }
+        for (var callbackToSubscribe in _callbacksToSubscribeWhenJoined) {
+          callbackToSubscribe();
+        }
 
-      _logger.log(name: 'joined room');
-      // publishing again to make sure all clients know that we are connected
-      _changeState(RealtimeChannelState.connected);
-    });
+        _logger.log(name: 'joined room');
+        // publishing again to make sure all clients know that we are connected
+        _changeState(RealtimeChannelState.connected);
+      },
+    );
 
     _channel.on('message:$_name', (event) {
       _logger.log(name: 'message received', description: event.toString());
@@ -138,6 +148,34 @@ final class Channel extends Observable {
   }
 
   /// Get realtime client data history
+  ///
+  /// Fetch all events:
+  /// ```dart
+  /// final allEvents = await channel.fetchHistory();
+  /// ```
+  /// Fetch history for a specific event:
+  /// ```dart
+  /// final eventHistory = await channel.fetchHistory('custom.event');
+  /// ```
+  ///
+  /// Example of the returned value:
+  ///
+  /// ``` dart
+  /// <Map<String, List<RealtimeMessage>>>{
+  ///   "custom.event": [
+  ///     (
+  ///       name: "custom.event",
+  ///       data: {
+  ///           "message": "Hello Word"
+  ///       },
+  ///       participantId: "PARTICIPANT_NAME",
+  ///       timestamp: 1696845547544,
+  ///       connectionId: "CONNECTION_ID"
+  ///     )
+  ///   ]
+  /// }
+  /// ```
+  ///
   Future<Map<String, List<RealtimeMessage>>?> fetchHistory(
     String? eventName,
   ) async {
@@ -206,6 +244,6 @@ final class Channel extends Observable {
       description: '$event $data',
     );
 
-    observers[event]?.publish(data);
+    observers[event]?.publish<T>(data);
   }
 }
