@@ -4,8 +4,6 @@ on:
   pull_request:
     paths:
       - "packages/socket-client/**"
-      - ".github/workflows/socket-client.ci.yml"
-      - ".github/workflows/socket-client-publish.ci.yml"
 
 jobs:
   socket-client-tests:
