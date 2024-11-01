@@ -2,15 +2,15 @@ name: Socket client - Configure and publish package
 
 on:
   push:
-    tags:
-      - "superviz-socket-client-[0-9]+.[0-9]+.[0-9]+**"
-    branches: ["master"]
+    tags: ["superviz-socket-client-[0-9]+.[0-9]+.[0-9]+**"]
+  pull_request:
+    branches: [master]
     paths:
       - "packages/socket-client/**"
-      - ".github/workflows/socket-client.ci.yml"
 
 jobs:
   configure_superviz_socket_client:
+    if: ${{ github.event_name == 'pull_request' }}
     defaults:
       run:
         working-directory: packages/socket-client
@@ -49,35 +49,7 @@ jobs:
 
   publish:
     needs: configure_superviz_socket_client
+    uses: dart-lang/ecosystem/.github/workflows/publish.yaml@main
     permissions:
-      contents: write
-      issues: write
-      pull-requests: write
-      id-token: write
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages/socket-client
-    steps:
-      # Checkout repository
-      - uses: actions/checkout@v4
-
-      - run: git pull
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-
-      # Setup Dart SDK
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@v1
-        with:
-          sdk: stable
-
-      # Minimal package setup and dry run checks.
-      - name: Install dependencies
-        run: dart pub get
-
-      - name: Publish - dry run
-        run: dart pub publish --dry-run
-
-      - name: Publish to pub.dev
-        run: dart pub publish -f
+      id-token: write # Required for authentication using OIDC
+      pull-requests: write # Required for writing the pull request note
