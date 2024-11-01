@@ -1,6 +1,7 @@
 {
   "preset": "angular",
   "tagFormat": "superviz-socket-client-${version}",
+  "extends": "semantic-release-monorepo",
   "release": {
     "branches": [
       "master",

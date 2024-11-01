@@ -1,6 +1,7 @@
 {
   "preset": "angular",
   "tagFormat": "superviz-realtime-${version}",
+  "extends": "semantic-release-monorepo",
   "release": {
     "branches": [
       "master",
