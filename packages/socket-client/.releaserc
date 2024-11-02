@@ -54,12 +54,6 @@
       }
     ],
     [
-      "@semantic-release/github",
-      {
-        "successComment": ":tada: This issue has been resolved in version superviz-realtime-${nextRelease.version} :tada:\n\nThe release is available on [GitHub release](<github_release_url>)"
-      }
-    ],
-    [
       "semantic-release-pub",
       {
         "publishPub": false
