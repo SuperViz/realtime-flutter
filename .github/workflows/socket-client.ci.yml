@@ -34,7 +34,6 @@ jobs:
         run: |
           export CI_PULL_REQUEST=''
           export CIRCLE_PULL_REQUEST=''
-          yarn run semantic-release-monorepo
 
       - name: Install dependencies and run Semantic release
         run: |
