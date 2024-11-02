@@ -1,6 +1,7 @@
 {
   "preset": "angular",
   "tagFormat": "superviz-socket-client-${version}",
+  "extends": "semantic-release-monorepo",
   "release": {
     "branches": [
       "master",
@@ -50,12 +51,6 @@
           "CHANGELOG.md"
         ],
         "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-      }
-    ],
-    [
-      "@semantic-release/github",
-      {
-        "successComment": ":tada: This issue has been resolved in version superviz-realtime-${nextRelease.version} :tada:\n\nThe release is available on [GitHub release](<github_release_url>)"
       }
     ],
     [
