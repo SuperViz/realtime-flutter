@@ -30,16 +30,11 @@ jobs:
       - run: git config --global user.name SuperViz
       - run: git config --global user.email dev@superviz.com
 
-      - name: Unset PR-related environment variables
-        run: |
-          export CI_PULL_REQUEST=''
-          export CIRCLE_PULL_REQUEST=''
-
       - name: Install dependencies and run Semantic release
         run: |
           npm install
           npm audit signatures
-          npx semantic-release
+          npx semantic-release --branches "${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
